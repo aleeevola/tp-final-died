@@ -6,6 +6,7 @@
 package frsf.isi.died.tp.modelo.productos;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import frsf.isi.died.app.dao.util.CsvRecord;
 import frsf.isi.died.tp.util.Ordenable;
@@ -16,19 +17,42 @@ import frsf.isi.died.tp.util.Ordenable;
  * @author mdominguez
  */
 public abstract class MaterialCapacitacion implements Ordenable,Comparable<MaterialCapacitacion>, CsvRecord{
+	
+	
 	protected Integer id;
-	/**
-	 * Titulo del material
-	 */
 	protected String titulo;
-
-	/**
-	 * Costo básico que debe sumarse al precio por el mero hecho de publicarlo en el
-	 * portal
-	 */
 	protected Double costo;
+	protected Integer calificacion;
+	protected Relevancia relevancia;
+	protected Date fechaPublicacion;
 	
 
+	public Integer getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(Integer calificacion) {
+		this.calificacion = calificacion;
+	}
+	
+	public Date getFechaPublicacion() {
+	return fechaPublicacion;
+}
+
+public void setFechaPublicacion(Date fechaPublicacion) {
+	this.fechaPublicacion = fechaPublicacion;
+}
+
+
+	public Relevancia getRelevancia() {
+	return relevancia;
+}
+
+public void setRelevancia(Relevancia relevancia) {
+	this.relevancia = relevancia;
+}
+	
+	
 	/**
 	 * Constructor por defecto
 	 */
@@ -56,6 +80,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 		this.id =id;
 		this.titulo = titulo;
 		this.costo = costo;
+		this.fechaPublicacion= new Date();
 	}
 
 	public String getTitulo() {
