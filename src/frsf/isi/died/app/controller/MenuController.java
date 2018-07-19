@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import frsf.isi.died.app.vista.grafo.ControlPanel;
 import frsf.isi.died.app.vista.grafo.GrafoPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
+import frsf.isi.died.app.vista.material.VideoPanel;
 
 public class MenuController {
 
@@ -25,6 +26,14 @@ public class MenuController {
 			controller.crearPanel();
 			framePrincipal.setContentPane(controller.getPanelLibro());
 			break;
+			
+		case ABM_VIDEOS:
+			VideoPanel panelVideos = new VideoPanel();
+			VideoController controller2 = new VideoController(panelVideos);
+			controller2.crearPanel();
+			framePrincipal.setContentPane(controller2.getPanelVideo());
+			break;
+
 		case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());
 			ControlPanel controlPanel = new ControlPanel();
