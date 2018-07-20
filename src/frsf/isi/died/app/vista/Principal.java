@@ -27,7 +27,7 @@ public class Principal {
 
 	        menuBar = new JMenuBar();
 
-	        menu = new JMenu("Sistema");
+	        menu = new JMenu("Nuevo");
 	        menuBar.add(menu);
 	        
 	        menuItem = new JMenuItem("Nuevo Libro");
@@ -44,7 +44,7 @@ public class Principal {
 
 	        menuBar.add(menu);
 	        
-	        menu = new JMenu("Opciones");
+	        menu = new JMenu("Buscar");
 	        menuBar.add(menu);
 	        
 	        menuItem = new JMenuItem("Buscar Material");
