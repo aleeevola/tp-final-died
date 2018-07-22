@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import frsf.isi.died.app.vista.grafo.ControlPanel;
 import frsf.isi.died.app.vista.grafo.GrafoPanel;
+import frsf.isi.died.app.vista.material.BusquedaPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.app.vista.material.VideoPanel;
 
@@ -32,6 +33,13 @@ public class MenuController {
 			VideoController controller2 = new VideoController(panelVideos);
 			controller2.crearPanel();
 			framePrincipal.setContentPane(controller2.getPanelVideo());
+			break;
+		
+		case BUSCAR_MAT:
+			BusquedaPanel panelBusqueda = new BusquedaPanel();
+			BusquedaController controller3 = new BusquedaController(panelBusqueda);
+			controller3.crearPanel();
+			framePrincipal.setContentPane(controller3.getPanelBusqueda());
 			break;
 
 		case VER_GRAFO:

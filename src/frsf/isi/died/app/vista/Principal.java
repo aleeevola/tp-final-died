@@ -48,6 +48,7 @@ public class Principal {
 	        menuBar.add(menu);
 	        
 	        menuItem = new JMenuItem("Buscar Material");
+	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.BUSCAR_MAT));
 	        menu.add(menuItem);
 	        menuBar.add(menu);
 	        

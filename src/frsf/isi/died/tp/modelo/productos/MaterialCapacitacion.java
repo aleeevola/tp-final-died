@@ -25,6 +25,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	protected Integer calificacion;
 	protected Relevancia relevancia;
 	protected Date fechaPublicacion;
+	protected Tema tema;
 	
 
 	public Integer getCalificacion() {
@@ -37,8 +38,13 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	
 	public Date getFechaPublicacion() {
 	return fechaPublicacion;
-}
-
+	}
+	
+	public Tema getTema() {
+	return tema;
+	}
+	
+	
 public void setFechaPublicacion(Date fechaPublicacion) {
 	this.fechaPublicacion = fechaPublicacion;
 }
