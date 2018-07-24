@@ -2,7 +2,9 @@ package frsf.isi.died.app.dao;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import frsf.isi.died.app.dao.util.CsvDatasource;
 import frsf.isi.died.tp.estructuras.Grafo;
@@ -17,6 +19,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 	private static Grafo<MaterialCapacitacion> GRAFO_MATERIAL  = new Grafo<MaterialCapacitacion>();
 	private static Integer SECUENCIA_ID=0;
 	private static Biblioteca biblioteca = new BibliotecaABB();
+	
+    public PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
+    
 	
 	private CsvDatasource dataSource;
 	
