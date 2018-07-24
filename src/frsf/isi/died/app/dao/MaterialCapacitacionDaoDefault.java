@@ -14,49 +14,48 @@ import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 import frsf.isi.died.tp.modelo.productos.Video;
 
-public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
+public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 
-	private static Grafo<MaterialCapacitacion> GRAFO_MATERIAL  = new Grafo<MaterialCapacitacion>();
-	private static Integer SECUENCIA_ID=0;
+	private static Grafo<MaterialCapacitacion> GRAFO_MATERIAL = new Grafo<MaterialCapacitacion>();
+	private static Integer SECUENCIA_ID = 0;
 	private static Biblioteca biblioteca = new BibliotecaABB();
-	
-    public PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
-    
-	
+
+	public PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
+
 	private CsvDatasource dataSource;
-	
+
 	public MaterialCapacitacionDaoDefault() {
 		dataSource = new CsvDatasource();
-		if(GRAFO_MATERIAL.esVacio()) {
+		if (GRAFO_MATERIAL.esVacio()) {
 			cargarGrafo();
 		}
 	}
 
 	private void cargarGrafo() {
 		List<List<String>> libros = dataSource.readFile("libros.csv");
-		for(List<String> filaLibro : libros) {
+		for (List<String> filaLibro : libros) {
 			Libro aux = new Libro();
 			aux.loadFromStringRow(filaLibro);
 			GRAFO_MATERIAL.addNodo(aux);
 		}
-		List<List<String>> videos= dataSource.readFile("videos.csv");
-		for(List<String> filaVideo: videos) {
+		List<List<String>> videos = dataSource.readFile("videos.csv");
+		for (List<String> filaVideo : videos) {
 			Video aux = new Video();
 			aux.loadFromStringRow(filaVideo);
 			GRAFO_MATERIAL.addNodo(aux);
 		}
-		List<List<String>> aristas= dataSource.readFile("aristas.csv");
-		for(List<String> filaArista: aristas) {
+		List<List<String>> aristas = dataSource.readFile("aristas.csv");
+		for (List<String> filaArista : aristas) {
 			MaterialCapacitacion n1 = this.findById(Integer.valueOf(filaArista.get(0)));
 			MaterialCapacitacion n2 = this.findById(Integer.valueOf(filaArista.get(2)));
 			GRAFO_MATERIAL.conectar(n1, n2);
 		}
- 	}
-	
+	}
+
 	@Override
 	public void agregarLibro(Libro mat) {
 		mat.setId(++SECUENCIA_ID);
-		GRAFO_MATERIAL.addNodo(mat);	
+		GRAFO_MATERIAL.addNodo(mat);
 		biblioteca.agregar(mat);
 		try {
 			dataSource.agregarFilaAlFinal("libros.csv", mat);
@@ -69,7 +68,7 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 	@Override
 	public void agregarVideo(Video mat) {
 		mat.setId(++SECUENCIA_ID);
-		GRAFO_MATERIAL.addNodo(mat);				
+		GRAFO_MATERIAL.addNodo(mat);
 		biblioteca.agregar(mat);
 		try {
 			dataSource.agregarFilaAlFinal("videos.csv", mat);
@@ -80,10 +79,34 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 	}
 
 	@Override
+	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema, String fechaPublicacionDesde,
+			String fechaPublicacionHasta) {
+		List<MaterialCapacitacion> materiales = new ArrayList<MaterialCapacitacion>();
+		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
+			if (titulo == null || mat.getTitulo().contains(titulo)) {
+				if (calificacion == null || mat.getCalificacion().equals(calificacion)) {
+					if (tema == null || mat.getTema().toString().equals(tema)) {
+						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null)) {
+						
+							materiales.add(mat);
+						
+						}
+					}
+				}
+			}
+		}
+		
+		System.out.println(materiales.get(0));
+		return materiales;
+		
+	}
+
+	@Override
 	public List<Libro> listaLibros() {
 		List<Libro> libros = new ArrayList<>();
-		for(MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
-			if(mat.esLibro()) libros.add((Libro)mat); 
+		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
+			if (mat.esLibro())
+				libros.add((Libro) mat);
 		}
 		return libros;
 	}
@@ -91,8 +114,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 	@Override
 	public List<Video> listaVideos() {
 		List<Video> vids = new ArrayList<>();
-		for(MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
-			if(mat.esVideo()) vids.add((Video)mat); 
+		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
+			if (mat.esVideo())
+				vids.add((Video) mat);
 		}
 		return vids;
 	}
@@ -106,8 +130,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 	@Override
 	public MaterialCapacitacion findById(Integer id) {
 		// TODO Auto-generated method stub
-		for(MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
-			if(mat.getId().equals(id)) return mat;
+		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
+			if (mat.getId().equals(id))
+				return mat;
 		}
 		return null;
 	}
@@ -125,9 +150,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 		MaterialCapacitacion n2 = this.findById(idDestino);
 		GRAFO_MATERIAL.conectar(n1, n2);
 		List<String> fila = new ArrayList<>();
-		fila.add(n1.getId()+"");
+		fila.add(n1.getId() + "");
 		fila.add(n1.getTitulo());
-		fila.add(n2.getId()+"");
+		fila.add(n2.getId() + "");
 		fila.add(n2.getTitulo());
 		try {
 			dataSource.agregarFilaAlFinal("aristas.csv", fila);
@@ -137,5 +162,4 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 		}
 	}
 
-	
 }

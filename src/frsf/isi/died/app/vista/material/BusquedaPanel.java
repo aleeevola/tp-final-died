@@ -27,12 +27,14 @@ public class BusquedaPanel extends JPanel{
 	private JLabel lblTitulo;
 	private JLabel lblCalificacion;
 	private JLabel lblTema;
-	private JLabel lblFechaPublicacion;
+	private JLabel lblFechaPublicacionDesde;
+	private JLabel lblFechaPublicacionHasta;
 	private JLabel lblOrdenamiento;
 	private JTextField txtTitulo;
 	private JTextField txtCalificacion;
 	private JComboBox comboTema;
-	private JTextField txtFechaPublicacion;
+	private JTextField txtFechaPublicacionDesde;
+	private JTextField txtFechaPublicacionHasta;
 	private JComboBox txtOrdenamiento;
 	private JButton btnBuscar;
 	private JButton btnCancelar;
@@ -61,66 +63,99 @@ public class BusquedaPanel extends JPanel{
 		this.add(txtTitulo, gridConst);
 		
 
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("  Buscar ");
 		btnBuscar.addActionListener( e ->{
-			try {
-				Double calificacion = Double.valueOf(txtCalificacion.getText());
+		//try {
+			System.out.println("Primero");
+			System.out.println(txtCalificacion.getText());	
+			
+			String titulo = txtTitulo.getText();
+			Double calificacion = null;
+			String fechaPublicacionDesde = null;
+			String fechaPublicacionHasta = null;
+			String tema = null;
+			if(titulo.isEmpty()) titulo = "Programacion";
+			if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
+			//if(comboTema.getSelectedItem().toString()!=null) tema=comboTema.getSelectedItem().toString();
+			/*
 				String tema = String.valueOf(comboTema.getSelectedItem());
-				Integer fechaPublicacion = Integer.valueOf(txtFechaPublicacion.getText());
-				controller.buscarMaterial(txtTitulo.getText(), calificacion, tema, fechaPublicacion);
-				txtTitulo.setText("");
-				txtCalificacion.setText("");
-				comboTema.setSelectedIndex(0);
-				txtFechaPublicacion.setText("");
+				Integer fechaPublicacionDesde = Integer.valueOf(txtFechaPublicacionDesde.getText());
+				Integer fechaPublicacionHasta = Integer.valueOf(txtFechaPublicacionHasta.getText());
+			*/
+			//Double calificacion = null;
+			
+			//Integer fechaPublicacionDesde = null;
+			//Integer fechaPublicacionHasta = null;
+			//String titulo = "Programacion";
+			
+			try {
+				System.out.println("segundo");
+				controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta);
+				
 			}catch(Exception ex) {
 			    JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
-			}
+			}	
+				txtTitulo.setText("");
+				txtCalificacion.setText("");
+				comboTema.setSelectedItem(null);
+				txtFechaPublicacionDesde.setText("");
+				txtFechaPublicacionHasta.setText("");
+
 		});
 		gridConst.gridwidth=1;
 		gridConst.weightx=1.0;
 		gridConst.anchor = GridBagConstraints.LINE_START;
-		gridConst.gridx=6;
+		gridConst.gridx=8;
 		this.add(btnBuscar, gridConst);
 		
 		
-		lblCalificacion= new JLabel("Calificacion: ");		
+		lblCalificacion= new JLabel(" Calificacion: ");		
 		gridConst.gridx=0;
 		gridConst.gridy=1;
+		gridConst.anchor = GridBagConstraints.CENTER;
 		gridConst.weightx=0.0;
 		this.add(lblCalificacion, gridConst);
 		
 		txtCalificacion = new JTextField();
+		txtCalificacion.setText(null);
 		txtCalificacion.setColumns(5);
 		gridConst.gridx=1;
 		this.add(txtCalificacion, gridConst);
 		
-		lblTema= new JLabel("Tema: ");
+		lblTema= new JLabel("  Tema: ");
 		gridConst.gridx=2;
 		this.add(lblTema, gridConst);
 		
 		comboTema = new JComboBox(Tema.values());
 		//txtTema.setColumns(5);
+		comboTema.addItemListener(null);
 		comboTema.setSelectedItem(null);
+		
 		gridConst.gridx=3;
 		this.add(comboTema, gridConst);
 		
-		lblFechaPublicacion= new JLabel("Fecha desde: ");		
+		lblFechaPublicacionDesde = new JLabel("  Fecha desde: ");		
 		gridConst.gridx=4;
-		this.add(lblFechaPublicacion, gridConst);
+		gridConst.anchor = GridBagConstraints.EAST;
+		this.add(lblFechaPublicacionDesde, gridConst);
 		
-		txtFechaPublicacion = new JTextField();
-		txtFechaPublicacion.setColumns(7);
+		txtFechaPublicacionDesde = new JTextField();
+		txtFechaPublicacionDesde.setColumns(7);
 		gridConst.gridx=5;
-		this.add(txtFechaPublicacion, gridConst);
+		gridConst.anchor = GridBagConstraints.WEST;
+		txtFechaPublicacionDesde.setText("01/01/2001");
+		this.add(txtFechaPublicacionDesde, gridConst);
 
-		lblFechaPublicacion= new JLabel("hasta: ");		
-		gridConst.gridx=6;
-		this.add(lblFechaPublicacion, gridConst);
+		lblFechaPublicacionHasta = new JLabel(" hasta: ");		
+		gridConst.gridx=5;
+		gridConst.anchor = GridBagConstraints.EAST;
+		this.add(lblFechaPublicacionHasta, gridConst);
 		
-		txtFechaPublicacion = new JTextField();
-		txtFechaPublicacion.setColumns(5);
-		gridConst.gridx=7;
-		this.add(txtFechaPublicacion, gridConst);
+		txtFechaPublicacionHasta = new JTextField();
+		txtFechaPublicacionHasta.setColumns(7);
+		gridConst.anchor = GridBagConstraints.WEST;
+		gridConst.gridx=6;
+		this.add(txtFechaPublicacionHasta, gridConst);
 		
 		btnCancelar= new JButton("Cancelar");
 		gridConst.gridx=8;
