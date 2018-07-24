@@ -5,6 +5,7 @@
  */
 package frsf.isi.died.tp.modelo.productos;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,9 +25,10 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	protected Double costo;
 	protected Integer calificacion;
 	protected Relevancia relevancia;
-	protected Date fechaPublicacion;
+	protected String fechaPublicacion;
 	protected Tema tema;
 	
+	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Integer getCalificacion() {
 		return calificacion;
@@ -36,7 +38,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 		this.calificacion = calificacion;
 	}
 	
-	public Date getFechaPublicacion() {
+	public String getFechaPublicacion() {
 	return fechaPublicacion;
 	}
 	
@@ -45,7 +47,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	}
 	
 	
-public void setFechaPublicacion(Date fechaPublicacion) {
+public void setFechaPublicacion(String fechaPublicacion) {
 	this.fechaPublicacion = fechaPublicacion;
 }
 
@@ -86,7 +88,10 @@ public void setRelevancia(Relevancia relevancia) {
 		this.id =id;
 		this.titulo = titulo;
 		this.costo = costo;
-		this.fechaPublicacion= new Date();
+		this.fechaPublicacion= formato.format(new Date());
+		
+		//String format = formatter.format(date);
+		//System.out.println(format);
 	}
 
 	public String getTitulo() {
