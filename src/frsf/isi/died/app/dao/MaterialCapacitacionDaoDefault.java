@@ -22,7 +22,36 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 
 	public PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
 
+	public List<MaterialCapacitacion> ldd = new ArrayList<>();
+	
 	private CsvDatasource dataSource;
+	
+
+	public void agregarDeseo(MaterialCapacitacion mat){
+		System.out.println("agregando");
+		ldd.add(mat);
+		//deseos.add(mat);
+		System.out.println("agrego?");
+		//System.out.println("valor ");
+	}
+	
+	public List<MaterialCapacitacion> listaDeseos(){
+		/*System.out.println("entro aka");
+		List<MaterialCapacitacion> ld=new ArrayList<>();
+		while (!deseos.isEmpty()) {
+            MaterialCapacitacion mat = deseos.poll();
+            ld.add(mat);
+        }
+		System.out.println("antes for");
+		for(MaterialCapacitacion c :ld){
+            deseos.add(c);
+        }*/
+		System.out.println("entro aka");
+		return ldd;
+	}
+
+
+
 
 	public MaterialCapacitacionDaoDefault() {
 		dataSource = new CsvDatasource();

@@ -2,6 +2,8 @@ package frsf.isi.died.app.vista.material;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,10 @@ import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 import frsf.isi.died.tp.modelo.productos.Tema;
 
 public class BusquedaPanel extends JPanel{
+	
+	private int seleccion;
+	private JButton btnDocumento;
+	private JButton btnDeseo;
 	
 	private JScrollPane scrollPane;
 	private JTable tabla;
@@ -186,6 +192,50 @@ public class BusquedaPanel extends JPanel{
 		gridConst.fill=GridBagConstraints.BOTH;
 		gridConst.anchor=GridBagConstraints.PAGE_START;		
 		this.add(scrollPane, gridConst);
+		
+		
+		
+		/* @alee
+		 * botones editar
+		 * deseo
+		 * eliminar
+		 * crear documento
+		 * */
+		
+		btnDocumento = new JButton("Crear Documento");
+		btnDocumento.addActionListener( e ->{
+			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			//tableModel.getDocumentos().get(seleccion)
+			//controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=7;
+		this.add(btnDocumento, gridConst);
+		
+		btnDeseo = new JButton("Agregar a deseos");
+		btnDeseo.addActionListener( e ->{
+			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			controller.agregarDeseo(tableModel.getMateriales().get(seleccion));
+			//tableModel.getDocumentos().get(seleccion)
+			//controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=8;
+		this.add(btnDeseo, gridConst);
+		
+		
+		/* @alee
+		 * permite seleccionar fila tabla
+		 * */
+		tabla.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		        int r = tabla.rowAtPoint(e.getPoint());
+		        seleccion=r;
+		        System.out.print(seleccion);
+		        }
+		    
+		});
 	}
 
 	public BusquedaController getController() {

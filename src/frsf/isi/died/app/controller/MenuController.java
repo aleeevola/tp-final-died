@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import frsf.isi.died.app.vista.grafo.ControlPanel;
 import frsf.isi.died.app.vista.grafo.GrafoPanel;
 import frsf.isi.died.app.vista.material.BusquedaPanel;
+import frsf.isi.died.app.vista.material.DeseosPanel;
+import frsf.isi.died.app.vista.material.DocumentoPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.app.vista.material.VideoPanel;
 
@@ -34,13 +36,30 @@ public class MenuController {
 			controller2.crearPanel();
 			framePrincipal.setContentPane(controller2.getPanelVideo());
 			break;
-		
+			
 		case BUSCAR_MAT:
 			BusquedaPanel panelBusqueda = new BusquedaPanel();
 			BusquedaController controller3 = new BusquedaController(panelBusqueda);
 			controller3.crearPanel();
 			framePrincipal.setContentPane(controller3.getPanelBusqueda());
 			break;
+			
+		
+		case A_DOCUMENTO:
+			DocumentoPanel panelDocumento= new DocumentoPanel();
+			DocumentoController controller4 = new DocumentoController(panelDocumento);
+			controller4.crearPanel();
+			framePrincipal.setContentPane(controller4.getPanelDocumento());
+			break;
+			
+		case VER_DESEOS:
+			DeseosPanel panelDeseos= new DeseosPanel();
+			DeseosController controller5 = new DeseosController(panelDeseos);
+			controller5.crearPanel();
+			framePrincipal.setContentPane(controller5.getPanelDeseos());
+			break;
+		
+		
 
 		case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());

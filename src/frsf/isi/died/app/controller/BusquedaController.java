@@ -16,6 +16,10 @@ public class BusquedaController {
 	private BusquedaPanel panelBusqueda;
 	private MaterialCapacitacionDao materialDAO;
 	
+	public void agregarDeseo(MaterialCapacitacion mat){
+		materialDAO.agregarDeseo(mat);
+	}
+	
 	public BusquedaController(BusquedaPanel panel) {
 		this.panelBusqueda = panel;
 		this.panelBusqueda.setController(this);
@@ -23,12 +27,15 @@ public class BusquedaController {
 	}
 
 	public void buscarMaterial(String titulo, Double calificacion, String tema,String fechaPublicacionDesde, String fechaPublicacionHasta) {		
-		this.panelBusqueda.setListaMateriales(materialDAO.buscarMaterial(titulo,calificacion,tema,fechaPublicacionDesde,fechaPublicacionHasta),true);
+		this.panelBusqueda.setListaMateriales(materialDAO.buscarMaterial(titulo,calificacion,tema,fechaPublicacionDesde,fechaPublicacionHasta,""),true);
 		
 	}
 	
 	public void crearPanel() {
-		this.panelBusqueda.setListaMateriales(new ArrayList<MaterialCapacitacion>(),false);
+		
+		//modifique aca
+		this.panelBusqueda.setListaMateriales(materialDAO.listaMateriales(),false);
+		//this.panelBusqueda.setListaMateriales(new ArrayList<MaterialCapacitacion>(),false);
 		this.panelBusqueda.construir();
 	}
 

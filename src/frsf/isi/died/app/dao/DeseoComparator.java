@@ -10,7 +10,7 @@ public class DeseoComparator implements Comparator<MaterialCapacitacion>
     public int compare(MaterialCapacitacion x, MaterialCapacitacion y)
     {
  
-    	if(x.getRelevancia().ordinal()<y.getRelevancia().ordinal())
+    /*	if(x.getRelevancia().ordinal()<y.getRelevancia().ordinal())
     	{
             return -1;
         }
@@ -27,7 +27,7 @@ public class DeseoComparator implements Comparator<MaterialCapacitacion>
         	{
                 return 1;
             }
-        	else {
+        	else {*/
         		if(x.precio()<y.precio())
             	{
                     return -1;
@@ -37,7 +37,7 @@ public class DeseoComparator implements Comparator<MaterialCapacitacion>
                     return 1;
                 }
             	else return 0;
-            }
-        }
+          //  }
+        //}
     } }
 

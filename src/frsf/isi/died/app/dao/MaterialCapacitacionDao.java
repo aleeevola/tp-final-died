@@ -1,6 +1,7 @@
 package frsf.isi.died.app.dao;
 
 import java.util.List;
+import java.util.PriorityQueue;
 
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
@@ -18,4 +19,7 @@ public interface MaterialCapacitacionDao {
 	public List<MaterialCapacitacion> buscarCamino(Integer idOrigen, Integer idDestino, Integer saltos);
 	List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema, String fechaPublicacionDesde,
 			String fechaPublicacionHasta, String orden);
+	
+	public void agregarDeseo(MaterialCapacitacion mat);
+	public List<MaterialCapacitacion> listaDeseos();
 }

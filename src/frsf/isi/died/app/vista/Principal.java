@@ -37,6 +37,11 @@ public class Principal {
 	        menuItem = new JMenuItem("Nuevo Video");
 	        menuItem.addActionListener(e->controller.showView(TiposAcciones.ABM_VIDEOS));
 	        menu.add(menuItem);
+	        
+	        menuItem = new JMenuItem("Nuevo Documento");
+	        menuItem.addActionListener(e->controller.showView(TiposAcciones.A_DOCUMENTO));
+	        menu.add(menuItem);
+	        
 	        menu.addSeparator();
 	        menuItem = new JMenuItem("Salir");
 	        menuItem.addActionListener(e->System.exit(99));
@@ -56,6 +61,13 @@ public class Principal {
 	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_GRAFO));
 	        menu.add(menuItem);
 	        menuBar.add(menu);
+	        
+	        menu = new JMenu("Ver");
+	        menuBar.add(menu);
+	        
+	        menuItem = new JMenuItem("Lista de deseos");
+	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DESEOS));
+	        menu.add(menuItem);
 	        
 	        f.setJMenuBar(menuBar);
 	        
