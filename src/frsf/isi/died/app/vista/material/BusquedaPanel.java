@@ -2,6 +2,7 @@ package frsf.isi.died.app.vista.material;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +36,14 @@ public class BusquedaPanel extends JPanel{
 	private JComboBox comboTema;
 	private JTextField txtFechaPublicacionDesde;
 	private JTextField txtFechaPublicacionHasta;
-	private JComboBox txtOrdenamiento;
+	private JComboBox comboOrdenamiento;
 	private JButton btnBuscar;
 	private JButton btnCancelar;
 
 	private BusquedaTableModel tableModel;
 
 	private BusquedaController controller;
-	
+	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	public BusquedaPanel() {
 		this.setLayout(new GridBagLayout());
 		tableModel = new BusquedaTableModel();
@@ -57,49 +58,57 @@ public class BusquedaPanel extends JPanel{
 		this.add(lblTitulo, gridConst);
 		
 		txtTitulo = new JTextField();
-		txtTitulo.setColumns(40);
+		txtTitulo.setColumns(30);
 		gridConst.gridx=1;
-		gridConst.gridwidth=5;
+		//gridConst.gridwidth=5;
 		this.add(txtTitulo, gridConst);
 		
-
+		lblOrdenamiento = new JLabel("Ordenar por: ");
+		gridConst.gridx=4;
+		gridConst.gridy=0;
+		this.add(lblOrdenamiento, gridConst);
+		
+		String[] Ordenamiento=new String[] {"Título","Calificación","Precio","Fecha de publicación", "Relevancia"};
+		
+		comboOrdenamiento = new JComboBox(Ordenamiento);
+		comboOrdenamiento.addItemListener(null);
+		comboOrdenamiento.setSelectedItem(null);
+		gridConst.gridx=5;
+		this.add(comboOrdenamiento, gridConst);
+		
+		
 		btnBuscar = new JButton("  Buscar ");
 		btnBuscar.addActionListener( e ->{
-		//try {
-			System.out.println("Primero");
-			System.out.println(txtCalificacion.getText());	
-			
-			String titulo = txtTitulo.getText();
+
+			String titulo = null;
 			Double calificacion = null;
 			String fechaPublicacionDesde = null;
 			String fechaPublicacionHasta = null;
 			String tema = null;
-			if(titulo.isEmpty()) titulo = "Programacion";
-			if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
-			//if(comboTema.getSelectedItem().toString()!=null) tema=comboTema.getSelectedItem().toString();
-			/*
-				String tema = String.valueOf(comboTema.getSelectedItem());
-				Integer fechaPublicacionDesde = Integer.valueOf(txtFechaPublicacionDesde.getText());
-				Integer fechaPublicacionHasta = Integer.valueOf(txtFechaPublicacionHasta.getText());
-			*/
-			//Double calificacion = null;
-			
-			//Integer fechaPublicacionDesde = null;
-			//Integer fechaPublicacionHasta = null;
-			//String titulo = "Programacion";
-			
+			String orden = null;
 			try {
-				System.out.println("segundo");
+			if(!txtTitulo.getText().isEmpty()) titulo = txtTitulo.getText();
+			if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
+			if(comboTema.getSelectedItem()!=null) tema=comboTema.getSelectedItem().toString();
+			if(!txtFechaPublicacionDesde.getText().isEmpty()) fechaPublicacionDesde=txtFechaPublicacionDesde.getText();
+			if(!txtFechaPublicacionHasta.getText().isEmpty()) fechaPublicacionHasta=txtFechaPublicacionHasta.getText();
+			if(comboOrdenamiento.getSelectedItem()!=null) orden = comboOrdenamiento.getSelectedItem().toString();
+						
+			//fechaPublicacionDesde=formato.format(new Date());
+			System.out.println(fechaPublicacionDesde+"  1");
+			System.out.println(fechaPublicacionHasta+"  2");
+							
 				controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta);
 				
 			}catch(Exception ex) {
-			    JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			    JOptionPane.showMessageDialog(this, ex.getMessage(), "No se encuentran materiales", JOptionPane.ERROR_MESSAGE);
 			}	
 				txtTitulo.setText("");
 				txtCalificacion.setText("");
 				comboTema.setSelectedItem(null);
 				txtFechaPublicacionDesde.setText("");
 				txtFechaPublicacionHasta.setText("");
+				comboOrdenamiento.setSelectedItem(null);
 
 		});
 		gridConst.gridwidth=1;
@@ -120,18 +129,20 @@ public class BusquedaPanel extends JPanel{
 		txtCalificacion.setText(null);
 		txtCalificacion.setColumns(5);
 		gridConst.gridx=1;
+		gridConst.anchor = GridBagConstraints.WEST;
 		this.add(txtCalificacion, gridConst);
 		
-		lblTema= new JLabel("  Tema: ");
-		gridConst.gridx=2;
+		lblTema= new JLabel("Tema:");
+		gridConst.gridx=1;
+		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(lblTema, gridConst);
 		
 		comboTema = new JComboBox(Tema.values());
 		//txtTema.setColumns(5);
 		comboTema.addItemListener(null);
-		comboTema.setSelectedItem(null);
-		
-		gridConst.gridx=3;
+		comboTema.setSelectedItem(null);		
+		gridConst.gridx=1;
+		gridConst.anchor = GridBagConstraints.EAST;
 		this.add(comboTema, gridConst);
 		
 		lblFechaPublicacionDesde = new JLabel("  Fecha desde: ");		

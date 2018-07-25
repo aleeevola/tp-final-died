@@ -80,14 +80,22 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 
 	@Override
 	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema, String fechaPublicacionDesde,
-			String fechaPublicacionHasta) {
+			String fechaPublicacionHasta,String orden) {
 		List<MaterialCapacitacion> materiales = new ArrayList<MaterialCapacitacion>();
 		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
 			if (titulo == null || mat.getTitulo().contains(titulo)) {
-				if (calificacion == null || mat.getCalificacion().equals(calificacion)) {
+				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
 					if (tema == null || mat.getTema().toString().equals(tema)) {
-						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null)) {
-						
+						System.out.println(fechaPublicacionDesde+"1");
+						System.out.println(fechaPublicacionHasta+"2");
+						System.out.println(mat.getFechaPublicacion()+"3");
+						System.out.println(mat.getFechaPublicacion().compareTo(fechaPublicacionDesde));
+						System.out.println(mat.getFechaPublicacion().compareTo(fechaPublicacionHasta));
+						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null) || (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde)>0 && mat.getFechaPublicacion().compareTo(fechaPublicacionHasta)<0)) {
+							System.out.println(fechaPublicacionDesde+"1 1");
+							System.out.println(fechaPublicacionHasta+"2 2");
+							System.out.println(mat.getFechaPublicacion()+"3");
+							
 							materiales.add(mat);
 						
 						}
@@ -97,6 +105,12 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 		
 		System.out.println(materiales.get(0));
+		
+		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().compareTo(mc2.getTitulo());
+		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
+		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
+		
+		
 		return materiales;
 		
 	}
