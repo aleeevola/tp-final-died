@@ -6,7 +6,7 @@ import frsf.isi.died.app.vista.material.DocumentoPanel;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
 public class DocumentoController {
-
+/*
 	private DocumentoPanel panelDocumento;
 	private MaterialCapacitacionDao materialDAO;
 	
@@ -36,5 +36,5 @@ public class DocumentoController {
 		this.panelDocumento = panelDocumento;
 	}
 	
-	
+	*/
 }

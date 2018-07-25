@@ -208,8 +208,9 @@ public class BusquedaPanel extends JPanel{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
 			
 			DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
-			DocumentoController controller4 = new DocumentoController(panelDocumento);
-			controller4.crearPanel();
+			panelDocumento.setVisible(true);
+			//DocumentoController controller4 = new DocumentoController(panelDocumento);
+			//controller4.crearPanel();
 			
 		});
 		gridConst.gridx=8;
