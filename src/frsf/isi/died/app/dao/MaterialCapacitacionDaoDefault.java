@@ -109,7 +109,7 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			String fechaPublicacionHasta,String orden) {
 		List<MaterialCapacitacion> materiales = new ArrayList<MaterialCapacitacion>();
 		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
-			if (titulo == null || mat.getTitulo().contains(titulo)) {
+			if (titulo == null || mat.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
 				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
 					if (tema == null || mat.getTema().toString().equals(tema)) {
 						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null) || (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde)>=0 && mat.getFechaPublicacion().compareTo(fechaPublicacionHasta)<=0)) {
@@ -124,11 +124,10 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		
 		System.out.println(materiales.get(0));
 		
-		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().compareTo(mc2.getTitulo());
+		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().toLowerCase().compareTo(mc2.getTitulo().toLowerCase());
 		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
 		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
 		//{"Título","Calificación","Precio","Fecha de publicación", "Relevancia"}
-		System.out.println("llego");
 		if(orden!=null) {
 		switch(orden) {
 		case "Título":
