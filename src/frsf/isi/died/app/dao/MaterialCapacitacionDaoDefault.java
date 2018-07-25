@@ -127,6 +127,8 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().toLowerCase().compareTo(mc2.getTitulo().toLowerCase());
 		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
 		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
+		Comparator<MaterialCapacitacion> comparaFecha= (mc1,mc2)-> mc1.getFechaPublicacion().compareTo(mc2.getFechaPublicacion());
+		Comparator<MaterialCapacitacion> comparaRelevancia= (mc1,mc2)-> mc1.getRelevancia().compareTo(mc2.getRelevancia());
 		//{"Título","Calificación","Precio","Fecha de publicación", "Relevancia"}
 		if(orden!=null) {
 		switch(orden) {
@@ -140,6 +142,10 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			Collections.sort(materiales, comparaPrecio);
 			break;
 		case "Fecha de publicación":
+			Collections.sort(materiales, comparaFecha);
+			break;
+		case "Relevancia":
+			Collections.sort(materiales, comparaRelevancia);
 			break;
 		}
 		}
