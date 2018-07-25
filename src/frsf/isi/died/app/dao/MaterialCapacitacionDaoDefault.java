@@ -20,34 +20,31 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	private static Integer SECUENCIA_ID = 0;
 	private static Biblioteca biblioteca = new BibliotecaABB();
 
-	public PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
+	public static PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
 
-	public List<MaterialCapacitacion> ldd = new ArrayList<>();
+	public static List<MaterialCapacitacion> ldd = new ArrayList<>();
 	
 	private CsvDatasource dataSource;
 	
 
 	public void agregarDeseo(MaterialCapacitacion mat){
-		System.out.println("agregando");
-		ldd.add(mat);
-		//deseos.add(mat);
-		System.out.println("agrego?");
-		//System.out.println("valor ");
+		//agrego a la pila
+		deseos.add(mat);
 	}
 	
 	public List<MaterialCapacitacion> listaDeseos(){
-		/*System.out.println("entro aka");
+		//saco d ela pila
 		List<MaterialCapacitacion> ld=new ArrayList<>();
 		while (!deseos.isEmpty()) {
             MaterialCapacitacion mat = deseos.poll();
             ld.add(mat);
         }
-		System.out.println("antes for");
+		//cargo de nuevo la pila
 		for(MaterialCapacitacion c :ld){
             deseos.add(c);
-        }*/
-		System.out.println("entro aka");
-		return ldd;
+        }
+		
+		return ld;
 	}
 
 
