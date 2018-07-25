@@ -2,6 +2,7 @@ package frsf.isi.died.app.dao;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -111,16 +112,8 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			if (titulo == null || mat.getTitulo().contains(titulo)) {
 				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
 					if (tema == null || mat.getTema().toString().equals(tema)) {
-						System.out.println(fechaPublicacionDesde+"1");
-						System.out.println(fechaPublicacionHasta+"2");
-						System.out.println(mat.getFechaPublicacion()+"3");
-						System.out.println(mat.getFechaPublicacion().compareTo(fechaPublicacionDesde));
-						System.out.println(mat.getFechaPublicacion().compareTo(fechaPublicacionHasta));
-						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null) || (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde)>0 && mat.getFechaPublicacion().compareTo(fechaPublicacionHasta)<0)) {
-							System.out.println(fechaPublicacionDesde+"1 1");
-							System.out.println(fechaPublicacionHasta+"2 2");
-							System.out.println(mat.getFechaPublicacion()+"3");
-							
+						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null) || (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde)>=0 && mat.getFechaPublicacion().compareTo(fechaPublicacionHasta)<=0)) {
+														
 							materiales.add(mat);
 						
 						}
@@ -134,8 +127,24 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().compareTo(mc2.getTitulo());
 		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
 		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
-		
-		
+		//{"Título","Calificación","Precio","Fecha de publicación", "Relevancia"}
+		System.out.println("llego");
+		if(orden!=null) {
+		switch(orden) {
+		case "Título":
+			Collections.sort(materiales, comparaTitulo);
+			break;
+		case "Calificación":
+			Collections.sort(materiales, comparaCalificacion);
+			break;
+		case "Precio":
+			Collections.sort(materiales, comparaPrecio);
+			break;
+		case "Fecha de publicación":
+			break;
+		}
+		}
+
 		return materiales;
 		
 	}

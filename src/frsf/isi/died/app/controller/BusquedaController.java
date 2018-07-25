@@ -26,8 +26,8 @@ public class BusquedaController {
 		materialDAO = new MaterialCapacitacionDaoDefault();
 	}
 
-	public void buscarMaterial(String titulo, Double calificacion, String tema,String fechaPublicacionDesde, String fechaPublicacionHasta) {		
-		this.panelBusqueda.setListaMateriales(materialDAO.buscarMaterial(titulo,calificacion,tema,fechaPublicacionDesde,fechaPublicacionHasta,""),true);
+	public void buscarMaterial(String titulo, Double calificacion, String tema,String fechaPublicacionDesde, String fechaPublicacionHasta,String orden) {		
+		this.panelBusqueda.setListaMateriales(materialDAO.buscarMaterial(titulo,calificacion,tema,fechaPublicacionDesde,fechaPublicacionHasta,orden),true);
 		
 	}
 	

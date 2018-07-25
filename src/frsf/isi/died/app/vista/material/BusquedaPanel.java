@@ -94,6 +94,7 @@ public class BusquedaPanel extends JPanel{
 			String fechaPublicacionHasta = null;
 			String tema = null;
 			String orden = null;
+			
 			try {
 			if(!txtTitulo.getText().isEmpty()) titulo = txtTitulo.getText();
 			if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
@@ -101,23 +102,20 @@ public class BusquedaPanel extends JPanel{
 			if(!txtFechaPublicacionDesde.getText().isEmpty()) fechaPublicacionDesde=txtFechaPublicacionDesde.getText();
 			if(!txtFechaPublicacionHasta.getText().isEmpty()) fechaPublicacionHasta=txtFechaPublicacionHasta.getText();
 			if(comboOrdenamiento.getSelectedItem()!=null) orden = comboOrdenamiento.getSelectedItem().toString();
-						
-			//fechaPublicacionDesde=formato.format(new Date());
-			System.out.println(fechaPublicacionDesde+"  1");
-			System.out.println(fechaPublicacionHasta+"  2");
+
 							
-				controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta);
+				controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta,orden);
 				
 			}catch(Exception ex) {
 			    JOptionPane.showMessageDialog(this, ex.getMessage(), "No se encuentran materiales", JOptionPane.ERROR_MESSAGE);
 			}	
-				txtTitulo.setText("");
+				/*txtTitulo.setText("");
 				txtCalificacion.setText("");
 				comboTema.setSelectedItem(null);
 				txtFechaPublicacionDesde.setText("");
 				txtFechaPublicacionHasta.setText("");
 				comboOrdenamiento.setSelectedItem(null);
-
+				*/
 		});
 		gridConst.gridwidth=1;
 		gridConst.weightx=1.0;
@@ -174,6 +172,7 @@ public class BusquedaPanel extends JPanel{
 		txtFechaPublicacionHasta.setColumns(7);
 		gridConst.anchor = GridBagConstraints.WEST;
 		gridConst.gridx=6;
+		txtFechaPublicacionHasta.setText(formato.format(new Date()));
 		this.add(txtFechaPublicacionHasta, gridConst);
 		
 		btnCancelar= new JButton("Cancelar");
