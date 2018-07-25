@@ -44,14 +44,6 @@ public class MenuController {
 			framePrincipal.setContentPane(controller3.getPanelBusqueda());
 			break;
 			
-		
-		case A_DOCUMENTO:
-			DocumentoPanel panelDocumento= new DocumentoPanel();
-			DocumentoController controller4 = new DocumentoController(panelDocumento);
-			controller4.crearPanel();
-			framePrincipal.setContentPane(controller4.getPanelDocumento());
-			break;
-			
 		case VER_DESEOS:
 			DeseosPanel panelDeseos= new DeseosPanel();
 			DeseosController controller5 = new DeseosController(panelDeseos);

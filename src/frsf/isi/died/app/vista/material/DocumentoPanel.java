@@ -1,5 +1,6 @@
 package frsf.isi.died.app.vista.material;
 
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
@@ -7,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,38 +19,40 @@ import javax.swing.JTextField;
 import frsf.isi.died.app.controller.DocumentoController;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
-public class DocumentoPanel extends JPanel{
+public class DocumentoPanel extends JDialog{
 	
-	private JScrollPane scrollPane;
-	private JTable tabla;
-	private JButton btnDocumento;
-	private JTextField txtCosto;
-	private int seleccion;
-
-	private DocumentoTableModel tableModel;
-
 	private DocumentoController controller;
 	
-	public DocumentoPanel() {
-		this.setLayout(new GridBagLayout());
-		tableModel = new DocumentoTableModel();
+	private JButton btnDocumento;
+	private JLabel lblTitulo;
+	
+	public DocumentoPanel(Frame parent, boolean modal) {
+		super(parent, modal);
+		this.getContentPane().setLayout(new GridBagLayout());
+		//this.setLayout(new GridBagLayout());
 	}
 	
 	public void construir() {
 		GridBagConstraints gridConst= new GridBagConstraints();
-	
+		
+		lblTitulo = new JLabel("Titulo: ");
+		gridConst.gridwidth = 2; // El área de texto ocupa dos columnas.
+		gridConst.gridheight = 2;
+		gridConst.gridx=0;
+		gridConst.gridy=0;
+		this.add(lblTitulo);
+		
 		btnDocumento = new JButton("Crear Documento");
 		btnDocumento.addActionListener( e ->{
-			System.out.println(tableModel.getDocumentos().get(seleccion).getTitulo());
-			//tableModel.getDocumentos().get(seleccion)
-			controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
+			this.setVisible(false);
 		});
 		gridConst.gridwidth=1;
-		gridConst.weightx=1.0;
-		gridConst.anchor = GridBagConstraints.LINE_START;
+		gridConst.gridheight=8;
+		//gridConst.weightx=1.0;
+		//gridConst.anchor = GridBagConstraints.LINE_START;
 		gridConst.gridx=6;
 		this.add(btnDocumento, gridConst);
-		
+		/*
 		txtCosto = new JTextField();
 		txtCosto.setColumns(5);
 		gridConst.gridx=2;
@@ -76,7 +80,7 @@ public class DocumentoPanel extends JPanel{
 		        System.out.print(seleccion);
 		        }
 		    
-		});
+		});*/
 	}
 	
 
@@ -90,6 +94,7 @@ public class DocumentoPanel extends JPanel{
 		//System.out.println(+seleccion);
 	}*/
 	
+	
 	public DocumentoController getController() {
 		return controller;
 	}
@@ -97,10 +102,10 @@ public class DocumentoPanel extends JPanel{
 	public void setController(DocumentoController controller) {
 		this.controller = controller;
 	}
-	
+	/*
 	public void setListaDocumento(List<MaterialCapacitacion> docuementosLista,boolean actualizar) {
 		this.tableModel.setDocumento(docuementosLista);
 		if(actualizar) this.tableModel.fireTableDataChanged();
-	}
+	}*/
 
 }

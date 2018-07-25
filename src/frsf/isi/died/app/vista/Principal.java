@@ -37,10 +37,10 @@ public class Principal {
 	        menuItem = new JMenuItem("Nuevo Video");
 	        menuItem.addActionListener(e->controller.showView(TiposAcciones.ABM_VIDEOS));
 	        menu.add(menuItem);
-	        
+	       /* 
 	        menuItem = new JMenuItem("Nuevo Documento");
 	        menuItem.addActionListener(e->controller.showView(TiposAcciones.A_DOCUMENTO));
-	        menu.add(menuItem);
+	        menu.add(menuItem);*/
 	        
 	        menu.addSeparator();
 	        menuItem = new JMenuItem("Salir");

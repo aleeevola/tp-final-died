@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import frsf.isi.died.app.controller.BusquedaController;
+import frsf.isi.died.app.controller.DocumentoController;
 import frsf.isi.died.app.controller.LibroController;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
@@ -205,8 +207,11 @@ public class BusquedaPanel extends JPanel{
 		btnDocumento = new JButton("Crear Documento");
 		btnDocumento.addActionListener( e ->{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
-			//tableModel.getDocumentos().get(seleccion)
-			//controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
+			
+			DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
+			DocumentoController controller4 = new DocumentoController(panelDocumento);
+			controller4.crearPanel();
+			
 		});
 		gridConst.gridx=8;
 		gridConst.gridy=7;

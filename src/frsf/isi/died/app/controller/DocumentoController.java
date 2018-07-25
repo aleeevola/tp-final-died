@@ -22,8 +22,9 @@ public class DocumentoController {
 
 	//creo que no se va a usar
 	public void crearPanel() {		
-		this.panelDocumento.setListaDocumento(materialDAO.listaMateriales(),false);
+		//this.panelDocumento.setListaDocumento(materialDAO.listaMateriales(),false);
 		this.panelDocumento.construir();
+		panelDocumento.setVisible(true);
 	}
 
 	
