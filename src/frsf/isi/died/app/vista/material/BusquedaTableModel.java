@@ -47,7 +47,8 @@ public class BusquedaTableModel extends AbstractTableModel{
 			valor = this.materiales.get(rowIndex).getFechaPublicacion();
 			break;
 		case 4:
-			valor = this.materiales.get(rowIndex).getRelevancia();
+			valor = this.materiales.get(rowIndex).getRelevancia().toString();
+			break;
 		default:
 			System.out.println("Indice fuera de rango");
 			valor = "S/D";
