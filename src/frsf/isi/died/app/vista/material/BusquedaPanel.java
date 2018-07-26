@@ -30,6 +30,7 @@ public class BusquedaPanel extends JPanel{
 	private int seleccion;
 	private JButton btnDocumento;
 	private JButton btnDeseo;
+	private JButton btnEliminar;
 	
 	private JScrollPane scrollPane;
 	private JTable tabla;
@@ -51,6 +52,7 @@ public class BusquedaPanel extends JPanel{
 	private BusquedaTableModel tableModel;
 
 	private BusquedaController controller;
+	
 	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	public BusquedaPanel() {
 		this.setLayout(new GridBagLayout());
@@ -202,6 +204,15 @@ public class BusquedaPanel extends JPanel{
 		 * eliminar
 		 * crear documento
 		 * */
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener( e ->{
+			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			btnBuscar.getAction();
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=6;
+		this.add(btnEliminar, gridConst);
 		
 		btnDocumento = new JButton("Crear Documento");
 		btnDocumento.addActionListener( e ->{

@@ -34,13 +34,19 @@ public class Grafo<T> {
 	public void addNodo(T nodo){
 		this.addNodo(new Vertice<T>(nodo));
 	}
-
+	
 	/**
 	 * @param nodo
 	 */
 	public void addNodo(Vertice<T> nodo){
 		this.vertices.add(nodo);
 	}
+	
+
+	public void deletNodo(int i){
+		this.vertices.remove(i);
+	}
+
 	
 	/**
 	 * @param n1

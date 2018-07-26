@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import frsf.isi.died.app.dao.util.CsvDatasource;
+import frsf.isi.died.app.dao.util.CsvRecord;
 import frsf.isi.died.tp.estructuras.Grafo;
 import frsf.isi.died.tp.modelo.Biblioteca;
 import frsf.isi.died.tp.modelo.BibliotecaABB;
@@ -54,6 +55,41 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		dataSource = new CsvDatasource();
 		if (GRAFO_MATERIAL.esVacio()) {
 			cargarGrafo();
+		}
+	}
+	
+	public void eliminarMaterial(MaterialCapacitacion mat) {
+		int i=0;
+		for(MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
+			if(e.equals(mat)) {
+								
+				GRAFO_MATERIAL.deletNodo(i);
+				
+				this.actualizarArchivos();
+			}
+			i++;
+		}
+	}
+	
+	public void actualizarArchivos() {
+		try {
+			List<CsvRecord> libros= new ArrayList<>();
+			for(MaterialCapacitacion mat : this.listaLibros()){
+				libros.add((CsvRecord) mat);
+			}
+			System.out.println("CAAAAAAAAAAAAAA1");
+			dataSource.guardarColeccion("libros.csv",libros);
+			
+			List<CsvRecord> videos= new ArrayList<>();
+			for(MaterialCapacitacion mat : this.listaVideos()){
+				videos.add((CsvRecord) mat);
+			}
+			System.out.println("CAAAAAAAAAAAAAA2");
+			dataSource.guardarColeccion("videos.csv", videos);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

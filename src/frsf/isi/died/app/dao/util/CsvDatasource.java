@@ -107,10 +107,13 @@ public class CsvDatasource {
 		return result;
 	}
 
+	
+	//este
 	public void guardarColeccion(String archivoCsv, List<CsvRecord> datos) throws IOException {
 		FileWriter writer;
-		writer = new FileWriter(archivoCsv);
+		writer = new FileWriter(archivoCsv,false);
 		for (CsvRecord fila : datos) {
+			//this.writeLine(writer, fila.asCsvRow());
 			this.writeLine(writer, fila.asCsvRow());
 		}
 		writer.flush();
