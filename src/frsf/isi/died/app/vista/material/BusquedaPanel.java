@@ -89,7 +89,8 @@ public class BusquedaPanel extends JPanel{
 		
 		btnBuscar = new JButton("  Buscar ");
 		btnBuscar.addActionListener( e ->{
-
+			this.iniciarBusqueda();
+/*
 			String titulo = null;
 			Double calificacion = null;
 			String fechaPublicacionDesde = null;
@@ -208,7 +209,7 @@ public class BusquedaPanel extends JPanel{
 		btnEliminar.addActionListener( e ->{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
 			controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
-			btnBuscar.getAction();
+			this.iniciarBusqueda();
 		});
 		gridConst.gridx=8;
 		gridConst.gridy=6;
@@ -220,6 +221,7 @@ public class BusquedaPanel extends JPanel{
 			
 			DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
 			panelDocumento.setVisible(true);
+			
 			//DocumentoController controller4 = new DocumentoController(panelDocumento);
 			//controller4.crearPanel();
 			
@@ -252,6 +254,30 @@ public class BusquedaPanel extends JPanel{
 		        }
 		    
 		});
+	}
+	
+	public void iniciarBusqueda() {
+		String titulo = null;
+		Double calificacion = null;
+		String fechaPublicacionDesde = null;
+		String fechaPublicacionHasta = null;
+		String tema = null;
+		String orden = null;
+		
+		try {
+		if(!txtTitulo.getText().isEmpty()) titulo = txtTitulo.getText();
+		if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
+		if(comboTema.getSelectedItem()!=null) tema=comboTema.getSelectedItem().toString();
+		if(!txtFechaPublicacionDesde.getText().isEmpty()) fechaPublicacionDesde=txtFechaPublicacionDesde.getText();
+		if(!txtFechaPublicacionHasta.getText().isEmpty()) fechaPublicacionHasta=txtFechaPublicacionHasta.getText();
+		if(comboOrdenamiento.getSelectedItem()!=null) orden = comboOrdenamiento.getSelectedItem().toString();
+
+						
+			controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta,orden);
+			
+		}catch(Exception ex) {
+		    JOptionPane.showMessageDialog(this, ex.getMessage(), "No se encuentran materiales", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
 
 	public BusquedaController getController() {
