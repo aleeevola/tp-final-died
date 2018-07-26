@@ -217,10 +217,7 @@ public class BusquedaPanel extends JPanel{
 			EditarPanel panelEditar = new EditarPanel(new JFrame(),true);
 			EditarController controller2 = new EditarController(panelEditar);
 			controller2.crearPanel(tableModel.getMateriales().get(seleccion));
-			
-			//System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
-			//controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
-			//this.iniciarBusqueda();
+			this.iniciarBusqueda();
 		});
 		gridConst.gridx=8;
 		gridConst.gridy=4;

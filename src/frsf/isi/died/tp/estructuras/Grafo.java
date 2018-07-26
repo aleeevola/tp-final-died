@@ -48,6 +48,10 @@ public class Grafo<T> {
 	}
 
 	
+	public List<Vertice<T>> getVertices() {
+		return vertices;
+	}
+
 	/**
 	 * @param n1
 	 * @param n2

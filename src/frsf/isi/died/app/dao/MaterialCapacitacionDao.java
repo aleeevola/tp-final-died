@@ -5,6 +5,8 @@ import java.util.PriorityQueue;
 
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
+import frsf.isi.died.tp.modelo.productos.Relevancia;
+import frsf.isi.died.tp.modelo.productos.Tema;
 import frsf.isi.died.tp.modelo.productos.Video;
 
 public interface MaterialCapacitacionDao {
@@ -24,4 +26,6 @@ public interface MaterialCapacitacionDao {
 	public List<MaterialCapacitacion> listaDeseos();
 	public void eliminarMaterial(MaterialCapacitacion mat);
 	public void actualizarArchivos();
+	public void editarMaterial(MaterialCapacitacion mat,String titulo,Double costo, 
+			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion);
 }

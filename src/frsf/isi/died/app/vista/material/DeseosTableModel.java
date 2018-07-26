@@ -9,7 +9,7 @@ import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 public class DeseosTableModel  extends AbstractTableModel {
 
 	private List<MaterialCapacitacion> deseos;
-	private String[] columnas = {"ID","Titulo","Precio Suscripcion","Fecha"};
+	private String[] columnas = {"Titulo","Relevancia","Calificacion","Precio"};
 	
 	
 	@Override
@@ -40,16 +40,16 @@ public class DeseosTableModel  extends AbstractTableModel {
 		Object valor = null;
 		switch (columnIndex) {
 		case 0:
-			valor = this.deseos.get(rowIndex).getId();
-			break;
-		case 1:
 			valor = this.deseos.get(rowIndex).getTitulo();
 			break;
+		case 1:
+			valor = this.deseos.get(rowIndex).getRelevancia();
+			break;
 		case 2:
-			valor = this.deseos.get(rowIndex).precio();
+			valor = this.deseos.get(rowIndex).getCalificacion();
 			break;
 		case 3:
-			valor = this.deseos.get(rowIndex).getFechaPublicacion();
+			valor = this.deseos.get(rowIndex).precio();
 			break;
 		default:
 			System.out.println("Indice fuera de rango");

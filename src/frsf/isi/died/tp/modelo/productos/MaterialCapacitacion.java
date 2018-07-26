@@ -28,6 +28,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	protected String fechaPublicacion;
 	protected Tema tema;
 	
+	
 	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Integer getCalificacion() {
@@ -46,6 +47,10 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	return tema;
 	}
 	
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
 	
 public void setFechaPublicacion(String fechaPublicacion) {
 	this.fechaPublicacion = fechaPublicacion;

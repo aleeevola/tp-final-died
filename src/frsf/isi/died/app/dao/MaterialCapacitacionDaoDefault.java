@@ -14,18 +14,16 @@ import frsf.isi.died.tp.modelo.Biblioteca;
 import frsf.isi.died.tp.modelo.BibliotecaABB;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
+import frsf.isi.died.tp.modelo.productos.Relevancia;
+import frsf.isi.died.tp.modelo.productos.Tema;
 import frsf.isi.died.tp.modelo.productos.Video;
 
-public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
+public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 
 	private static Grafo<MaterialCapacitacion> GRAFO_MATERIAL = new Grafo<MaterialCapacitacion>();
 	private static Integer SECUENCIA_ID = 0;
 	private static Biblioteca biblioteca = new BibliotecaABB();
-	private Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().toLowerCase().compareTo(mc2.getTitulo().toLowerCase());
-	private Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
-	private Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
-	private Comparator<MaterialCapacitacion> comparaFecha= (mc1,mc2)-> mc1.getFechaPublicacion().compareTo(mc2.getFechaPublicacion());
-	private Comparator<MaterialCapacitacion> comparaRelevancia= (mc1,mc2)-> mc1.getRelevancia().comparar(mc2.getRelevancia());
+
 	//pila deseos
 	public static PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
 	
@@ -59,6 +57,31 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 		dataSource = new CsvDatasource();
 		if (GRAFO_MATERIAL.esVacio()) {
 			cargarGrafo();
+		}
+	}
+	
+	public void editarMaterial(MaterialCapacitacion mat,String titulo,Double costo, 
+			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion) {
+		int i=0;
+		for(MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
+			if(e.equals(mat)) {
+								
+				GRAFO_MATERIAL.getVertices().get(i).getValor().setTitulo(titulo);
+				GRAFO_MATERIAL.getVertices().get(i).getValor().setCosto(costo);
+				GRAFO_MATERIAL.getVertices().get(i).getValor().setCalificacion(calificacion);
+				GRAFO_MATERIAL.getVertices().get(i).getValor().setRelevancia(relv);
+				GRAFO_MATERIAL.getVertices().get(i).getValor().setTema(tem);
+				if(mat.esLibro()) {
+					((Libro)GRAFO_MATERIAL.getVertices().get(i).getValor()).setPrecioCompra(precio);
+					((Libro)GRAFO_MATERIAL.getVertices().get(i).getValor()).setPaginas(paginas);
+				}
+				else {
+					((Video)GRAFO_MATERIAL.getVertices().get(i).getValor()).setDuracionEnSegundos(duracion);
+				}
+				this.actualizarArchivos();
+				break;
+			}
+			i++;
 		}
 	}
 	
@@ -164,7 +187,12 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao{
 		
 		System.out.println(materiales.get(0));
 		
-
+		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().toLowerCase().compareTo(mc2.getTitulo().toLowerCase());
+		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
+		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc1.getCalificacion()- mc2.getCalificacion();
+		Comparator<MaterialCapacitacion> comparaFecha= (mc1,mc2)-> mc1.getFechaPublicacion().compareTo(mc2.getFechaPublicacion());
+		Comparator<MaterialCapacitacion> comparaRelevancia= (mc1,mc2)-> mc1.getRelevancia().compareTo(mc2.getRelevancia());
+		//{"Título","Calificación","Precio","Fecha de publicación", "Relevancia"}
 		if(orden!=null) {
 		switch(orden) {
 		case "Título":
