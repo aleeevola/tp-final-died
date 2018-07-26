@@ -41,7 +41,7 @@ public class BusquedaTableModel extends AbstractTableModel{
 			valor = this.materiales.get(rowIndex).getCalificacion();
 			break;
 		case 2:
-			valor = this.materiales.get(rowIndex).getCosto();
+			valor = this.materiales.get(rowIndex).precio();
 			break;
 		case 3:
 			valor = this.materiales.get(rowIndex).getFechaPublicacion();

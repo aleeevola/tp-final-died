@@ -47,6 +47,7 @@ public class BusquedaPanel extends JPanel{
 	private JComboBox comboOrdenamiento;
 	private JButton btnBuscar;
 	private JButton btnCancelar;
+	private JButton btnAsignarRelaciones;
 
 	private BusquedaTableModel tableModel;
 
@@ -194,8 +195,11 @@ public class BusquedaPanel extends JPanel{
 		gridConst.anchor=GridBagConstraints.PAGE_START;		
 		this.add(scrollPane, gridConst);
 		
-		
-		
+		btnAsignarRelaciones = new JButton("Asignar relaciones");
+		gridConst.gridx=3;
+		gridConst.gridy=8;
+		gridConst.anchor = GridBagConstraints.CENTER;
+		this.add(btnAsignarRelaciones, gridConst);
 		/* @alee
 		 * botones editar
 		 * deseo
@@ -212,8 +216,10 @@ public class BusquedaPanel extends JPanel{
 			controller4.crearPanel();
 			
 		});
-		gridConst.gridx=8;
-		gridConst.gridy=7;
+		gridConst.gridx=1;
+		gridConst.gridy=8;
+		gridConst.gridwidth=1;
+		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(btnDocumento, gridConst);
 		
 		btnDeseo = new JButton("Agregar a deseos");
@@ -223,8 +229,10 @@ public class BusquedaPanel extends JPanel{
 			//tableModel.getDocumentos().get(seleccion)
 			//controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
 		});
-		gridConst.gridx=8;
+		gridConst.gridx=2;
 		gridConst.gridy=8;
+		gridConst.gridwidth=1;
+		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(btnDeseo, gridConst);
 		
 		
