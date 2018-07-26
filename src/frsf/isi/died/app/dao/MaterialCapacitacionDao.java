@@ -22,4 +22,6 @@ public interface MaterialCapacitacionDao {
 	
 	public void agregarDeseo(MaterialCapacitacion mat);
 	public List<MaterialCapacitacion> listaDeseos();
+	public void eliminarMaterial(MaterialCapacitacion mat);
+	public void actualizarArchivos();
 }

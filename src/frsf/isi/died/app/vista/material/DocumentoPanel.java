@@ -1,5 +1,42 @@
 package frsf.isi.died.app.vista.material;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+public class DocumentoPanel extends JDialog {
+
+	private final JPanel contentPanel = new JPanel(new GridBagLayout());
+	
+	private JButton btnDocumento;
+	private JLabel lblTitulo;
+
+	public DocumentoPanel(Frame parent, boolean modal){
+		super(parent, modal);
+		this.setSize(400, 400);
+		this.getContentPane().setLayout (new GridBagLayout());
+		JTextArea areaTexto = new JTextArea ("Area texto");
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0; // El área de texto empieza en la columna cero.
+		constraints.gridy = 0; // El área de texto empieza en la fila cero
+		constraints.gridwidth = 2; // El área de texto ocupa dos columnas.
+		constraints.gridheight = 2; // El área de texto ocupa 2 filas.
+		this.getContentPane().add (areaTexto, constraints);
+		}
+	}
+
+
+
+/*
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +58,7 @@ import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
 public class DocumentoPanel extends JDialog{
 	
+	private final JPanel contentPanel = new JPanel();
 	private DocumentoController controller;
 	
 	private JButton btnDocumento;
@@ -28,8 +66,9 @@ public class DocumentoPanel extends JDialog{
 	
 	public DocumentoPanel(Frame parent, boolean modal) {
 		super(parent, modal);
-		this.getContentPane().setLayout(new GridBagLayout());
+		//this.getContentPane().setLayout(new GridBagLayout());
 		//this.setLayout(new GridBagLayout());
+		contentPanel.setLayout(new GridBagLayout());
 	}
 	
 	public void construir() {
@@ -80,7 +119,7 @@ public class DocumentoPanel extends JDialog{
 		        System.out.print(seleccion);
 		        }
 		    
-		});*/
+		});
 	}
 	
 
@@ -92,7 +131,7 @@ public class DocumentoPanel extends JDialog{
 		//int seleccion = tabla.rowAtPoint(evt.getPoint());
 		txtCosto.setText(String.valueOf(tabla.getValueAt(seleccion, 0)));
 		//System.out.println(+seleccion);
-	}*/
+	}
 	
 	
 	public DocumentoController getController() {
@@ -102,10 +141,10 @@ public class DocumentoPanel extends JDialog{
 	public void setController(DocumentoController controller) {
 		this.controller = controller;
 	}
-	/*
+	
 	public void setListaDocumento(List<MaterialCapacitacion> docuementosLista,boolean actualizar) {
 		this.tableModel.setDocumento(docuementosLista);
 		if(actualizar) this.tableModel.fireTableDataChanged();
-	}*/
+	}
 
-}
+} */

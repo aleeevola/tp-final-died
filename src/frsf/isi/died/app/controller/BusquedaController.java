@@ -16,6 +16,10 @@ public class BusquedaController {
 	private BusquedaPanel panelBusqueda;
 	private MaterialCapacitacionDao materialDAO;
 	
+	public void eliminarMaterial(MaterialCapacitacion mat){
+		materialDAO.eliminarMaterial(mat);		
+	}
+	
 	public void agregarDeseo(MaterialCapacitacion mat){
 		materialDAO.agregarDeseo(mat);
 	}

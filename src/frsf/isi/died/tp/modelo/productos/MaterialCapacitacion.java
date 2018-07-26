@@ -90,6 +90,10 @@ public void setRelevancia(Relevancia relevancia) {
 		this.costo = costo;
 		this.fechaPublicacion= formato.format(new Date());
 		
+		this.calificacion=0;
+		this.relevancia=Relevancia.BAJA;
+		this.tema=Tema.CIENCIAS;
+		
 		//String format = formatter.format(date);
 		//System.out.println(format);
 	}

@@ -20,7 +20,9 @@ import javax.swing.JTextField;
 
 import frsf.isi.died.app.controller.BusquedaController;
 import frsf.isi.died.app.controller.DocumentoController;
+import frsf.isi.died.app.controller.EditarController;
 import frsf.isi.died.app.controller.LibroController;
+import frsf.isi.died.app.controller.VideoController;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 import frsf.isi.died.tp.modelo.productos.Tema;
@@ -30,6 +32,8 @@ public class BusquedaPanel extends JPanel{
 	private int seleccion;
 	private JButton btnDocumento;
 	private JButton btnDeseo;
+	private JButton btnEliminar;
+	private JButton btnEditar;
 	
 	private JScrollPane scrollPane;
 	private JTable tabla;
@@ -52,6 +56,7 @@ public class BusquedaPanel extends JPanel{
 	private BusquedaTableModel tableModel;
 
 	private BusquedaController controller;
+	
 	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	public BusquedaPanel() {
 		this.setLayout(new GridBagLayout());
@@ -86,9 +91,10 @@ public class BusquedaPanel extends JPanel{
 		this.add(comboOrdenamiento, gridConst);
 		
 		
-		btnBuscar = new JButton("  Buscar ");
+		btnBuscar = new JButton("           Buscar           ");
 		btnBuscar.addActionListener( e ->{
-
+			this.iniciarBusqueda();
+/* LA FUNCION DE ARRIBA REEMPLAZA ESTE CODIGO
 			String titulo = null;
 			Double calificacion = null;
 			String fechaPublicacionDesde = null;
@@ -118,7 +124,7 @@ public class BusquedaPanel extends JPanel{
 				comboOrdenamiento.setSelectedItem(null);
 				*/
 		});
-		gridConst.gridwidth=1;
+		//gridConst.gridwidth=1;
 		gridConst.weightx=1.0;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		gridConst.gridx=8;
@@ -176,7 +182,7 @@ public class BusquedaPanel extends JPanel{
 		txtFechaPublicacionHasta.setText(formato.format(new Date()));
 		this.add(txtFechaPublicacionHasta, gridConst);
 		
-		btnCancelar= new JButton("Cancelar");
+		btnCancelar= new JButton("          Cancelar         ");
 		gridConst.gridx=8;
 		gridConst.weightx=1.0;
 		gridConst.anchor = GridBagConstraints.LINE_START;
@@ -196,8 +202,8 @@ public class BusquedaPanel extends JPanel{
 		this.add(scrollPane, gridConst);
 		
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
-		gridConst.gridx=3;
-		gridConst.gridy=8;
+		gridConst.gridx=8;
+		gridConst.gridy=6;
 		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(btnAsignarRelaciones, gridConst);
 		/* @alee
@@ -206,18 +212,43 @@ public class BusquedaPanel extends JPanel{
 		 * eliminar
 		 * crear documento
 		 * */
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener( e ->{
+			EditarPanel panelEditar = new EditarPanel(new JFrame(),true);
+			EditarController controller2 = new EditarController(panelEditar);
+			controller2.crearPanel(tableModel.getMateriales().get(seleccion));
+			
+			//System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			//controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			//this.iniciarBusqueda();
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=4;
+		this.add(btnEditar, gridConst);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener( e ->{
+			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			this.iniciarBusqueda();
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=5;
+		this.add(btnEliminar, gridConst);
 		
 		btnDocumento = new JButton("Crear Documento");
 		btnDocumento.addActionListener( e ->{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
 			
 			DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
-			DocumentoController controller4 = new DocumentoController(panelDocumento);
-			controller4.crearPanel();
+			panelDocumento.setVisible(true);
+			
+			//DocumentoController controller4 = new DocumentoController(panelDocumento);
+			//controller4.crearPanel();
 			
 		});
-		gridConst.gridx=1;
-		gridConst.gridy=8;
+		gridConst.gridx=8;
+		gridConst.gridy=7;
 		gridConst.gridwidth=1;
 		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(btnDocumento, gridConst);
@@ -229,7 +260,7 @@ public class BusquedaPanel extends JPanel{
 			//tableModel.getDocumentos().get(seleccion)
 			//controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
 		});
-		gridConst.gridx=2;
+		gridConst.gridx=8;
 		gridConst.gridy=8;
 		gridConst.gridwidth=1;
 		gridConst.anchor = GridBagConstraints.CENTER;
@@ -248,6 +279,30 @@ public class BusquedaPanel extends JPanel{
 		        }
 		    
 		});
+	}
+	
+	public void iniciarBusqueda() {
+		String titulo = null;
+		Double calificacion = null;
+		String fechaPublicacionDesde = null;
+		String fechaPublicacionHasta = null;
+		String tema = null;
+		String orden = null;
+		
+		try {
+		if(!txtTitulo.getText().isEmpty()) titulo = txtTitulo.getText();
+		if(!txtCalificacion.getText().isEmpty()) calificacion=Double.valueOf(txtCalificacion.getText());
+		if(comboTema.getSelectedItem()!=null) tema=comboTema.getSelectedItem().toString();
+		if(!txtFechaPublicacionDesde.getText().isEmpty()) fechaPublicacionDesde=txtFechaPublicacionDesde.getText();
+		if(!txtFechaPublicacionHasta.getText().isEmpty()) fechaPublicacionHasta=txtFechaPublicacionHasta.getText();
+		if(comboOrdenamiento.getSelectedItem()!=null) orden = comboOrdenamiento.getSelectedItem().toString();
+
+						
+			controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta,orden);
+			
+		}catch(Exception ex) {
+		    JOptionPane.showMessageDialog(this, ex.getMessage(), "No se encuentran materiales", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
 
 	public BusquedaController getController() {
