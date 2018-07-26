@@ -20,7 +20,9 @@ import javax.swing.JTextField;
 
 import frsf.isi.died.app.controller.BusquedaController;
 import frsf.isi.died.app.controller.DocumentoController;
+import frsf.isi.died.app.controller.EditarController;
 import frsf.isi.died.app.controller.LibroController;
+import frsf.isi.died.app.controller.VideoController;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 import frsf.isi.died.tp.modelo.productos.Tema;
@@ -31,6 +33,7 @@ public class BusquedaPanel extends JPanel{
 	private JButton btnDocumento;
 	private JButton btnDeseo;
 	private JButton btnEliminar;
+	private JButton btnEditar;
 	
 	private JScrollPane scrollPane;
 	private JTable tabla;
@@ -90,7 +93,7 @@ public class BusquedaPanel extends JPanel{
 		btnBuscar = new JButton("  Buscar ");
 		btnBuscar.addActionListener( e ->{
 			this.iniciarBusqueda();
-/*
+/* LA FUNCION DE ARRIBA REEMPLAZA ESTE CODIGO
 			String titulo = null;
 			Double calificacion = null;
 			String fechaPublicacionDesde = null;
@@ -205,6 +208,20 @@ public class BusquedaPanel extends JPanel{
 		 * eliminar
 		 * crear documento
 		 * */
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener( e ->{
+			EditarPanel panelEditar = new EditarPanel(new JFrame(),true);
+			EditarController controller2 = new EditarController(panelEditar);
+			controller2.crearPanel(tableModel.getMateriales().get(seleccion));
+			
+			//System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			//controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			//this.iniciarBusqueda();
+		});
+		gridConst.gridx=8;
+		gridConst.gridy=5;
+		this.add(btnEditar, gridConst);
+		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener( e ->{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
