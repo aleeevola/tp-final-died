@@ -3,6 +3,7 @@ package frsf.isi.died.app.dao;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import frsf.isi.died.tp.estructuras.Nodo;
 import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 import frsf.isi.died.tp.modelo.productos.Relevancia;
@@ -28,4 +29,5 @@ public interface MaterialCapacitacionDao {
 	public void actualizarArchivos();
 	public void editarMaterial(MaterialCapacitacion mat,String titulo,Double costo, 
 			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion);
+	public void agregarDocumento(Nodo nodo);
 }

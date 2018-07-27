@@ -251,11 +251,10 @@ public class BusquedaPanel extends JPanel{
 		btnDocumento.addActionListener( e ->{
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
 			
-			DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
-			panelDocumento.setVisible(true);
-			
-			//DocumentoController controller4 = new DocumentoController(panelDocumento);
-			//controller4.crearPanel();
+			DocumentoPanel panelEditar = new DocumentoPanel(new JFrame(),true);
+			DocumentoController controller3 = new DocumentoController(panelEditar);
+			controller3.crearPanel(tableModel.getMateriales().get(seleccion));
+			System.out.println("cac");
 			
 		});
 		gridConst.gridx=8;

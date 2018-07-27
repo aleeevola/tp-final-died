@@ -33,6 +33,11 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	
 	private CsvDatasource dataSource;
 	
+	
+	
+	public void agregarDocumento(Nodo nodo){
+		documentos.add(nodo);
+	}
 
 	public void agregarDeseo(MaterialCapacitacion mat){
 		//agrego a la pila

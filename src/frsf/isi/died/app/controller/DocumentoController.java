@@ -4,7 +4,10 @@ import frsf.isi.died.app.dao.MaterialCapacitacionDao;
 import frsf.isi.died.app.dao.MaterialCapacitacionDaoDefault;
 import frsf.isi.died.app.vista.material.DocumentoPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
+import frsf.isi.died.tp.estructuras.Nodo;
+import frsf.isi.died.tp.estructuras.TipoDeDato;
 import frsf.isi.died.tp.modelo.productos.Libro;
+import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
 public class DocumentoController {
 
@@ -24,9 +27,12 @@ public class DocumentoController {
 		//this.panelDocumento.setListaLibros(materialDAO.listaLibros(),true);
 	}
 	
-	public void crearPanel() {		
-		this.panelDocumento.setListaDocumento(materialDAO.listaLibros(),false);
-		this.panelDocumento.construir();
+	public void crearPanel(MaterialCapacitacion mat) {	
+		Nodo nodo = new Nodo(mat.getTitulo(),TipoDeDato.TITULO);
+		materialDAO.agregarDocumento(nodo);
+		this.panelDocumento.setListaDocumento(nodo.arbolEnPreorden(),false);
+		this.panelDocumento.construir(nodo);
+		this.panelDocumento.setVisible(true);
 	}
 
 	public DocumentoPanel getPanelLibro() {

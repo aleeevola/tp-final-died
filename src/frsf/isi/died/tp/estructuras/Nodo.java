@@ -71,14 +71,12 @@ public class Nodo {
 
 	public ArrayList<Nodo> arbolEnPreorden() {
 		ArrayList<Nodo> arbol = new ArrayList<Nodo>();
-		if (this == null) {
-			return new ArrayList<Nodo>();
-		}
 		arbol.add(this);
-		for (int i = 0; i < this.hijos.size(); i++) {
-			arbol.addAll(this.hijos.get(i).arbolEnPreorden());
+		if(this.hijos!=null) {
+			for (int i = 0; i < this.hijos.size(); i++) {
+				arbol.addAll(this.hijos.get(i).arbolEnPreorden());
+			}
 		}
-
 		return arbol;
 	}
 }
