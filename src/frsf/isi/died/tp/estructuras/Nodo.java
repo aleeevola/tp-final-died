@@ -24,6 +24,10 @@ public class Nodo {
 		return this.valor;
 	}
 
+	public TipoDeDato getTipoNodo() {
+		return tipoNodo;
+	}
+
 	/**
 	 * agrega como hijo del nodo actual
 	 * 

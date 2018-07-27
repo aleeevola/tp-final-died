@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import frsf.isi.died.tp.estructuras.Nodo;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
 public class DocumentoTableModel  extends AbstractTableModel {
 
-	private List<MaterialCapacitacion> documentos;
-	private String[] columnas = {"Titulo","Fecha"};
+	private List<Nodo> documentos;
+	private String[] columnas = {"Tipo","Texto"};
 	
 	
 	@Override
@@ -17,11 +18,11 @@ public class DocumentoTableModel  extends AbstractTableModel {
 		return this.columnas[indice];
 	}
 	
-	public List<MaterialCapacitacion> getDocumentos() {
+	public List<Nodo> getDocumentos() {
 		return documentos;
 	}
 
-	public void setDocumento(List<MaterialCapacitacion> libros) {
+	public void setDocumento(List<Nodo> libros) {
 		this.documentos = libros;
 	}
 	@Override
@@ -39,26 +40,11 @@ public class DocumentoTableModel  extends AbstractTableModel {
 		Object valor = null;
 		switch (columnIndex) {
 		case 0:
-			valor = this.documentos.get(rowIndex).getTitulo();
+			valor = this.documentos.get(rowIndex).getTipoNodo();
 			break;
-		/*case 1:
-			valor = this.documentos.get(rowIndex).getTitulo();
-			break;
-		case 2:
-			valor = this.libros.get(rowIndex).getPrecioCompra();
-			break;
-		case 3:
-			valor = this.libros.get(rowIndex).getCosto();
-			break;
-		case 4:
-			valor = this.libros.get(rowIndex).getPaginas();
-			break;
-		case 5:
-			valor = this.libros.get(rowIndex).precio();
-			break;*/
 		case 1:
-			valor = this.documentos.get(rowIndex).getFechaPublicacion();
-			break;
+			valor = this.documentos.get(rowIndex).getValor();
+		break;
 		default:
 			System.out.println("Indice fuera de rango");
 			valor = "S/D";

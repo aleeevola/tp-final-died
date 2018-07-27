@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 import frsf.isi.died.app.dao.util.CsvDatasource;
 import frsf.isi.died.app.dao.util.CsvRecord;
 import frsf.isi.died.tp.estructuras.Grafo;
+import frsf.isi.died.tp.estructuras.Nodo;
 import frsf.isi.died.tp.modelo.Biblioteca;
 import frsf.isi.died.tp.modelo.BibliotecaABB;
 import frsf.isi.died.tp.modelo.productos.Libro;
@@ -26,6 +27,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 
 	//pila deseos
 	public static PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
+		
+	//documentos
+	public static List<Nodo> documentos = new ArrayList<>();
 	
 	private CsvDatasource dataSource;
 	
