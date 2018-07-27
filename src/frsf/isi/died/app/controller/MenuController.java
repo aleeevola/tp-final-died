@@ -51,7 +51,6 @@ public class MenuController {
 			framePrincipal.setContentPane(controller5.getPanelDeseos());
 			break;
 		
-		
 
 		case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());

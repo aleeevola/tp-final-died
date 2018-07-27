@@ -35,8 +35,11 @@ public class BusquedaController {
 		
 	}
 	
-	public void crearPanel() {
-		
+	 public void asignarRelaciones(Integer inicio,Integer fin) {
+		 this.materialDAO.crearCamino(inicio,fin);		
+		 }
+	
+	public void crearPanel() {		
 		//modifique aca
 		this.panelBusqueda.setListaMateriales(materialDAO.listaMateriales(),false);
 		//this.panelBusqueda.setListaMateriales(new ArrayList<MaterialCapacitacion>(),false);

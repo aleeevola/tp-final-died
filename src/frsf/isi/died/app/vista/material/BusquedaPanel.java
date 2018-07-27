@@ -201,7 +201,21 @@ public class BusquedaPanel extends JPanel{
 		gridConst.anchor=GridBagConstraints.PAGE_START;		
 		this.add(scrollPane, gridConst);
 		
+		
+		
+		
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
+		/*
+		 *parte 4 
+		 */
+
+	btnAsignarRelaciones.addActionListener( e -> {
+		System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+		
+		controller.buscarMaterial("", null, tableModel.getMateriales().get(seleccion).getTema().toString(), "","","Título");
+		DocumentoPanel panelDocumento= new DocumentoPanel(new JFrame(),true);
+
+	});;
 		gridConst.gridx=8;
 		gridConst.gridy=6;
 		gridConst.anchor = GridBagConstraints.CENTER;
