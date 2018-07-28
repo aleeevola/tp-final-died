@@ -295,7 +295,7 @@ public class BusquedaPanel extends JPanel {
 		});
 		
 		
-		
+		/*
 		//this.nodoInicio=new JComboBox<>(this.tableModel.getMateriales());
 		//this.nodoFin= new JComboBox(this.tableModel.getMateriales());
 		//private JLabel etiqueta1=new JLabel("seleccione un nodo origen y un nodo como destino para asignarle una relacion");
