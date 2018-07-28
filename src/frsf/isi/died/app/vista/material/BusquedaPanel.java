@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RootPaneContainer;
 
 import com.sun.prism.paint.Color;
 
@@ -209,19 +211,21 @@ public class BusquedaPanel extends JPanel {
 		this.add(scrollPane, gridConst);
 
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
-		/*
-		 * parte 4
-		 */
-
-		btnAsignarRelaciones.addActionListener(e -> {
-			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
-
-			controller.buscarMaterial("", null, tableModel.getMateriales().get(seleccion).getTema().toString(), "", "",
-					"Título");
-			DocumentoPanel panelDocumento = new DocumentoPanel(new JFrame(), true);
-
-		});
-		;
+		this.btnAsignarRelaciones.addActionListener(e -> {
+			//JFrame f = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout());
+		
+		GrafoPanel panelGrafo = new GrafoPanel();
+		ControlPanel panelCtrl = new ControlPanel();
+		GrafoController controller5 = new GrafoController(panelGrafo,panelCtrl);
+		
+		//panelCtrl.armarPanel(tableModel.getMateriales());
+		
+		panel.add(panelCtrl , BorderLayout.PAGE_START);
+		panel.add(panelGrafo , BorderLayout.CENTER);
+		((JFrame) this.getParent()).setContentPane(panel);
+		
+	});
 		gridConst.gridx = 8;
 		gridConst.gridy = 6;
 		gridConst.anchor = GridBagConstraints.CENTER;
@@ -318,23 +322,12 @@ public class BusquedaPanel extends JPanel {
 				gridConst.gridy=6;
 				gridConst.anchor = GridBagConstraints.CENTER;
 				this.add(btnAsignarRelaciones, gridConst);
+*/
 
-		/*		this.btnAsignarRelaciones.addActionListener(e -> {
-			JPanel panel = new JPanel(new BorderLayout());
-			
-			GrafoPanel panelGrafo = new GrafoPanel();
-			ControlPanel panelCtrl = new ControlPanel();
-			GrafoController controller5 = new GrafoController(panelGrafo, panelCtrl);
-			
-		
-			panel.add(panelCtrl , BorderLayout.PAGE_START);
-			panel.add(panelGrafo , BorderLayout.CENTER);
 
-			
-		});
 		
 		
-		*/
+		
 		
 		
 		
