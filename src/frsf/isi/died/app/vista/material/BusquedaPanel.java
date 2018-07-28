@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.sun.prism.paint.Color;
+
 import frsf.isi.died.app.controller.BusquedaController;
 import frsf.isi.died.app.controller.DocumentoController;
 import frsf.isi.died.app.controller.EditarController;
@@ -290,9 +292,31 @@ public class BusquedaPanel extends JPanel {
 			}
 
 		});
-
 		
-		this.btnAsignarRelaciones.addActionListener(e -> {
+		
+		
+		//this.nodoInicio=new JComboBox<>(this.tableModel.getMateriales());
+		//this.nodoFin= new JComboBox(this.tableModel.getMateriales());
+		//private JLabel etiqueta1=new JLabel("seleccione un nodo origen y un nodo como destino para asignarle una relacion");
+		//private JButton btnOrdenarPR=new JButton("Ordenación por importancia de material");
+			this.btnAsignarRelaciones.addActionListener( e -> {
+				Integer idOrigen = this.tableModel.getMateriales().get(nodoInicio.getSelectedIndex()).getId();
+		        Integer idDestino= this.tableModel.getMateriales().get(nodoFin.getSelectedIndex()).getId();
+		        this.controller.asignarRelaciones(idOrigen,idDestino);
+		        ControlPanel cPanel=new ControlPanel();                   
+		//cPanel.add(etiqueta1);
+
+		cPanel.armarPanel(this.tableModel.getMateriales());
+		cPanel.getController().nuevaArista(cPanel.getController().crearVertice(100, 500, Color.BLUE, controller.getMaterial(idOrigen)),cPanel.getController().crearVertice(200, 500, Color.BLUE, this.controller.id(idDestino)));
+		n 		
+		cPanel.add(btnOrdenarPR);
+			});;
+				gridConst.gridx=8;
+				gridConst.gridy=6;
+				gridConst.anchor = GridBagConstraints.CENTER;
+				this.add(btnAsignarRelaciones, gridConst);
+
+		/*		this.btnAsignarRelaciones.addActionListener(e -> {
 			JPanel panel = new JPanel(new BorderLayout());
 			
 			GrafoPanel panelGrafo = new GrafoPanel();
@@ -302,14 +326,15 @@ public class BusquedaPanel extends JPanel {
 		
 			panel.add(panelCtrl , BorderLayout.PAGE_START);
 			panel.add(panelGrafo , BorderLayout.CENTER);
-			this.add(panel);
 
 			
-			
-			//panelGrafo.setVisible(true);
-			//this.add(panelGrafo, gridConst);
-			
 		});
+		
+		
+		*/
+		
+		
+		
 		/* BRUNO 
 		 * 
 		 nodoInicio= new JComboBox(this.tableModel.getMateriales().toArray());
