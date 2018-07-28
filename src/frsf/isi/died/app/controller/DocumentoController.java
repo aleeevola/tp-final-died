@@ -13,6 +13,7 @@ public class DocumentoController {
 
 	private DocumentoPanel panelDocumento;
 	private MaterialCapacitacionDao materialDAO;
+	private Nodo nodoinicial;
 	
 	public DocumentoController(DocumentoPanel panel) {
 		this.panelDocumento = panel;
@@ -21,17 +22,19 @@ public class DocumentoController {
 	}
 
 	
-	public void agregarDocumento(String titulo,Double costo,Double precio,Integer paginas) {	
-		//Libro l = new Libro(0,titulo, costo, precio, paginas) ;
-		//materialDAO .agregarLibro(l);
-		//this.panelDocumento.setListaLibros(materialDAO.listaLibros(),true);
+	public void agregarNodo(Nodo nodoPadre, Nodo nodoHijo) {
+		
+		nodoPadre.agregarHijo(nodoHijo);
+		
+		this.panelDocumento.setListaDocumento(nodoinicial.arbolEnPreorden(),true);
 	}
 	
 	public void crearPanel(MaterialCapacitacion mat) {	
 		Nodo nodo = new Nodo(mat.getTitulo(),TipoDeDato.TITULO);
+		nodoinicial=nodo;
 		materialDAO.agregarDocumento(nodo);
 		this.panelDocumento.setListaDocumento(nodo.arbolEnPreorden(),false);
-		this.panelDocumento.construir(nodo);
+		this.panelDocumento.construir();
 		this.panelDocumento.setVisible(true);
 	}
 
