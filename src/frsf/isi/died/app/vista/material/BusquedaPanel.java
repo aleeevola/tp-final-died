@@ -243,7 +243,9 @@ public class BusquedaPanel extends JPanel {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(e -> {
 			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
-			controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			int eliminar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el material: "+ tableModel.getMateriales().get(seleccion).getTitulo()+ "?", "Eliminar un material", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			System.out.println(eliminar);
+			if(eliminar == 0) controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
 			this.iniciarBusqueda();
 		});
 		gridConst.gridx = 8;
