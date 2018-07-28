@@ -86,11 +86,22 @@ public class DocumentoPanel extends JDialog{
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener( e ->{
-			String texto = String.valueOf(txtTitulo.getText());
-			TipoDeDato tipo = (TipoDeDato) cbTipo.getSelectedItem();
-			Nodo nodoNuevo = new Nodo(texto,tipo);
-			Nodo nodoPadre = tableModel.getDocumentos().get(seleccion);
-			controller.agregarNodo(nodoPadre, nodoNuevo);
+			
+			try {
+				
+				String texto = String.valueOf(txtTitulo.getText());
+				TipoDeDato tipo = (TipoDeDato) cbTipo.getSelectedItem();
+				
+				Nodo nodoNuevo = new Nodo(texto,tipo);
+				
+				Nodo nodoPadre = tableModel.getDocumentos().get(seleccion);
+				
+				controller.agregarNodo(nodoPadre, nodoNuevo);
+				seleccion=-1;
+			}catch(Exception ex) {
+				JOptionPane.showMessageDialog(this, ex.getMessage(), "Seleccione padre", JOptionPane.ERROR_MESSAGE);
+			}
+			
 			
 		});
 		gridConst.gridx=3;
