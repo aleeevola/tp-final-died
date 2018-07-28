@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
+import frsf.isi.died.tp.estructuras.Nodo;
+
 
 public class verDocTableModel  extends AbstractTableModel {
 
-	private List<MaterialCapacitacion> deseos;
-	private String[] columnas = {"Titulo","Relevancia","Calificacion","Precio"};
+	private List<Nodo> documentos;
+	private String[] columnas = {"Documentos"};
 	
 	
 	@Override
@@ -17,17 +18,17 @@ public class verDocTableModel  extends AbstractTableModel {
 		return this.columnas[indice];
 	}
 	
-	public List<MaterialCapacitacion> getLibros() {
-		return deseos;
+	public List<Nodo> getLibros() {
+		return documentos;
 	}
 
-	public void setDeseos(List<MaterialCapacitacion> deseos) {
-		this.deseos = deseos;
+	public void setDeseos(List<Nodo> deseos) {
+		this.documentos = deseos;
 	}
 
 	@Override
 	public int getRowCount() {
-		return deseos.size();
+		return documentos.size();
 	}
 
 	@Override
@@ -40,17 +41,9 @@ public class verDocTableModel  extends AbstractTableModel {
 		Object valor = null;
 		switch (columnIndex) {
 		case 0:
-			valor = this.deseos.get(rowIndex).getTitulo();
+			valor = this.documentos.get(rowIndex).getValor();
 			break;
-		case 1:
-			valor = this.deseos.get(rowIndex).getRelevancia();
-			break;
-		case 2:
-			valor = this.deseos.get(rowIndex).getCalificacion();
-			break;
-		case 3:
-			valor = this.deseos.get(rowIndex).precio();
-			break;
+
 		default:
 			System.out.println("Indice fuera de rango");
 			valor = "S/D";

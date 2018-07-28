@@ -38,6 +38,14 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	public void agregarDocumento(Nodo nodo){
 		documentos.add(nodo);
 	}
+	
+	public List<Nodo> listaDocumentos(){
+		List<Nodo> doc = new ArrayList<>();
+		for(Nodo n : documentos) {
+			doc.add(n);
+		}
+		return doc;
+	}
 
 	public void agregarDeseo(MaterialCapacitacion mat){
 		//agrego a la pila

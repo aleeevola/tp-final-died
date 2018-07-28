@@ -30,4 +30,5 @@ public interface MaterialCapacitacionDao {
 	public void editarMaterial(MaterialCapacitacion mat,String titulo,Double costo, 
 			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion);
 	public void agregarDocumento(Nodo nodo);
+	public List<Nodo> listaDocumentos();
 }

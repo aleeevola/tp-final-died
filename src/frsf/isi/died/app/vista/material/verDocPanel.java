@@ -6,8 +6,11 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import frsf.isi.died.app.controller.DeseosController;
-import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
+
+import frsf.isi.died.app.controller.DocumentoController;
+import frsf.isi.died.app.controller.verDocController;
+import frsf.isi.died.tp.estructuras.Nodo;
+
 
 
 public class verDocPanel extends JPanel{
@@ -16,13 +19,13 @@ public class verDocPanel extends JPanel{
 	private JTable tabla;
 
 
-	private DeseosTableModel tableModel;
+	private verDocTableModel tableModel;
 
-	private DeseosController controller;
+	private verDocController controller;
 
 	public verDocPanel() {
 		this.setLayout(new GridBagLayout());
-		tableModel = new DeseosTableModel();
+		tableModel = new verDocTableModel();
 	}
 	
 	public void construir() {
@@ -43,15 +46,15 @@ public class verDocPanel extends JPanel{
 		
 	}
 
-	public DeseosController getController() {
+	public verDocController getController() {
 		return controller;
 	}
 
-	public void setController(DeseosController controller) {
-		this.controller = controller;
+	public void setController(verDocController verDocController) {
+		this.controller = verDocController;
 	}
 	
-	public void setListaDeseos(List<MaterialCapacitacion> deseosLista,boolean actualizar) {
+	public void setListaDocumento(List<Nodo> deseosLista,boolean actualizar) {
 		this.tableModel.setDeseos(deseosLista);
 		if(actualizar) this.tableModel.fireTableDataChanged();
 	}

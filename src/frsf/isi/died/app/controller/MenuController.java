@@ -12,6 +12,7 @@ import frsf.isi.died.app.vista.material.DeseosPanel;
 import frsf.isi.died.app.vista.material.DocumentoPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.app.vista.material.VideoPanel;
+import frsf.isi.died.app.vista.material.verDocPanel;
 
 public class MenuController {
 
@@ -49,6 +50,13 @@ public class MenuController {
 			DeseosController controller5 = new DeseosController(panelDeseos);
 			controller5.crearPanel();
 			framePrincipal.setContentPane(controller5.getPanelDeseos());
+			break;
+			
+		case VER_DOCUMENTOS:
+			verDocPanel panelVerDoc= new verDocPanel();
+			verDocController controller6 = new verDocController(panelVerDoc);
+			controller6.crearPanel();
+			framePrincipal.setContentPane(controller6.getPanelDeseos());
 			break;
 		
 

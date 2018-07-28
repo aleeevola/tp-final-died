@@ -69,6 +69,12 @@ public class Principal {
 	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DESEOS));
 	        menu.add(menuItem);
 	        
+	        menuItem = new JMenuItem("Documentos");
+	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DOCUMENTOS));
+	        menu.add(menuItem);
+	        
+	       
+	        
 	        f.setJMenuBar(menuBar);
 	        
 	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
