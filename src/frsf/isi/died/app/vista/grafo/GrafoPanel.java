@@ -5,10 +5,12 @@
  */
 package frsf.isi.died.app.vista.grafo;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
@@ -21,6 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,8 +46,94 @@ public class GrafoPanel extends JPanel {
 	private List<AristaView> aristas;
 
 	private AristaView auxiliar;
+	
+	private JButton btnTerminar;
+	private JButton btnVerMateriales;
 
 	public GrafoPanel(MaterialCapacitacion material) {
+		this.framePadre = (JFrame) this.getParent();
+
+		this.vertices = new ArrayList<>();
+		this.aristas = new ArrayList<>();
+
+		this.colaColores = new LinkedList<Color>();
+		this.colaColores.add(Color.RED);
+		this.colaColores.add(Color.BLUE);
+		this.colaColores.add(Color.ORANGE);
+		this.colaColores.add(Color.CYAN);
+		this.colaColores.add(Color.PINK);
+		this.colaColores.add(Color.GREEN);
+		this.colaColores.add(Color.YELLOW);
+		this.colaColores.add(Color.GRAY);
+	
+		btnVerMateriales = new JButton("Ver Materiales");
+		this.btnVerMateriales.addActionListener(e -> {
+			for (MaterialCapacitacion mat : controller.listaMateriales()) {
+				if (material != null) {
+					if (mat.getTema().equals(material.getTema())) {
+						int randomX = ThreadLocalRandom.current().nextInt(50,700);
+						int randomY = ThreadLocalRandom.current().nextInt(100,500);
+						Color aux = colaColores.remove();
+						controller.crearVertice(randomX, randomY, aux, mat);
+						// pongo el color al final de la cola
+						colaColores.add(aux);
+					
+					}
+				}
+			}
+	});
+		
+		this.add(btnVerMateriales);
+		
+		//BorderLayout bl = new BorderLayout();
+		btnTerminar = new JButton("Terminar");
+		this.btnTerminar.addActionListener(e -> {
+			this.getParent().setVisible(false);		
+			});
+		this.add(btnTerminar);
+		
+		
+	/*	for (MaterialCapacitacion mat : controller.listaMateriales()) {
+			if (material != null) {
+				if (mat.getTema().equals(material.getTema())) {
+					int randomX = ThreadLocalRandom.current().nextInt(50,700);
+					int randomY = ThreadLocalRandom.current().nextInt(100,500);
+					Color aux = colaColores.remove();
+					controller.crearVertice(randomX, randomY, aux, mat);
+					// pongo el color al final de la cola
+					colaColores.add(aux);
+				
+				}
+			}
+		}
+	*/
+		addMouseListener(new MouseAdapter() {
+		public void mouseReleased(MouseEvent event) {
+			VerticeView vDestino = clicEnUnNodo(event.getPoint());
+			if (auxiliar != null && vDestino != null) {
+				auxiliar.setDestino(vDestino);
+				controller.crearArista(auxiliar);
+				auxiliar = null;
+			}
+		}
+
+	});
+
+	addMouseMotionListener(new MouseAdapter() {
+		public void mouseDragged(MouseEvent event) {
+			VerticeView vOrigen = clicEnUnNodo(event.getPoint());
+			if (auxiliar == null && vOrigen != null) {
+				auxiliar = new AristaView();
+				auxiliar.setOrigen(vOrigen);
+			}
+		}
+	});
+	
+	
+	}
+	
+	
+	public GrafoPanel() {
 		this.framePadre = (JFrame) this.getParent();
 
 		this.vertices = new ArrayList<>();
@@ -75,19 +164,7 @@ public class GrafoPanel extends JPanel {
 			public void mouseClicked(MouseEvent event) {
 				if(!event.isConsumed()) {
 				
-				for (MaterialCapacitacion mat : controller.listaMateriales()) {
-					if (material != null) {
-						if (mat.getTema().equals(material.getTema())) {
-							int randomX = ThreadLocalRandom.current().nextInt(50,700);
-							int randomY = ThreadLocalRandom.current().nextInt(100,500);
-							Color aux = colaColores.remove();
-							controller.crearVertice(randomX, randomY, aux, mat);
-							// pongo el color al final de la cola
-							colaColores.add(aux);
-						
-						}
-					}
-				}
+
 				event.consume();
 				}
 				

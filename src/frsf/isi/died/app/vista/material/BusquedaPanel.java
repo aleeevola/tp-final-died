@@ -216,12 +216,8 @@ public class BusquedaPanel extends JPanel {
 			JPanel panel = new JPanel(new BorderLayout());
 		
 		GrafoPanel panelGrafo = new GrafoPanel(tableModel.getMateriales().get(seleccion));
-		ControlPanel panelCtrl = new ControlPanel();
 		GrafoController controller5 = new GrafoController(panelGrafo);
-		
-		//panelCtrl.armarPanel(tableModel.getMateriales());
-		
-		//panel.add(panelCtrl , BorderLayout.PAGE_START);
+
 		panel.add(panelGrafo , BorderLayout.CENTER);
 		f.setContentPane(panel);
 		f.setSize(getSize());
