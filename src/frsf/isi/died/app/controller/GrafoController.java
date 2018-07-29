@@ -29,6 +29,8 @@ public class GrafoController {
 		this.vistaControl.setController(this);
 		this.materialDao = new MaterialCapacitacionDaoDefault();
 		this.vistaControl.armarPanel(materialDao.listaMateriales());
+		this.vistaControl.setVisible(true);
+		this.vistaGrafo.setVisible(true);
 	}
 
 	public void crearVertice(Integer coordenadaX, Integer coordenadaY, Color color, MaterialCapacitacion mc) {

@@ -212,7 +212,7 @@ public class BusquedaPanel extends JPanel {
 
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
 		this.btnAsignarRelaciones.addActionListener(e -> {
-			//JFrame f = new JFrame();
+			JFrame f = new JFrame("Asignar relaciones");
 			JPanel panel = new JPanel(new BorderLayout());
 		
 		GrafoPanel panelGrafo = new GrafoPanel();
@@ -223,8 +223,9 @@ public class BusquedaPanel extends JPanel {
 		
 		panel.add(panelCtrl , BorderLayout.PAGE_START);
 		panel.add(panelGrafo , BorderLayout.CENTER);
-		((JFrame) this.getParent()).setContentPane(panel);
-		
+		f.setContentPane(panel);
+		f.setSize(getSize());
+		f.setVisible(true);		
 	});
 		gridConst.gridx = 8;
 		gridConst.gridy = 6;
