@@ -33,6 +33,14 @@ public class GrafoController {
 		this.vistaGrafo.setVisible(true);
 	}
 
+	public GrafoController(GrafoPanel panelGrf) {
+		this.vistaGrafo = panelGrf;
+		this.vistaGrafo.setController(this);
+		this.materialDao = new MaterialCapacitacionDaoDefault();
+		this.vistaGrafo.setVisible(true);
+	}
+	
+	
 	public void crearVertice(Integer coordenadaX, Integer coordenadaY, Color color, MaterialCapacitacion mc) {
 		VerticeView v = new VerticeView(coordenadaX, coordenadaY, color);
 		v.setId(mc.getId());
@@ -57,4 +65,12 @@ public class GrafoController {
 	public List<MaterialCapacitacion> listaVertices() {
 		return materialDao.listaMateriales();
 	}
+
+	public List<MaterialCapacitacion> listaMateriales() {
+		// TODO Auto-generated method stub
+		return materialDao.listaMateriales();
+		
+	}
+	
+	
 }

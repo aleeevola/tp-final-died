@@ -13,6 +13,7 @@ import frsf.isi.died.app.vista.material.DocumentoPanel;
 import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.app.vista.material.VideoPanel;
 import frsf.isi.died.app.vista.material.verDocPanel;
+import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
 public class MenuController {
 
@@ -63,7 +64,7 @@ public class MenuController {
 		case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());
 			ControlPanel controlPanel = new ControlPanel();
-			GrafoPanel grafoPanel = new GrafoPanel();
+			GrafoPanel grafoPanel = new GrafoPanel(null);
 			GrafoController grfController = new GrafoController(grafoPanel,controlPanel);
 			panel.add(controlPanel , BorderLayout.PAGE_START);
 			panel.add(grafoPanel , BorderLayout.CENTER);
