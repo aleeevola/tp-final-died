@@ -64,7 +64,7 @@ public class MenuController {
 		case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());
 			ControlPanel controlPanel = new ControlPanel();
-			GrafoPanel grafoPanel = new GrafoPanel(null);
+			GrafoPanel grafoPanel = new GrafoPanel();
 			GrafoController grfController = new GrafoController(grafoPanel,controlPanel);
 			panel.add(controlPanel , BorderLayout.PAGE_START);
 			panel.add(grafoPanel , BorderLayout.CENTER);

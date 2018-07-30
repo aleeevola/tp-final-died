@@ -164,7 +164,7 @@ public class Grafo<T> {
 	 * @param v2
 	 * @return
 	 */
-	protected boolean esAdyacente(Vertice<T> v1,Vertice<T> v2){
+	public boolean esAdyacente(Vertice<T> v1,Vertice<T> v2){
             List<Vertice<T>> ady = this.getAdyacentes(v1);
             for(Vertice<T> unAdy : ady){
                 if(unAdy.equals(v2)) return true;

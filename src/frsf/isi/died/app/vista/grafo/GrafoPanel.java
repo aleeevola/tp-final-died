@@ -84,30 +84,14 @@ public class GrafoPanel extends JPanel {
 	});
 		
 		this.add(btnVerMateriales);
-		
-		//BorderLayout bl = new BorderLayout();
+
 		btnTerminar = new JButton("Terminar");
 		this.btnTerminar.addActionListener(e -> {
-			this.getParent().setVisible(false);		
+			
 			});
 		this.add(btnTerminar);
 		
-		
-	/*	for (MaterialCapacitacion mat : controller.listaMateriales()) {
-			if (material != null) {
-				if (mat.getTema().equals(material.getTema())) {
-					int randomX = ThreadLocalRandom.current().nextInt(50,700);
-					int randomY = ThreadLocalRandom.current().nextInt(100,500);
-					Color aux = colaColores.remove();
-					controller.crearVertice(randomX, randomY, aux, mat);
-					// pongo el color al final de la cola
-					colaColores.add(aux);
-				
-				}
-			}
-		}
-	*/
-		addMouseListener(new MouseAdapter() {
+				addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
 			VerticeView vDestino = clicEnUnNodo(event.getPoint());
 			if (auxiliar != null && vDestino != null) {
@@ -146,34 +130,12 @@ public class GrafoPanel extends JPanel {
 		this.colaColores.add(Color.CYAN);
 		this.colaColores.add(Color.PINK);
 		
-/*		for (MaterialCapacitacion mat : controller.listaMateriales()) {
-			if (material != null) {
-				if (mat.getTema().equals(material.getTema())) {
-					Color aux = colaColores.remove();
-					controller.crearVertice(199 + i, 199 + i, aux, mat);
-					// pongo el color al final de la cola
-					colaColores.add(aux);
-					i += 2;
-				}
-			}
-		}
-*/
-		
-		
+	
 		addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent event) {
-				if(!event.isConsumed()) {
-				
-
-				event.consume();
-				}
-				
+			public void mouseClicked(MouseEvent event) {			
 				if (event.getClickCount() == 2 && !event.isConsumed()) {
-					event.consume();
-					
+					event.consume();					
 					Object[] mats = controller.listaVertices().toArray();
-					System.out.println("ANTES"+mats[0]+"dsp");
-					System.out.println(controller.listaMateriales().get(0));
 					// String text = JOptionPane.showInputDialog(, "ID del nodo");
 					Object verticeMatSeleccionado = (MaterialCapacitacion) JOptionPane.showInputDialog(framePadre,
 							"Que material corresponde con el vertice?", "Agregar Vertice", JOptionPane.QUESTION_MESSAGE,
@@ -220,79 +182,98 @@ public class GrafoPanel extends JPanel {
 		this.vertices.add(vert);
 	}
 
-	public void caminoPintar(List<MaterialCapacitacion> camino) {
-		// this.vertices.add(vert);
-		Integer idOrigen = -1;
-		Integer idDestino = -1;
-		for (MaterialCapacitacion mat : camino) {
-			if (idOrigen < 0) {
-				idOrigen = mat.getId();
-			} else {
-				idDestino = mat.getId();
-				for (AristaView av : this.aristas) {
-					if (av.getOrigen().getId().equals(idOrigen) && av.getDestino().getId().equals(idDestino)) {
-						av.setColor(Color.RED);
-						av.getOrigen().setColor(Color.BLUE);
-						av.getDestino().setColor(Color.BLUE);
-					}
-				}
-				idOrigen = idDestino;
-			}
-		}
-	}
 
-	private void dibujarVertices(Graphics2D g2d) {
-		for (VerticeView v : this.vertices) {
-			g2d.setPaint(Color.BLUE);
-			g2d.drawString(v.etiqueta(), v.getCoordenadaX() - 5, v.getCoordenadaY() - 5);
-			g2d.setPaint(v.getColor());
-			g2d.fill(v.getNodo());
-		}
-	}
+    public void caminoPintar(List<MaterialCapacitacion> camino){
+        //this.vertices.add(vert);
+    	Integer idOrigen =-1;
+    	Integer idDestino =-1;
+    	MaterialCapacitacion matOrigen = camino.get(0), matDestino = camino.get(camino.size()-1), matIntermedio; 
+		int randomX1 = ThreadLocalRandom.current().nextInt(100,400);
+		int randomY1 = ThreadLocalRandom.current().nextInt(100,400);
+		int randomX2 = ThreadLocalRandom.current().nextInt(100,400);
+		int randomY2 = ThreadLocalRandom.current().nextInt(100,400);
+		//controller.crearVertice(randomX1, randomY1, Color.BLUE, matOrigen);
+		//controller.crearVertice(randomX2, randomY2, Color.BLUE, matDestino);
+		
+		VerticeView v1 = new VerticeView(randomX1,randomY1,Color.BLACK);
+		v1.setNombre(camino.get(0).getTitulo());
+    	for(MaterialCapacitacion mat : camino) {
+    		if(idOrigen<0) {    			
+    			idOrigen=mat.getId();
+    		}else {
+    			idDestino = mat.getId();
+    			matIntermedio = mat;
+    			for(AristaView av : this.aristas) {
+    				if(av.getOrigen().getId().equals(idOrigen) && av.getDestino().getId().equals(idDestino) ) {
+    					
+    					int randomX3 = ThreadLocalRandom.current().nextInt(100,400);
+    					int randomY3 = ThreadLocalRandom.current().nextInt(100,400);
+    					//controller.crearVertice(randomX3, randomY3, Color.BLUE, matIntermedio);
+    	    			//controller.crearArista(av);
+    	    			
+    	    			//AristaView a = new AristaView(); 
+    					av.setColor(Color.RED);
+    	    			av.getOrigen().setColor(Color.BLUE);
+    	    			av.getDestino().setColor(Color.BLUE);
+    				}
+    			}
+    			idOrigen = idDestino;
+    		}
+    	}
+    }
+    
+    private void dibujarVertices(Graphics2D g2d) {
+        for (VerticeView v : this.vertices) {
+            g2d.setPaint(Color.BLUE);
+            g2d.drawString(v.etiqueta(),v.getCoordenadaX()-5,v.getCoordenadaY()-5);
+            g2d.setPaint(v.getColor());
+            g2d.fill(v.getNodo());
+        }
+    }
 
-	private void dibujarAristas(Graphics2D g2d) {
-		System.out.println(this.aristas);
-		for (AristaView a : this.aristas) {
-			g2d.setPaint(a.getColor());
-			g2d.setStroke(a.getFormatoLinea());
-			g2d.draw(a.getLinea());
-			// dibujo una flecha al final
-			// con el color del origen para que se note
-			g2d.setPaint(Color.BLACK);
-			Polygon flecha = new Polygon();
-			flecha.addPoint(a.getDestino().getCoordenadaX(), a.getDestino().getCoordenadaY() + 7);
-			flecha.addPoint(a.getDestino().getCoordenadaX() + 20, a.getDestino().getCoordenadaY() + 10);
-			flecha.addPoint(a.getDestino().getCoordenadaX(), a.getDestino().getCoordenadaY() + 18);
-			g2d.fillPolygon(flecha);
-		}
-	}
+    private void dibujarAristas(Graphics2D g2d) {
+        System.out.println(this.aristas);
+        for (AristaView a : this.aristas) {
+            g2d.setPaint(a.getColor());
+            g2d.setStroke ( a.getFormatoLinea());
+            g2d.draw(a.getLinea());
+            //dibujo una flecha al final
+            // con el color del origen para que se note
+            g2d.setPaint(Color.BLACK);
+            Polygon flecha = new Polygon();  
+            flecha.addPoint(a.getDestino().getCoordenadaX(), a.getDestino().getCoordenadaY()+7);
+            flecha.addPoint(a.getDestino().getCoordenadaX()+20, a.getDestino().getCoordenadaY()+10);
+            flecha.addPoint(a.getDestino().getCoordenadaX(), a.getDestino().getCoordenadaY()+18);
+            g2d.fillPolygon(flecha);
+        }
+    }
 
-	private VerticeView clicEnUnNodo(Point p) {
-		for (VerticeView v : this.vertices) {
-			if (v.getNodo().contains(p)) {
-				return v;
-			}
-		}
-		return null;
-	}
+    private VerticeView clicEnUnNodo(Point p) {
+        for (VerticeView v : this.vertices) {
+            if (v.getNodo().contains(p)) {
+                return v;
+            }
+        }
+        return null;
+    }
 
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g.create();
-		dibujarVertices(g2d);
-		dibujarAristas(g2d);
-	}
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        dibujarVertices(g2d);
+        dibujarAristas(g2d);
+    }
 
-	public Dimension getPreferredSize() {
-		return new Dimension(450, 400);
-	}
+    public Dimension getPreferredSize() {
+        return new Dimension(450, 400);
+    }
 
-	public GrafoController getController() {
-		return controller;
-	}
+    public GrafoController getController() {
+        return controller;
+    }
 
-	public void setController(GrafoController controller) {
-		this.controller = controller;
-	}
+    public void setController(GrafoController controller) {
+        this.controller = controller;
+    }
 
 }

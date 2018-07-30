@@ -31,4 +31,5 @@ public interface MaterialCapacitacionDao {
 			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion);
 	public void agregarDocumento(Nodo nodo);
 	public List<Nodo> listaDocumentos();
+	double calcularPageRank(MaterialCapacitacion mat);
 }

@@ -25,50 +25,45 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	private static Integer SECUENCIA_ID = 0;
 	private static Biblioteca biblioteca = new BibliotecaABB();
 
-	//pila deseos
+	// pila deseos
 	public static PriorityQueue<MaterialCapacitacion> deseos = new PriorityQueue<>(new DeseoComparator());
-		
-	//documentos
+
+	// documentos
 	public static List<Nodo> documentos = new ArrayList<>();
-	
+
 	private CsvDatasource dataSource;
-	
-	
-	
-	public void agregarDocumento(Nodo nodo){
+
+	public void agregarDocumento(Nodo nodo) {
 		documentos.add(nodo);
 	}
-	
-	public List<Nodo> listaDocumentos(){
+
+	public List<Nodo> listaDocumentos() {
 		List<Nodo> doc = new ArrayList<>();
-		for(Nodo n : documentos) {
+		for (Nodo n : documentos) {
 			doc.add(n);
 		}
 		return doc;
 	}
 
-	public void agregarDeseo(MaterialCapacitacion mat){
-		//agrego a la pila
+	public void agregarDeseo(MaterialCapacitacion mat) {
+		// agrego a la pila
 		deseos.add(mat);
 	}
-	
-	public List<MaterialCapacitacion> listaDeseos(){
-		//saco de la pila
-		List<MaterialCapacitacion> ld=new ArrayList<>();
+
+	public List<MaterialCapacitacion> listaDeseos() {
+		// saco de la pila
+		List<MaterialCapacitacion> ld = new ArrayList<>();
 		while (!deseos.isEmpty()) {
-            MaterialCapacitacion mat = deseos.poll();
-            ld.add(mat);
-        }
-		//cargo de nuevo la pila
-		for(MaterialCapacitacion c :ld){
-            deseos.add(c);
-        }
-		
+			MaterialCapacitacion mat = deseos.poll();
+			ld.add(mat);
+		}
+		// cargo de nuevo la pila
+		for (MaterialCapacitacion c : ld) {
+			deseos.add(c);
+		}
+
 		return ld;
 	}
-
-
-
 
 	public MaterialCapacitacionDaoDefault() {
 		dataSource = new CsvDatasource();
@@ -76,24 +71,23 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			cargarGrafo();
 		}
 	}
-	
-	public void editarMaterial(MaterialCapacitacion mat,String titulo,Double costo, 
-			Integer calificacion,Relevancia relv,Tema tem,Double precio,Integer paginas, Integer duracion) {
-		int i=0;
-		for(MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
-			if(e.equals(mat)) {
-								
+
+	public void editarMaterial(MaterialCapacitacion mat, String titulo, Double costo, Integer calificacion,
+			Relevancia relv, Tema tem, Double precio, Integer paginas, Integer duracion) {
+		int i = 0;
+		for (MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
+			if (e.equals(mat)) {
+
 				GRAFO_MATERIAL.getVertices().get(i).getValor().setTitulo(titulo);
 				GRAFO_MATERIAL.getVertices().get(i).getValor().setCosto(costo);
 				GRAFO_MATERIAL.getVertices().get(i).getValor().setCalificacion(calificacion);
 				GRAFO_MATERIAL.getVertices().get(i).getValor().setRelevancia(relv);
 				GRAFO_MATERIAL.getVertices().get(i).getValor().setTema(tem);
-				if(mat.esLibro()) {
-					((Libro)GRAFO_MATERIAL.getVertices().get(i).getValor()).setPrecioCompra(precio);
-					((Libro)GRAFO_MATERIAL.getVertices().get(i).getValor()).setPaginas(paginas);
-				}
-				else {
-					((Video)GRAFO_MATERIAL.getVertices().get(i).getValor()).setDuracionEnSegundos(duracion);
+				if (mat.esLibro()) {
+					((Libro) GRAFO_MATERIAL.getVertices().get(i).getValor()).setPrecioCompra(precio);
+					((Libro) GRAFO_MATERIAL.getVertices().get(i).getValor()).setPaginas(paginas);
+				} else {
+					((Video) GRAFO_MATERIAL.getVertices().get(i).getValor()).setDuracionEnSegundos(duracion);
 				}
 				this.actualizarArchivos();
 				break;
@@ -101,36 +95,36 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			i++;
 		}
 	}
-	
+
 	public void eliminarMaterial(MaterialCapacitacion mat) {
-		int i=0;
-		for(MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
-			if(e.equals(mat)) {
-								
+		int i = 0;
+		for (MaterialCapacitacion e : GRAFO_MATERIAL.listaVertices()) {
+			if (e.equals(mat)) {
+
 				GRAFO_MATERIAL.deletNodo(i);
-				
+
 				this.actualizarArchivos();
 			}
 			i++;
 		}
 	}
-	
+
 	public void actualizarArchivos() {
 		try {
-			List<CsvRecord> libros= new ArrayList<>();
-			for(MaterialCapacitacion mat : this.listaLibros()){
+			List<CsvRecord> libros = new ArrayList<>();
+			for (MaterialCapacitacion mat : this.listaLibros()) {
 				libros.add((CsvRecord) mat);
 			}
 			System.out.println("CAAAAAAAAAAAAAA1");
-			dataSource.guardarColeccion("libros.csv",libros);
-			
-			List<CsvRecord> videos= new ArrayList<>();
-			for(MaterialCapacitacion mat : this.listaVideos()){
+			dataSource.guardarColeccion("libros.csv", libros);
+
+			List<CsvRecord> videos = new ArrayList<>();
+			for (MaterialCapacitacion mat : this.listaVideos()) {
 				videos.add((CsvRecord) mat);
 			}
 			System.out.println("CAAAAAAAAAAAAAA2");
 			dataSource.guardarColeccion("videos.csv", videos);
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,53 +179,57 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	}
 
 	@Override
-	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema, String fechaPublicacionDesde,
-			String fechaPublicacionHasta,String orden) {
+	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema,
+			String fechaPublicacionDesde, String fechaPublicacionHasta, String orden) {
 		List<MaterialCapacitacion> materiales = new ArrayList<MaterialCapacitacion>();
 		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
 			if (titulo == null || mat.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
 				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
 					if (tema == null || mat.getTema().toString().equals(tema)) {
-						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null) || (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde)>=0 && mat.getFechaPublicacion().compareTo(fechaPublicacionHasta)<=0)) {
-														
+						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null)
+								|| (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde) >= 0
+										&& mat.getFechaPublicacion().compareTo(fechaPublicacionHasta) <= 0)) {
+
 							materiales.add(mat);
-						
+
 						}
 					}
 				}
 			}
 		}
 		
-		System.out.println(materiales.get(0));
-		
-		Comparator<MaterialCapacitacion> comparaTitulo= (mc1,mc2)-> mc1.getTitulo().toLowerCase().compareTo(mc2.getTitulo().toLowerCase());
-		Comparator<MaterialCapacitacion> comparaPrecio= (mc1,mc2)-> mc1.precio().intValue()- mc2.precio().intValue();
-		Comparator<MaterialCapacitacion> comparaCalificacion= (mc1,mc2)-> mc2.getCalificacion()- mc1.getCalificacion();
-		Comparator<MaterialCapacitacion> comparaFecha= (mc1,mc2)-> mc1.getFechaPublicacion().compareTo(mc2.getFechaPublicacion());
-		Comparator<MaterialCapacitacion> comparaRelevancia= (mc1,mc2)-> mc1.getRelevancia().compareTo(mc2.getRelevancia());
-		//{"Título","Calificación","Precio","Fecha de publicación", "Relevancia"}
-		if(orden!=null) {
-		switch(orden) {
-		case "Título":
-			Collections.sort(materiales, comparaTitulo);
-			break;
-		case "Calificación":
-			Collections.sort(materiales, comparaCalificacion);
-			break;
-		case "Precio":
-			Collections.sort(materiales, comparaPrecio);
-			break;
-		case "Fecha de publicación":
-			Collections.sort(materiales, comparaFecha);
-			break;
-		case "Relevancia":
-			Collections.sort(materiales, comparaRelevancia);
-			break;
-		}
+		if (orden != null) {
+			switch (orden) {
+			case "Título":
+				Comparator<MaterialCapacitacion> comparaTitulo = (mc1, mc2) -> mc1.getTitulo().toLowerCase()
+				.compareTo(mc2.getTitulo().toLowerCase());
+				Collections.sort(materiales, comparaTitulo);
+				break;
+			case "Calificación":				
+				Comparator<MaterialCapacitacion> comparaCalificacion = (mc1, mc2) -> mc2.getCalificacion()
+						- mc1.getCalificacion();
+				Collections.sort(materiales, comparaCalificacion);
+				break;
+			case "Precio":
+				Comparator<MaterialCapacitacion> comparaPrecio = (mc1, mc2) -> mc1.precio().intValue()
+				- mc2.precio().intValue();
+				Collections.sort(materiales, comparaPrecio);
+				break;
+			case "Fecha de publicación":
+				Comparator<MaterialCapacitacion> comparaFecha = (mc1, mc2) -> mc1.getFechaPublicacion()
+				.compareTo(mc2.getFechaPublicacion());
+				Collections.sort(materiales, comparaFecha);
+				break;
+			case "Relevancia":
+				Comparator<MaterialCapacitacion> comparaRelevancia = (mc1, mc2) -> mc1.getRelevancia()
+				.compareTo(mc2.getRelevancia());
+				Collections.sort(materiales, comparaRelevancia);
+				break;
+			}
 		}
 
 		return materiales;
-		
+
 	}
 
 	@Override
@@ -295,4 +293,32 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 	}
 
+	public boolean esAdyacente(MaterialCapacitacion m1,MaterialCapacitacion m2) {
+		List<MaterialCapacitacion> ady=new ArrayList<>();
+		ady=GRAFO_MATERIAL.getAdyacentes(m1);
+		for (MaterialCapacitacion unAdy: ady) {
+	if (unAdy.equals(m2))	
+	return true;	
+			
+		}
+	return false;
+	}
+	@Override
+	public double calcularPageRank(MaterialCapacitacion mat) {
+		double p = 0, d = 0.5;
+		for (MaterialCapacitacion material : GRAFO_MATERIAL.listaVertices()) {
+			if (material.getTema() == mat.getTema() && this.esAdyacente(material, mat))
+				p += this.calcularPageRank(material) / GRAFO_MATERIAL.gradoSalida(material);
+		}
+		if (p == 0)
+			return d;
+
+		return (1-d+d*p);
+
+	}
+	// r(a)=(1-d)+d*sum(pr/c)
+	// pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
+	// ese nodo.
+
+	
 }

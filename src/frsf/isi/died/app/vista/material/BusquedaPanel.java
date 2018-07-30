@@ -102,44 +102,20 @@ public class BusquedaPanel extends JPanel {
 		gridConst.gridx = 5;
 		this.add(comboOrdenamiento, gridConst);
 
-		btnBuscar = new JButton("           Buscar           ");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(e -> {
 			this.iniciarBusqueda();
-			/*
-			 * LA FUNCION DE ARRIBA REEMPLAZA ESTE CODIGO String titulo = null; Double
-			 * calificacion = null; String fechaPublicacionDesde = null; String
-			 * fechaPublicacionHasta = null; String tema = null; String orden = null;
-			 * 
-			 * try { if(!txtTitulo.getText().isEmpty()) titulo = txtTitulo.getText();
-			 * if(!txtCalificacion.getText().isEmpty())
-			 * calificacion=Double.valueOf(txtCalificacion.getText());
-			 * if(comboTema.getSelectedItem()!=null)
-			 * tema=comboTema.getSelectedItem().toString();
-			 * if(!txtFechaPublicacionDesde.getText().isEmpty())
-			 * fechaPublicacionDesde=txtFechaPublicacionDesde.getText();
-			 * if(!txtFechaPublicacionHasta.getText().isEmpty())
-			 * fechaPublicacionHasta=txtFechaPublicacionHasta.getText();
-			 * if(comboOrdenamiento.getSelectedItem()!=null) orden =
-			 * comboOrdenamiento.getSelectedItem().toString();
-			 * 
-			 * 
-			 * controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde,
-			 * fechaPublicacionHasta,orden);
-			 * 
-			 * }catch(Exception ex) { JOptionPane.showMessageDialog(this, ex.getMessage(),
-			 * "No se encuentran materiales", JOptionPane.ERROR_MESSAGE); }
-			 * /*txtTitulo.setText(""); txtCalificacion.setText("");
-			 * comboTema.setSelectedItem(null); txtFechaPublicacionDesde.setText("");
-			 * txtFechaPublicacionHasta.setText("");
-			 * comboOrdenamiento.setSelectedItem(null);
-			 */
+			
 		});
 		// gridConst.gridwidth=1;
 		gridConst.weightx = 1.0;
+		gridConst.fill =GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		gridConst.gridx = 8;
 		this.add(btnBuscar, gridConst);
-
+		
+		gridConst.fill =GridBagConstraints.NONE;
+		
 		lblCalificacion = new JLabel(" Calificacion: ");
 		gridConst.gridx = 0;
 		gridConst.gridy = 1;
@@ -191,9 +167,10 @@ public class BusquedaPanel extends JPanel {
 		txtFechaPublicacionHasta.setText(formato.format(new Date()));
 		this.add(txtFechaPublicacionHasta, gridConst);
 
-		btnCancelar = new JButton("          Cancelar         ");
+		btnCancelar = new JButton("Cancelar");
 		gridConst.gridx = 8;
 		gridConst.weightx = 1.0;
+		gridConst.fill = GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		this.add(btnCancelar, gridConst);
 

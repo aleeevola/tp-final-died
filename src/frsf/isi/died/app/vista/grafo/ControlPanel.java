@@ -40,7 +40,10 @@ public class ControlPanel extends JPanel {
         this.btnBuscarCamino = new JButton("Buscar Camino");
         this.btnBuscarCamino.addActionListener(
                 e -> { 
-                    Integer n =Integer.parseInt(txtLongitudCamino.getText());
+                    
+                	Integer n = null;
+                	if(!txtLongitudCamino.getText().isEmpty()) n = Integer.valueOf(txtLongitudCamino.getText());
+                		//Integer.parseInt(txtLongitudCamino.getText());
                     Integer idOrigen = this.listaVertices.get(cmbVertice1.getSelectedIndex()).getId();
                     Integer idDestino= this.listaVertices.get(cmbVertice2.getSelectedIndex()).getId();
                     controller.buscarCamino(idOrigen,idDestino,n); 
