@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
+
 public class Grafo<T> {
 
 	protected List<Arista<T>> aristas;
@@ -159,6 +161,13 @@ public class Grafo<T> {
 		return res;
 	}
         
+	public Integer gradoSalida(Vertice<T> v){
+		Integer res =0;
+		for(Arista<T> arista : this.aristas){
+			if(arista.getInicio().equals(v)) ++res;
+		}
+		return res;
+	}
 	/**
 	 * @param v1
 	 * @param v2
@@ -247,6 +256,22 @@ public class Grafo<T> {
         return resultado;
     }
 
+    public Double calcularPageRank(T v) {
+    	Vertice<T> vertice = this.getNodo(v);
+    	return calcularPageRank(vertice);
+    }
+    
+    public Double calcularPageRank(Vertice<T> vertice) {
+    	double p = 1, d = 0.5;
+    	for(Vertice<T> v: this.vertices) {
+    		if(!this.buscarCaminoNSaltos(v,vertice,1,new HashSet<Vertice>()).isEmpty())
+    				p+= this.calcularPageRank(v)/this.gradoSalida(v);
+    	}
+    	if (p==1) 
+    		return 1-d;
+    	
+    	return (1-d+d*p);
+    }
 
 }
 
