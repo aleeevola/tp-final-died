@@ -29,10 +29,12 @@ public class DocumentoController {
 		this.panelDocumento.setListaDocumento(nodoinicial.arbolEnPreorden(),true);
 	}
 	
-	public void crearPanel(MaterialCapacitacion mat) {	
-		Nodo nodo = new Nodo(mat.getTitulo(),TipoDeDato.TITULO);
+	public void crearPanel(Nodo n) {	
+		Nodo nodo = n;
 		nodoinicial=nodo;
-		materialDAO.agregarDocumento(nodo);
+		
+		if(!materialDAO.contieneDoc(nodo)) materialDAO.agregarDocumento(nodo);
+		
 		this.panelDocumento.setListaDocumento(nodo.arbolEnPreorden(),false);
 		this.panelDocumento.construir();
 		this.panelDocumento.setVisible(true);

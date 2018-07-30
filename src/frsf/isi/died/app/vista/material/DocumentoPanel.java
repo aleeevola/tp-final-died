@@ -97,7 +97,9 @@ public class DocumentoPanel extends JDialog{
 				Nodo nodoPadre = tableModel.getDocumentos().get(seleccion);
 				
 				controller.agregarNodo(nodoPadre, nodoNuevo);
+				
 				seleccion=-1;
+				
 			}catch(Exception ex) {
 				JOptionPane.showMessageDialog(this, ex.getMessage(), "Seleccione padre", JOptionPane.ERROR_MESSAGE);
 			}

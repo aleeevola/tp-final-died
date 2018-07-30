@@ -62,6 +62,10 @@ public class Principal {
 	        menu.add(menuItem);
 	        menuBar.add(menu);
 	        
+	        menuItem = new JMenuItem("Buscar Documentos");
+	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DOCUMENTOS));
+	        menu.add(menuItem);
+	        
 	        menu = new JMenu("Ver");
 	        menuBar.add(menu);
 	        
@@ -69,9 +73,7 @@ public class Principal {
 	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DESEOS));
 	        menu.add(menuItem);
 	        
-	        menuItem = new JMenuItem("Documentos");
-	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DOCUMENTOS));
-	        menu.add(menuItem);
+	        
 	        
 	       
 	        

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import frsf.isi.died.app.dao.util.CsvRecord;
+import frsf.isi.died.tp.estructuras.Nodo;
+import frsf.isi.died.tp.estructuras.TipoDeDato;
 import frsf.isi.died.tp.util.Ordenable;
 
 /**
@@ -28,9 +30,21 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	protected String fechaPublicacion;
 	protected Tema tema;
 	
+	public String valor;
+	
+	public Nodo nodo=new Nodo(valor,TipoDeDato.TITULO);
 	
 	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
+		
+	public Nodo getNodo() {
+		valor=this.getTitulo();
+		nodo.setValor(valor);
+		System.out.println(valor);
+		return nodo;
+	}
+
+	
 	public Integer getCalificacion() {
 		return calificacion;
 	}

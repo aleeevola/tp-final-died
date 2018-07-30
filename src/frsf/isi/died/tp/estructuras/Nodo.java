@@ -9,7 +9,7 @@ public class Nodo {
 	private ArrayList<Nodo> hijos;
 
 	public Nodo(TipoDeDato t) {
-		valor = "";
+		//valor = "";
 		tipoNodo = t;
 
 	}
@@ -22,6 +22,12 @@ public class Nodo {
 
 	public String getValor() {
 		return this.valor;
+	}
+	
+	
+
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 
 	public TipoDeDato getTipoNodo() {
@@ -41,6 +47,7 @@ public class Nodo {
 		}
 		if (this.tipoNodo == TipoDeDato.TITULO && (unNodo.tipoNodo == TipoDeDato.METADATO
 				|| unNodo.tipoNodo == TipoDeDato.RESUMEN || unNodo.tipoNodo == TipoDeDato.CAPITULO)) {
+			System.out.print("Antes de agregar");
 			this.hijos.add(unNodo);
 		} else {
 			if (this.tipoNodo == TipoDeDato.METADATO && (unNodo.tipoNodo == TipoDeDato.AUTOR

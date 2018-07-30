@@ -36,6 +36,10 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	public void agregarDocumento(Nodo nodo) {
 		documentos.add(nodo);
 	}
+	
+	public boolean contieneDoc(Nodo nodo) {
+		return documentos.contains(nodo);
+	}
 
 	public List<Nodo> listaDocumentos() {
 		List<Nodo> doc = new ArrayList<>();
