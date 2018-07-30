@@ -191,11 +191,12 @@ public class BusquedaPanel extends JPanel {
 		this.btnAsignarRelaciones.addActionListener(e -> {
 			JFrame f = new JFrame("Asignar relaciones");
 			JPanel panel = new JPanel(new BorderLayout());
-		
+		ControlPanel panelCtrl = new ControlPanel();
 		GrafoPanel panelGrafo = new GrafoPanel(tableModel.getMateriales().get(seleccion));
-		GrafoController controller5 = new GrafoController(panelGrafo);
+		GrafoController controller5 = new GrafoController(panelGrafo, panelCtrl);
 
 		panel.add(panelGrafo , BorderLayout.CENTER);
+		panel.add(panelCtrl, BorderLayout.PAGE_START);
 		f.setContentPane(panel);
 		f.setSize(getSize());
 		f.setVisible(true);		
@@ -272,57 +273,7 @@ public class BusquedaPanel extends JPanel {
 				System.out.print(seleccion);
 			}
 
-		});
-		
-		
-		/*
-		//this.nodoInicio=new JComboBox<>(this.tableModel.getMateriales());
-		//this.nodoFin= new JComboBox(this.tableModel.getMateriales());
-		//private JLabel etiqueta1=new JLabel("seleccione un nodo origen y un nodo como destino para asignarle una relacion");
-		//private JButton btnOrdenarPR=new JButton("Ordenación por importancia de material");
-			this.btnAsignarRelaciones.addActionListener( e -> {
-				Integer idOrigen = this.tableModel.getMateriales().get(nodoInicio.getSelectedIndex()).getId();
-		        Integer idDestino= this.tableModel.getMateriales().get(nodoFin.getSelectedIndex()).getId();
-		        this.controller.asignarRelaciones(idOrigen,idDestino);
-		        ControlPanel cPanel=new ControlPanel();                   
-		//cPanel.add(etiqueta1);
-
-		cPanel.armarPanel(this.tableModel.getMateriales());
-		cPanel.getController().nuevaArista(cPanel.getController().crearVertice(100, 500, Color.BLUE, controller.getMaterial(idOrigen)),cPanel.getController().crearVertice(200, 500, Color.BLUE, this.controller.id(idDestino)));
-		n 		
-		cPanel.add(btnOrdenarPR);
-			});;
-				gridConst.gridx=8;
-				gridConst.gridy=6;
-				gridConst.anchor = GridBagConstraints.CENTER;
-				this.add(btnAsignarRelaciones, gridConst);
-*/
-
-
-		
-		
-		
-		
-		
-		
-		/* BRUNO 
-		 * 
-		 nodoInicio= new JComboBox(this.tableModel.getMateriales().toArray());
-		 nodoFin= new JComboBox(this.tableModel.getMateriales().toArray());
-		this.btnAsignarRelaciones.addActionListener(e -> {
-			JOptionPane.showMessageDialog(btnAsignarRelaciones, "No se selecciono un material", "Error", 0, null);
-		});
-		// System.out.printnl("seleccione un material como origen");
-
-		 Integer idOrigen = nodoInicio.getSelectedIndex();
-		 //this.tableModel.getMateriales().get(nodoInicio.getSelectedIndex()).getId();
-		// System.out.printnl("seleccione un material como destino");
-		 Integer idDestino = nodoFin.getSelectedIndex();
-		// this.tableModel.getMateriales().get(nodoFin.getSelectedIndex()).getId();
-		 this.controller.asignarRelaciones(idOrigen,idDestino);
-	*/
-		
-		
+		});		
 	}
 
 	public void iniciarBusqueda() {

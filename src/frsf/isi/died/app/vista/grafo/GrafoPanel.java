@@ -71,8 +71,8 @@ public class GrafoPanel extends JPanel {
 			for (MaterialCapacitacion mat : controller.listaMateriales()) {
 				if (material != null) {
 					if (mat.getTema().equals(material.getTema())) {
-						int randomX = ThreadLocalRandom.current().nextInt(50,700);
-						int randomY = ThreadLocalRandom.current().nextInt(100,500);
+						int randomX = ThreadLocalRandom.current().nextInt(50,800);
+						int randomY = ThreadLocalRandom.current().nextInt(100,700);
 						Color aux = colaColores.remove();
 						controller.crearVertice(randomX, randomY, aux, mat);
 						// pongo el color al final de la cola
@@ -89,7 +89,7 @@ public class GrafoPanel extends JPanel {
 		this.btnTerminar.addActionListener(e -> {
 			
 			});
-		this.add(btnTerminar);
+		//this.add(btnTerminar);
 		
 				addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
@@ -187,32 +187,14 @@ public class GrafoPanel extends JPanel {
         //this.vertices.add(vert);
     	Integer idOrigen =-1;
     	Integer idDestino =-1;
-    	MaterialCapacitacion matOrigen = camino.get(0), matDestino = camino.get(camino.size()-1), matIntermedio; 
-		int randomX1 = ThreadLocalRandom.current().nextInt(100,400);
-		int randomY1 = ThreadLocalRandom.current().nextInt(100,400);
-		int randomX2 = ThreadLocalRandom.current().nextInt(100,400);
-		int randomY2 = ThreadLocalRandom.current().nextInt(100,400);
-		//controller.crearVertice(randomX1, randomY1, Color.BLUE, matOrigen);
-		//controller.crearVertice(randomX2, randomY2, Color.BLUE, matDestino);
-		
-		VerticeView v1 = new VerticeView(randomX1,randomY1,Color.BLACK);
-		v1.setNombre(camino.get(0).getTitulo());
     	for(MaterialCapacitacion mat : camino) {
     		if(idOrigen<0) {    			
     			idOrigen=mat.getId();
     		}else {
     			idDestino = mat.getId();
-    			matIntermedio = mat;
     			for(AristaView av : this.aristas) {
     				if(av.getOrigen().getId().equals(idOrigen) && av.getDestino().getId().equals(idDestino) ) {
-    					
-    					int randomX3 = ThreadLocalRandom.current().nextInt(100,400);
-    					int randomY3 = ThreadLocalRandom.current().nextInt(100,400);
-    					//controller.crearVertice(randomX3, randomY3, Color.BLUE, matIntermedio);
-    	    			//controller.crearArista(av);
-    	    			
-    	    			//AristaView a = new AristaView(); 
-    					av.setColor(Color.RED);
+     					av.setColor(Color.RED);
     	    			av.getOrigen().setColor(Color.BLUE);
     	    			av.getDestino().setColor(Color.BLUE);
     				}
