@@ -6,9 +6,13 @@ CIENCIAS,
 MATEMATICAS, 
 PROGRAMACION, 
 ECONOMIA, 
-LITERATURA;
+LITERATURA,
+TODOS;
+	
 }
+
 /*
+
 public enum Tema {
 COMPUTACION ("Computacion"), 
 CIENCIAS ("Ciencias"), 

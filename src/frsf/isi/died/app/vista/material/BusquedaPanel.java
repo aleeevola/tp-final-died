@@ -3,6 +3,7 @@ package frsf.isi.died.app.vista.material;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -94,7 +95,7 @@ public class BusquedaPanel extends JPanel {
 		this.add(lblOrdenamiento, gridConst);
 
 		String[] Ordenamiento = new String[] { "Título", "Calificación", "Precio", "Fecha de publicación",
-				"Relevancia" };
+				"Relevancia","Page Rank" };
 
 		comboOrdenamiento = new JComboBox(Ordenamiento);
 		comboOrdenamiento.addItemListener(null);
@@ -134,11 +135,11 @@ public class BusquedaPanel extends JPanel {
 		gridConst.gridx = 1;
 		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(lblTema, gridConst);
-
-		comboTema = new JComboBox(Tema.values());
+		
+		comboTema = new JComboBox<Tema>(Tema.values());
 		// txtTema.setColumns(5);
-		comboTema.addItemListener(null);
 		comboTema.setSelectedItem(null);
+		
 		gridConst.gridx = 1;
 		gridConst.anchor = GridBagConstraints.EAST;
 		this.add(comboTema, gridConst);
@@ -198,7 +199,7 @@ public class BusquedaPanel extends JPanel {
 		panel.add(panelGrafo , BorderLayout.CENTER);
 		panel.add(panelCtrl, BorderLayout.PAGE_START);
 		f.setContentPane(panel);
-		f.setSize(getSize());
+		f.setSize(getMaximumSize());
 		f.setVisible(true);		
 	});
 		gridConst.gridx = 8;
@@ -295,14 +296,18 @@ public class BusquedaPanel extends JPanel {
 				fechaPublicacionDesde = txtFechaPublicacionDesde.getText();
 			if (!txtFechaPublicacionHasta.getText().isEmpty())
 				fechaPublicacionHasta = txtFechaPublicacionHasta.getText();
-			if (comboOrdenamiento.getSelectedItem() != null)
+			if (comboOrdenamiento.getSelectedItem() != null) {
 				orden = comboOrdenamiento.getSelectedItem().toString();
-
+				if (orden == "Page Rank" && tema == null) JOptionPane.showMessageDialog(this, "Por favor seleccione un tema", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 			controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta, orden);
 
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, "No se encuentran materiales", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+	
+		comboTema.setSelectedItem(null);
+		
 	}
 
 	public BusquedaController getController() {

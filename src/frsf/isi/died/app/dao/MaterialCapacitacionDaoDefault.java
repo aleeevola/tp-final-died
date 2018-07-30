@@ -225,6 +225,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				.compareTo(mc2.getRelevancia());
 				Collections.sort(materiales, comparaRelevancia);
 				break;
+			case "Page Rank":
+				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.calcularPageRank(mc1).intValue()-this.calcularPageRank(mc2).intValue();
+				Collections.sort(materiales, comparaPageRank);
 			}
 		}
 
@@ -304,7 +307,7 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	return false;
 	}
 	@Override
-	public double calcularPageRank(MaterialCapacitacion mat) {
+	public Double calcularPageRank(MaterialCapacitacion mat) {
 		double p = 0, d = 0.5;
 		for (MaterialCapacitacion material : GRAFO_MATERIAL.listaVertices()) {
 			if (material.getTema() == mat.getTema() && this.esAdyacente(material, mat))
