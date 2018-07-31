@@ -4,6 +4,7 @@ import frsf.isi.died.app.dao.MaterialCapacitacionDao;
 import frsf.isi.died.app.dao.MaterialCapacitacionDaoDefault;
 //import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.app.vista.material.VideoPanel;
+import frsf.isi.died.tp.modelo.productos.Tema;
 import frsf.isi.died.tp.modelo.productos.Video;
 //import frsf.isi.died.tp.modelo.productos.Libro;
 
@@ -19,8 +20,8 @@ public class VideoController {
 	}
 
 	
-	public void agregarVideo(String titulo,Double costo,Integer duracion) {	///estoooooo
-		Video l = new Video(0,titulo, costo, duracion);
+	public void agregarVideo(String titulo,Double costo,Integer duracion, Tema tema) {
+		Video l = new Video(0,titulo, costo, duracion,tema);
 		materialDAO .agregarVideo(l);
 		this.panelVideo.setListaVideos(materialDAO.listaVideos(),true);
 	}

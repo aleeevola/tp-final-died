@@ -85,7 +85,7 @@ public void setRelevancia(Relevancia relevancia) {
 	 * Constructor por defecto
 	 */
 	public MaterialCapacitacion() {
-		this(0,"en desarrollo",0.0);
+		this(0,"en desarrollo",0.0,null);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public void setRelevancia(Relevancia relevancia) {
 	 * @param titulo
 	 */
 	public MaterialCapacitacion(Integer id, String titulo) {
-		this(id,titulo,0.0);
+		this(id,titulo,0.0,null);
 	}
 
 	/**
@@ -103,8 +103,9 @@ public void setRelevancia(Relevancia relevancia) {
 	 * 
 	 * @param id
 	 * @param titulo
+	 * @param tema 
 	 */
-	public MaterialCapacitacion(Integer id,String titulo, Double costo) {
+	public MaterialCapacitacion(Integer id,String titulo, Double costo, Tema tema) {
 		this.id =id;
 		this.titulo = titulo;
 		this.costo = costo;
@@ -112,10 +113,9 @@ public void setRelevancia(Relevancia relevancia) {
 		
 		this.calificacion=0;
 		this.relevancia=Relevancia.BAJA;
-		this.tema=Tema.CIENCIAS;
+		this.tema=tema;
 		this.pageRank=1.0;
-		//String format = formatter.format(date);
-		//System.out.println(format);
+
 	}
 
 	public String getTitulo() {

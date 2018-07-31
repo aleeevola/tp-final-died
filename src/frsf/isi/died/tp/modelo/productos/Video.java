@@ -27,12 +27,12 @@ public class Video extends MaterialCapacitacion {
     }
     
     public Video(Integer id,String titulo, Double costo) {
-        super(id,titulo, costo);
+        super(id,titulo, costo,null);
         this.duracionEnSegundos = 0;
     }
 
-    public Video(Integer id,String titulo, Double costo, Integer duracion) {
-        super(id,titulo, costo);
+    public Video(Integer id,String titulo, Double costo, Integer duracion, Tema tema) {
+        super(id,titulo, costo,tema);
         this.duracionEnSegundos = duracion;
     }
 

@@ -27,8 +27,8 @@ public class Libro extends MaterialCapacitacion {
 		this.paginas = 0;
 	}
 
-	public Libro(Integer id, String titulo, Double costo, Double precioCompra, Integer paginas) {
-		super(id, titulo, costo);
+	public Libro(Integer id, String titulo, Double costo, Double precioCompra, Integer paginas, Tema tema) {
+		super(id, titulo, costo, tema);
 		this.precioCompra = precioCompra;
 		this.paginas = paginas;
 	}

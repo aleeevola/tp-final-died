@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 
 import frsf.isi.died.app.controller.LibroController;
 import frsf.isi.died.tp.modelo.productos.Libro;
+import frsf.isi.died.tp.modelo.productos.Tema;
 
 public class LibroPanel extends JPanel{
 	
@@ -23,10 +25,12 @@ public class LibroPanel extends JPanel{
 	private JLabel lblCosto;
 	private JLabel lblPrecioCompra;
 	private JLabel lblPaginas;
+	private JLabel lblTema;
 	private JTextField txtTitulo;
 	private JTextField txtCosto;
 	private JTextField txtPrecioCompra;
 	private JTextField txtPaginas;
+	private JComboBox<Tema> comboTema;
 	private JButton btnAgregar;
 	private JButton btnCancelar;
 
@@ -50,7 +54,7 @@ public class LibroPanel extends JPanel{
 		txtTitulo = new JTextField();
 		txtTitulo.setColumns(40);
 		gridConst.gridx=1;
-		gridConst.gridwidth=5;
+		gridConst.gridwidth=7;
 		this.add(txtTitulo, gridConst);
 		
 
@@ -60,21 +64,24 @@ public class LibroPanel extends JPanel{
 				Double costo = Double.valueOf(txtCosto.getText());
 				Double precio = Double.valueOf(txtPrecioCompra.getText());
 				Integer paginas = Integer.valueOf(txtPaginas.getText());
-				controller.agregarLibro(txtTitulo.getText(), costo, precio, paginas);
+				Tema tema = (Tema) comboTema.getSelectedItem();
+				controller.agregarLibro(txtTitulo.getText(), costo, precio, paginas,tema);
 				txtTitulo.setText("");
 				txtCosto.setText("");
 				txtPrecioCompra.setText("");
 				txtPaginas.setText("");
+				comboTema.setSelectedItem(null);
 			}catch(Exception ex) {
 			    JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		gridConst.gridwidth=1;
 		gridConst.weightx=1.0;
+		gridConst.fill=GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
-		gridConst.gridx=6;
+		gridConst.gridx=8;
 		this.add(btnAgregar, gridConst);
-		
+		gridConst.fill=GridBagConstraints.NONE;
 		
 		lblCosto= new JLabel("Costo: ");		
 		gridConst.gridx=0;
@@ -104,20 +111,30 @@ public class LibroPanel extends JPanel{
 		txtPaginas.setColumns(5);
 		gridConst.gridx=5;
 		this.add(txtPaginas, gridConst);
-
+		
+		lblTema = new JLabel("Tema: ");
+		gridConst.gridx=6;
+		this.add(lblTema, gridConst);
+		
+		comboTema = new JComboBox<Tema>(Tema.values());
+		comboTema.setSelectedItem(null);		
+		gridConst.gridx = 7;
+		this.add(comboTema, gridConst);
 
 		btnCancelar= new JButton("Cancelar");
-		gridConst.gridx=6;
+		gridConst.gridx=8;
 		gridConst.weightx=1.0;
+		gridConst.fill=GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		this.add(btnCancelar, gridConst);
+		gridConst.fill=GridBagConstraints.NONE;
 		
 		tabla = new JTable(this.tableModel);
 		tabla.setFillsViewportHeight(true);
 		scrollPane= new JScrollPane(tabla);
 		
 		gridConst.gridx=0;
-		gridConst.gridwidth=7;	
+		gridConst.gridwidth=8;	
 		gridConst.gridy=2;
 		gridConst.weighty=1.0;
 		gridConst.weightx=1.0;

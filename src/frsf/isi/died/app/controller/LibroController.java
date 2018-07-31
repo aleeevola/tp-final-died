@@ -4,6 +4,7 @@ import frsf.isi.died.app.dao.MaterialCapacitacionDao;
 import frsf.isi.died.app.dao.MaterialCapacitacionDaoDefault;
 import frsf.isi.died.app.vista.material.LibroPanel;
 import frsf.isi.died.tp.modelo.productos.Libro;
+import frsf.isi.died.tp.modelo.productos.Tema;
 
 public class LibroController {
 
@@ -17,8 +18,8 @@ public class LibroController {
 	}
 
 	
-	public void agregarLibro(String titulo,Double costo,Double precio,Integer paginas) {	
-		Libro l = new Libro(0,titulo, costo, precio, paginas) ;
+	public void agregarLibro(String titulo,Double costo,Double precio,Integer paginas, Tema tema) {	
+		Libro l = new Libro(0,titulo, costo, precio, paginas, tema) ;
 		materialDAO .agregarLibro(l);
 		this.panelLibro.setListaLibros(materialDAO.listaLibros(),true);
 	}

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 
 //import frsf.isi.died.app.controller.LibroController;
 import frsf.isi.died.app.controller.VideoController;
+import frsf.isi.died.tp.modelo.productos.Tema;
 //import frsf.isi.died.tp.modelo.productos.Libro;
 import frsf.isi.died.tp.modelo.productos.Video;
 
@@ -23,15 +25,16 @@ public class VideoPanel extends JPanel{
 	private JTable tabla;
 	private JLabel lblTitulo;
 	private JLabel lblCosto;
-	private JLabel lblPrecioCompra;
+	private JLabel lblTema;
 	private JLabel lblDuracion;
 	private JTextField txtTitulo;
 	private JTextField txtCosto;
-	private JTextField txtPrecioCompra;
+	private JComboBox<Tema> comboTema;
 	private JTextField txtDuracion;
 	private JButton btnAgregar;
 	private JButton btnCancelar;
 
+	
 	private VideoTableModel tableModel;
 
 	private VideoController controller;
@@ -60,23 +63,25 @@ public class VideoPanel extends JPanel{
 		btnAgregar.addActionListener( e ->{
 			try {
 				Double costo = Double.valueOf(txtCosto.getText());
-				//Double precio = Double.valueOf(txtPrecioCompra.getText());
 				Integer duracion = Integer.valueOf(txtDuracion.getText());
-				controller.agregarVideo(txtTitulo.getText(), costo, duracion);
+				Tema tema = (Tema) comboTema.getSelectedItem();
+				controller.agregarVideo(txtTitulo.getText(), costo, duracion,tema);
 				txtTitulo.setText("");
 				txtCosto.setText("");
-				//txtPrecioCompra.setText("");
 				txtDuracion.setText("");
+				comboTema.setSelectedItem(null);
 			}catch(Exception ex) {
 			    JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		gridConst.gridwidth=1;
 		gridConst.weightx=1.0;
+		gridConst.fill = GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		gridConst.gridx=6;
 		this.add(btnAgregar, gridConst);
 		
+		gridConst.fill = GridBagConstraints.NONE;
 		
 		lblCosto= new JLabel("Costo: ");		
 		gridConst.gridx=0;
@@ -101,20 +106,30 @@ public class VideoPanel extends JPanel{
 		*/
 		
 		lblDuracion= new JLabel("Duracion: ");		
-		gridConst.gridx=4;
+		gridConst.gridx=2;
 		this.add(lblDuracion, gridConst);
 		
 		txtDuracion = new JTextField();
 		txtDuracion.setColumns(5);
-		gridConst.gridx=5;
+		gridConst.gridx=3;
 		this.add(txtDuracion, gridConst);
-
+		
+		lblTema = new JLabel("Tema: ");
+		gridConst.gridx=4;
+		this.add(lblTema, gridConst);
+		
+		comboTema = new JComboBox<Tema>(Tema.values());
+		comboTema.setSelectedItem(null);		
+		gridConst.gridx = 5;
+		this.add(comboTema, gridConst);
 
 		btnCancelar= new JButton("Cancelar");
 		gridConst.gridx=6;
 		gridConst.weightx=1.0;
+		gridConst.fill = GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		this.add(btnCancelar, gridConst);
+		gridConst.fill = GridBagConstraints.NONE;
 		
 		tabla = new JTable(this.tableModel);
 		tabla.setFillsViewportHeight(true);

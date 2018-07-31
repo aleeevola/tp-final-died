@@ -230,7 +230,6 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				Collections.sort(materiales, comparaRelevancia);
 				break;
 			case "Page Rank":
-				System.out.println("llego " + materiales.get(0) + materiales.get(0).getPageRank());
 				this.pageRank(materiales);
 				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> mc1.comparaPageRank(mc2);
 				Collections.sort(materiales, comparaPageRank);
@@ -340,10 +339,5 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		return ((1 - d) + d * p);
 
 	}
-
-	/* pr(a)=(1-d)+d*sum(pr/c)
-	 * pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
-	 * ese nodo.
-	 */
 	
 }
