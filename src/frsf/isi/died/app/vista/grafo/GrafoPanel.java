@@ -49,13 +49,8 @@ public class GrafoPanel extends JPanel {
 	private List<AristaView> aristas;
 
 	private AristaView auxiliar;
-	
-	private JButton btnTerminar;
 	private JButton btnVerMateriales;
 	
-	private BusquedaTableModel tableModel;
-	private JScrollPane scrollPane;
-	private JTable tabla;
 
 	public GrafoPanel(MaterialCapacitacion material) {
 		this.framePadre = (JFrame) this.getParent();
@@ -82,7 +77,7 @@ public class GrafoPanel extends JPanel {
 					if (mat.getTema().equals(material.getTema())) {
 						materialesTema.add(mat);
 						int randomX = ThreadLocalRandom.current().nextInt(50,800);
-						int randomY = ThreadLocalRandom.current().nextInt(100,650);
+						int randomY = ThreadLocalRandom.current().nextInt(100,600);
 						Color aux = colaColores.remove();
 						controller.crearVertice(randomX, randomY, aux, mat);
 						// pongo el color al final de la cola
@@ -94,21 +89,7 @@ public class GrafoPanel extends JPanel {
 	});
 		
 		this.add(btnVerMateriales);
-/*
-		btnTerminar = new JButton("Ordenar por PageRank");
-		this.btnTerminar.addActionListener(e -> {
-			JPanel panel = new JPanel(new BorderLayout());
-			tableModel = new BusquedaTableModel();
-			this.setListaMateriales(materialesTema, true);
-			
-			tabla = new JTable(this.tableModel);
-			tabla.setFillsViewportHeight(true);
-			scrollPane = new JScrollPane(tabla);
-			panel.add(scrollPane, BorderLayout.WEST);
-			this.add(panel);
-			});
-		this.add(btnTerminar);
-*/	
+
 				addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
 			VerticeView vDestino = clicEnUnNodo(event.getPoint());
@@ -276,9 +257,4 @@ public class GrafoPanel extends JPanel {
         this.controller = controller;
     }
 
-	public void setListaMateriales(List<MaterialCapacitacion> materialesLista, boolean actualizar) {
-		this.tableModel.setMateriales(materialesLista);
-		if (actualizar)
-			this.tableModel.fireTableDataChanged();
-	}
 }

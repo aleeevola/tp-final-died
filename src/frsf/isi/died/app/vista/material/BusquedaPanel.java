@@ -61,8 +61,7 @@ public class BusquedaPanel extends JPanel {
 	private JButton btnBuscar;
 	private JButton btnCancelar;
 	private JButton btnAsignarRelaciones;
-	private JComboBox nodoInicio;
-	private JComboBox nodoFin;
+
 
 	private BusquedaTableModel tableModel;
 
