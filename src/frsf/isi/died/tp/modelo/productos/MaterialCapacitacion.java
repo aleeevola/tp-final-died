@@ -113,7 +113,7 @@ public void setRelevancia(Relevancia relevancia) {
 		this.calificacion=0;
 		this.relevancia=Relevancia.BAJA;
 		this.tema=Tema.CIENCIAS;
-		
+		this.pageRank=1.0;
 		//String format = formatter.format(date);
 		//System.out.println(format);
 	}
@@ -126,6 +126,11 @@ public void setRelevancia(Relevancia relevancia) {
 		return costo;
 	}
 
+	public Integer comparaPageRank(MaterialCapacitacion mat) {
+		if(this.getPageRank()>mat.getPageRank()) return -1;
+		else return 1;
+	}
+	
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}

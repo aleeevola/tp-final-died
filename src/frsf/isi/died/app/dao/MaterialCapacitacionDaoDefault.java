@@ -36,7 +36,7 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	public void agregarDocumento(Nodo nodo) {
 		documentos.add(nodo);
 	}
-	
+
 	public boolean contieneDoc(Nodo nodo) {
 		return documentos.contains(nodo);
 	}
@@ -201,37 +201,38 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				}
 			}
 		}
-		
+
 		if (orden != null) {
 			switch (orden) {
 			case "Título":
 				Comparator<MaterialCapacitacion> comparaTitulo = (mc1, mc2) -> mc1.getTitulo().toLowerCase()
-				.compareTo(mc2.getTitulo().toLowerCase());
+						.compareTo(mc2.getTitulo().toLowerCase());
 				Collections.sort(materiales, comparaTitulo);
 				break;
-			case "Calificación":				
+			case "Calificación":
 				Comparator<MaterialCapacitacion> comparaCalificacion = (mc1, mc2) -> mc2.getCalificacion()
 						- mc1.getCalificacion();
 				Collections.sort(materiales, comparaCalificacion);
 				break;
 			case "Precio":
 				Comparator<MaterialCapacitacion> comparaPrecio = (mc1, mc2) -> mc1.precio().intValue()
-				- mc2.precio().intValue();
+						- mc2.precio().intValue();
 				Collections.sort(materiales, comparaPrecio);
 				break;
 			case "Fecha de publicación":
 				Comparator<MaterialCapacitacion> comparaFecha = (mc1, mc2) -> mc1.getFechaPublicacion()
-				.compareTo(mc2.getFechaPublicacion());
+						.compareTo(mc2.getFechaPublicacion());
 				Collections.sort(materiales, comparaFecha);
 				break;
 			case "Relevancia":
 				Comparator<MaterialCapacitacion> comparaRelevancia = (mc1, mc2) -> mc1.getRelevancia()
-				.compareTo(mc2.getRelevancia());
+						.compareTo(mc2.getRelevancia());
 				Collections.sort(materiales, comparaRelevancia);
 				break;
 			case "Page Rank":
-				//Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.PageRank(mc1).intValue()-this.PageRank(mc2).intValue();
-				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> mc1.getPageRank().intValue()-mc2.getPageRank().intValue();
+				System.out.println("llego " + materiales.get(0) + materiales.get(0).getPageRank());
+				this.pageRank(materiales);
+				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> mc1.comparaPageRank(mc2);
 				Collections.sort(materiales, comparaPageRank);
 			}
 		}
@@ -301,59 +302,62 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 	}
 
-	public boolean esAdyacente(MaterialCapacitacion m1,MaterialCapacitacion m2) {
-		List<MaterialCapacitacion> ady=new ArrayList<>();
-		ady=GRAFO_MATERIAL.getAdyacentes(m1);
-		for (MaterialCapacitacion unAdy: ady) {
-	if (unAdy.equals(m2))	
-	return true;	
-			
-		}
-	return false;
+	/*
+	 * public boolean esAdyacente(MaterialCapacitacion m1, MaterialCapacitacion m2)
+	 * { List<MaterialCapacitacion> ady = new ArrayList<>(); ady =
+	 * GRAFO_MATERIAL.getAdyacentes(m1); for (MaterialCapacitacion unAdy : ady) { if
+	 * (unAdy.equals(m2)) return true;
+	 * 
+	 * } return false; }
+	 */
+	public boolean existeCamino(MaterialCapacitacion m1, MaterialCapacitacion m2) {
+		if (!buscarCamino(m1.getId(), m2.getId(), 1).isEmpty())
+			return true;
+		else
+			return false;
 	}
-	
-	
-	public void pageRank(ArrayList<MaterialCapacitacion> materiales) {
-		Double p, e=0.22;
-		boolean bandera=true;
-		while  (!bandera) {
-		boolean seCumple=true;
+
+	public void pageRank(List<MaterialCapacitacion> materiales) {
+		// List<MaterialCapacitacion> materiales = new
+		// ArrayList<MaterialCapacitacion>();
+		// materiales = this.listaMateriales();
+		Double p, e = 0.00000002;
+		boolean salir = false;
+		while (!salir) {
 			for (MaterialCapacitacion mat : materiales) {
-		p=mat.getPageRank();
-			mat.setPageRank(calcularPageRank(mat));
-			if ((e>mat.getPageRank()-p) && seCumple)
-		bandera=false;			
-			else {
-				seCumple=false;
-				bandera=true;}
+				p = mat.getPageRank();
+				mat.setPageRank(calcularPageRank(mat, materiales));
+				System.out.println("Calculo pr " + mat.getTitulo() + calcularPageRank(mat, materiales));
+				if (e > Math.abs(mat.getPageRank() - p)) {
+					salir = true;
+				}
 			}
 		}
 
-		}
-	
-	public Double calcularPageRank(MaterialCapacitacion mat) {
-		double p = 0, d=0.85;
-		for (MaterialCapacitacion material : GRAFO_MATERIAL.listaVertices()) {
-			if (material.getTema() == mat.getTema() && this.esAdyacente(material, mat))
-//				System.out.println(GRAFO_MATERIAL.gradoSalida(material));
-//			System.out.println(this.calcularPageRank(material));
-				p = p + this.calcularPageRank(material) / GRAFO_MATERIAL.gradoSalida(material);
-		}
-		if (p == 0)
-			return 1-d;
+	}
 
-		return (1-d) + d * p;
+	public Double calcularPageRank(MaterialCapacitacion mat, List<MaterialCapacitacion> lista) {
+		double p = 0.0, d = 0.5;
+		int i = 0;
+		for (MaterialCapacitacion material : lista) {
+			if (this.existeCamino(material, mat)) {
+				p += material.getPageRank() / GRAFO_MATERIAL.gradoSalida(material);
+				System.out.println(material.getTitulo() + " i = " + i + " - PR: " + material.getPageRank());
+			}
+			i++;
+		}
+		if (p == 0.0)
+			return 1 - d;
+
+		return ((1 - d) + d * p);
 
 	}
-	
-/*
-	public Double PageRank(MaterialCapacitacion mat) {
-		return GRAFO_MATERIAL.calcularPageRank(mat);		
-	}
-*/
+	/*
+	 * public Double PageRank(MaterialCapacitacion mat) { return
+	 * GRAFO_MATERIAL.calcularPageRank(mat); }
+	 */
 	// r(a)=(1-d)+d*sum(pr/c)
 	// pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
 	// ese nodo.
 
-	
 }

@@ -1,5 +1,6 @@
 package frsf.isi.died.app.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -32,6 +33,6 @@ public interface MaterialCapacitacionDao {
 	public void agregarDocumento(Nodo nodo);
 	public List<Nodo> listaDocumentos();
 	public boolean contieneDoc(Nodo nodo);
-	Double calcularPageRank(MaterialCapacitacion mat);
-	
+	Double calcularPageRank(MaterialCapacitacion mat,List<MaterialCapacitacion> lista);
+	public void pageRank(List<MaterialCapacitacion> materiales);
 }
