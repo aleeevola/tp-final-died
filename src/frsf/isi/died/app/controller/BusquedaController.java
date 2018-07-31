@@ -32,10 +32,6 @@ public class BusquedaController {
 
 	public void buscarMaterial(String titulo, Double calificacion, String tema,String fechaPublicacionDesde, String fechaPublicacionHasta,String orden) {		
 		this.panelBusqueda.setListaMateriales(materialDAO.buscarMaterial(titulo,calificacion,tema,fechaPublicacionDesde,fechaPublicacionHasta,orden),true);
-	/*	if(orden == "Page Rank") {
-			materialDAO.pageRank(materialDAO.listaMateriales());
-		}
-	*/
 	}
 	
 	 public void asignarRelaciones(Integer inicio,Integer fin) {

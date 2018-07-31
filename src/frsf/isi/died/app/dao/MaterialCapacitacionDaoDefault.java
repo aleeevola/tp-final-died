@@ -302,32 +302,22 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 	}
 
-	/*
-	 * public boolean esAdyacente(MaterialCapacitacion m1, MaterialCapacitacion m2)
-	 * { List<MaterialCapacitacion> ady = new ArrayList<>(); ady =
-	 * GRAFO_MATERIAL.getAdyacentes(m1); for (MaterialCapacitacion unAdy : ady) { if
-	 * (unAdy.equals(m2)) return true;
-	 * 
-	 * } return false; }
-	 */
+
 	public boolean existeCamino(MaterialCapacitacion m1, MaterialCapacitacion m2) {
 		if (!buscarCamino(m1.getId(), m2.getId(), 1).isEmpty())
 			return true;
 		else
 			return false;
 	}
-
+	
+	@Override
 	public void pageRank(List<MaterialCapacitacion> materiales) {
-		// List<MaterialCapacitacion> materiales = new
-		// ArrayList<MaterialCapacitacion>();
-		// materiales = this.listaMateriales();
 		Double p, e = 0.00000002;
 		boolean salir = false;
 		while (!salir) {
 			for (MaterialCapacitacion mat : materiales) {
 				p = mat.getPageRank();
 				mat.setPageRank(calcularPageRank(mat, materiales));
-				System.out.println("Calculo pr " + mat.getTitulo() + calcularPageRank(mat, materiales));
 				if (e > Math.abs(mat.getPageRank() - p)) {
 					salir = true;
 				}
@@ -335,16 +325,14 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 
 	}
-
+	
+	@Override
 	public Double calcularPageRank(MaterialCapacitacion mat, List<MaterialCapacitacion> lista) {
 		double p = 0.0, d = 0.5;
-		int i = 0;
 		for (MaterialCapacitacion material : lista) {
 			if (this.existeCamino(material, mat)) {
 				p += material.getPageRank() / GRAFO_MATERIAL.gradoSalida(material);
-				System.out.println(material.getTitulo() + " i = " + i + " - PR: " + material.getPageRank());
 			}
-			i++;
 		}
 		if (p == 0.0)
 			return 1 - d;
@@ -352,12 +340,10 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		return ((1 - d) + d * p);
 
 	}
-	/*
-	 * public Double PageRank(MaterialCapacitacion mat) { return
-	 * GRAFO_MATERIAL.calcularPageRank(mat); }
-	 */
-	// r(a)=(1-d)+d*sum(pr/c)
-	// pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
-	// ese nodo.
 
+	/* pr(a)=(1-d)+d*sum(pr/c)
+	 * pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
+	 * ese nodo.
+	 */
+	
 }
