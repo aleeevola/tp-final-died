@@ -29,6 +29,7 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	protected Relevancia relevancia;
 	protected String fechaPublicacion;
 	protected Tema tema;
+	protected Double pageRank;
 	
 	public String valor;
 	
@@ -213,6 +214,14 @@ public void setRelevancia(Relevancia relevancia) {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public void setPageRank(Double pageRank) {
+		this.pageRank = pageRank;
+	}
+	
+	public Double getPageRank() {
+		return this.pageRank;
 	}
 	
 	
