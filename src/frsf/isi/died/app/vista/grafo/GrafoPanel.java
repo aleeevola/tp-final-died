@@ -94,7 +94,7 @@ public class GrafoPanel extends JPanel {
 	});
 		
 		this.add(btnVerMateriales);
-
+/*
 		btnTerminar = new JButton("Ordenar por PageRank");
 		this.btnTerminar.addActionListener(e -> {
 			JPanel panel = new JPanel(new BorderLayout());
@@ -108,7 +108,7 @@ public class GrafoPanel extends JPanel {
 			this.add(panel);
 			});
 		this.add(btnTerminar);
-		
+*/	
 				addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
 			VerticeView vDestino = clicEnUnNodo(event.getPoint());
