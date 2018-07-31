@@ -57,10 +57,12 @@ public class Principal {
 	        menu.add(menuItem);
 	        menuBar.add(menu);
 	        
+	        /*
 	        menuItem = new JMenuItem("Buscar Camino");
 	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_GRAFO));
 	        menu.add(menuItem);
 	        menuBar.add(menu);
+	        */
 	        
 	        menuItem = new JMenuItem("Buscar Documentos");
 	        menuItem.addActionListener(e -> controller.showView(TiposAcciones.VER_DOCUMENTOS));

@@ -38,6 +38,7 @@ public class GrafoController {
 		this.vistaGrafo.setController(this);
 		this.materialDao = new MaterialCapacitacionDaoDefault();
 		this.vistaGrafo.setVisible(true);
+		this.vistaGrafo.setSize(vistaGrafo.getPreferredSize());
 	}
 	
 	

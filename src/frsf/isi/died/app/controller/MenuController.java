@@ -61,7 +61,7 @@ public class MenuController {
 			break;
 		
 
-		case VER_GRAFO:
+	/*	case VER_GRAFO:
 			JPanel panel = new JPanel(new BorderLayout());
 			ControlPanel controlPanel = new ControlPanel();
 			GrafoPanel grafoPanel = new GrafoPanel();
@@ -71,6 +71,7 @@ public class MenuController {
 			
 			framePrincipal.setContentPane(panel);
 			break;			
+	*/	
 		default:
 			break;
 		}

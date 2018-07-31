@@ -230,8 +230,8 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				Collections.sort(materiales, comparaRelevancia);
 				break;
 			case "Page Rank":
-				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.PageRank(mc1).intValue()-this.PageRank(mc2).intValue();
-				//Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.calcularPageRank(mc1).intValue()-this.calcularPageRank(mc2).intValue();
+				//Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.PageRank(mc1).intValue()-this.PageRank(mc2).intValue();
+				Comparator<MaterialCapacitacion> comparaPageRank = (mc1, mc2) -> this.calcularPageRank(mc1).intValue()-this.calcularPageRank(mc2).intValue();
 				Collections.sort(materiales, comparaPageRank);
 			}
 		}
@@ -311,26 +311,44 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 		}
 	return false;
 	}
-	@Override
-	public Double calcularPageRank(MaterialCapacitacion mat) {
-		double p = 1, d = 0.5;
-		for (MaterialCapacitacion material : GRAFO_MATERIAL.listaVertices()) {
-			//if (material.getTema() == mat.getTema() && 
-					if(this.esAdyacente(material, mat))
-				System.out.println(GRAFO_MATERIAL.gradoSalida(material)+" GRADO -"+ material.getTitulo());
-				//p += this.calcularPageRank(material) / GRAFO_MATERIAL.gradoSalida(material);
+	
+	
+	public void pageRank(ArrayList<MaterialCapacitacion> materiales) {
+		Double p, e=0.22;
+		boolean bandera=true;
+		while  (!bandera) {
+		boolean seCumple=true;
+			for (MaterialCapacitacion mat : materiales) {
+		p=mat.getPageRank();
+			mat.setPageRank(calcularPageRank(mat));
+			if ((e>mat.getPageRank()-p) && seCumple)
+		bandera=false;			
+			else {
+				seCumple=false;
+				bandera=true;}
+			}
 		}
-		if (p == 1)
+
+		}
+	
+	public Double calcularPageRank(MaterialCapacitacion mat) {
+		double p = 0, d=0.85;
+		for (MaterialCapacitacion material : GRAFO_MATERIAL.listaVertices()) {
+			if (material.getTema() == mat.getTema() && this.esAdyacente(material, mat))
+				p += this.calcularPageRank(material) / GRAFO_MATERIAL.gradoSalida(material);
+		}
+		if (p == 0)
 			return 1-d;
 
-		return (1-d+d*p);
+		return (1-d) + d * p;
 
 	}
 	
+/*
 	public Double PageRank(MaterialCapacitacion mat) {
 		return GRAFO_MATERIAL.calcularPageRank(mat);		
 	}
-	
+*/
 	// r(a)=(1-d)+d*sum(pr/c)
 	// pr es los nodos que tienen un enlace hacia a, y c los enlaces salientes de
 	// ese nodo.

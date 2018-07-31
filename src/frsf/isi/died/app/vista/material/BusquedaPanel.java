@@ -187,7 +187,8 @@ public class BusquedaPanel extends JPanel {
 		gridConst.fill = GridBagConstraints.BOTH;
 		gridConst.anchor = GridBagConstraints.PAGE_START;
 		this.add(scrollPane, gridConst);
-
+		
+		
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
 		this.btnAsignarRelaciones.addActionListener(e -> {
 			JFrame f = new JFrame("Asignar relaciones");

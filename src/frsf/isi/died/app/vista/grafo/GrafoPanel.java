@@ -27,8 +27,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import frsf.isi.died.app.controller.GrafoController;
+import frsf.isi.died.app.vista.material.BusquedaTableModel;
 import frsf.isi.died.tp.estructuras.Arista;
 import frsf.isi.died.tp.modelo.productos.MaterialCapacitacion;
 
@@ -49,6 +52,10 @@ public class GrafoPanel extends JPanel {
 	
 	private JButton btnTerminar;
 	private JButton btnVerMateriales;
+	
+	private BusquedaTableModel tableModel;
+	private JScrollPane scrollPane;
+	private JTable tabla;
 
 	public GrafoPanel(MaterialCapacitacion material) {
 		this.framePadre = (JFrame) this.getParent();
@@ -66,13 +73,16 @@ public class GrafoPanel extends JPanel {
 		this.colaColores.add(Color.YELLOW);
 		this.colaColores.add(Color.GRAY);
 	
+		
+		List<MaterialCapacitacion> materialesTema = new ArrayList<MaterialCapacitacion>();
 		btnVerMateriales = new JButton("Ver Materiales");
 		this.btnVerMateriales.addActionListener(e -> {
 			for (MaterialCapacitacion mat : controller.listaMateriales()) {
 				if (material != null) {
 					if (mat.getTema().equals(material.getTema())) {
+						materialesTema.add(mat);
 						int randomX = ThreadLocalRandom.current().nextInt(50,800);
-						int randomY = ThreadLocalRandom.current().nextInt(100,700);
+						int randomY = ThreadLocalRandom.current().nextInt(100,650);
 						Color aux = colaColores.remove();
 						controller.crearVertice(randomX, randomY, aux, mat);
 						// pongo el color al final de la cola
@@ -85,11 +95,19 @@ public class GrafoPanel extends JPanel {
 		
 		this.add(btnVerMateriales);
 
-		btnTerminar = new JButton("Terminar");
+		btnTerminar = new JButton("Ordenar por PageRank");
 		this.btnTerminar.addActionListener(e -> {
+			JPanel panel = new JPanel(new BorderLayout());
+			tableModel = new BusquedaTableModel();
+			this.setListaMateriales(materialesTema, true);
 			
+			tabla = new JTable(this.tableModel);
+			tabla.setFillsViewportHeight(true);
+			scrollPane = new JScrollPane(tabla);
+			panel.add(scrollPane, BorderLayout.WEST);
+			this.add(panel);
 			});
-		//this.add(btnTerminar);
+		this.add(btnTerminar);
 		
 				addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
@@ -258,4 +276,9 @@ public class GrafoPanel extends JPanel {
         this.controller = controller;
     }
 
+	public void setListaMateriales(List<MaterialCapacitacion> materialesLista, boolean actualizar) {
+		this.tableModel.setMateriales(materialesLista);
+		if (actualizar)
+			this.tableModel.fireTableDataChanged();
+	}
 }
