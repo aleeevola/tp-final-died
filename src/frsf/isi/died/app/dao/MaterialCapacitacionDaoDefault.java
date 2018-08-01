@@ -119,14 +119,12 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 			for (MaterialCapacitacion mat : this.listaLibros()) {
 				libros.add((CsvRecord) mat);
 			}
-			System.out.println("CAAAAAAAAAAAAAA1");
 			dataSource.guardarColeccion("libros.csv", libros);
 
 			List<CsvRecord> videos = new ArrayList<>();
 			for (MaterialCapacitacion mat : this.listaVideos()) {
 				videos.add((CsvRecord) mat);
 			}
-			System.out.println("CAAAAAAAAAAAAAA2");
 			dataSource.guardarColeccion("videos.csv", videos);
 
 		} catch (IOException e) {
@@ -183,13 +181,13 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 	}
 
 	@Override
-	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema,
+	public List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, Tema tema,
 			String fechaPublicacionDesde, String fechaPublicacionHasta, String orden) {
 		List<MaterialCapacitacion> materiales = new ArrayList<MaterialCapacitacion>();
 		for (MaterialCapacitacion mat : GRAFO_MATERIAL.listaVertices()) {
 			if (titulo == null || mat.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
 				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
-					if (tema == null || mat.getTema().toString().equals(tema)) {
+					if (tema == null || mat.getTema().equals(tema)) {
 						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null)
 								|| (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde) >= 0
 										&& mat.getFechaPublicacion().compareTo(fechaPublicacionHasta) <= 0)) {

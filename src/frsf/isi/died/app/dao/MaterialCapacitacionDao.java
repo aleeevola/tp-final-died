@@ -21,9 +21,8 @@ public interface MaterialCapacitacionDao {
 	public MaterialCapacitacion findById(Integer id);
 	public void crearCamino(Integer idOrigen, Integer idDestino);
 	public List<MaterialCapacitacion> buscarCamino(Integer idOrigen, Integer idDestino, Integer saltos);
-	List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, String tema, String fechaPublicacionDesde,
+	List<MaterialCapacitacion> buscarMaterial(String titulo, Double calificacion, Tema tema, String fechaPublicacionDesde,
 			String fechaPublicacionHasta, String orden);
-	
 	public void agregarDeseo(MaterialCapacitacion mat);
 	public List<MaterialCapacitacion> listaDeseos();
 	public void eliminarMaterial(MaterialCapacitacion mat);

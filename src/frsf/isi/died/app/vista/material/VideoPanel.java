@@ -71,7 +71,7 @@ public class VideoPanel extends JPanel{
 				txtDuracion.setText("");
 				comboTema.setSelectedItem(null);
 			}catch(Exception ex) {
-			    JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos incorrectos", JOptionPane.ERROR_MESSAGE);
+			    JOptionPane.showMessageDialog(this, "Debe completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		gridConst.gridwidth=1;
@@ -94,16 +94,6 @@ public class VideoPanel extends JPanel{
 		gridConst.gridx=1;
 		this.add(txtCosto, gridConst);
 		
-		/*
-		lblPrecioCompra= new JLabel("Precio Compra: ");
-		gridConst.gridx=2;
-		this.add(lblPrecioCompra, gridConst);
-		
-		txtPrecioCompra = new JTextField();
-		txtPrecioCompra.setColumns(5);
-		gridConst.gridx=3;
-		this.add(txtPrecioCompra, gridConst);
-		*/
 		
 		lblDuracion= new JLabel("Duracion: ");		
 		gridConst.gridx=2;

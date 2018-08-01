@@ -54,14 +54,13 @@ public class BusquedaPanel extends JPanel {
 	private JLabel lblOrdenamiento;
 	private JTextField txtTitulo;
 	private JTextField txtCalificacion;
-	private JComboBox comboTema;
+	private JComboBox<Tema> comboTema;
 	private JTextField txtFechaPublicacionDesde;
 	private JTextField txtFechaPublicacionHasta;
 	private JComboBox comboOrdenamiento;
 	private JButton btnBuscar;
 	private JButton btnCancelar;
 	private JButton btnAsignarRelaciones;
-
 
 	private BusquedaTableModel tableModel;
 
@@ -85,7 +84,6 @@ public class BusquedaPanel extends JPanel {
 		txtTitulo = new JTextField();
 		txtTitulo.setColumns(30);
 		gridConst.gridx = 1;
-		// gridConst.gridwidth=5;
 		this.add(txtTitulo, gridConst);
 
 		lblOrdenamiento = new JLabel("Ordenar por: ");
@@ -93,8 +91,8 @@ public class BusquedaPanel extends JPanel {
 		gridConst.gridy = 0;
 		this.add(lblOrdenamiento, gridConst);
 
-		String[] Ordenamiento = new String[] { "Título", "Calificación", "Precio", "Fecha de publicación",
-				"Relevancia","Page Rank" };
+		String[] Ordenamiento = new String[] { "Título", "Calificación", "Precio", "Fecha de publicación", "Relevancia",
+				"Page Rank" };
 
 		comboOrdenamiento = new JComboBox(Ordenamiento);
 		comboOrdenamiento.addItemListener(null);
@@ -105,17 +103,16 @@ public class BusquedaPanel extends JPanel {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(e -> {
 			this.iniciarBusqueda();
-			
+
 		});
-		// gridConst.gridwidth=1;
 		gridConst.weightx = 1.0;
-		gridConst.fill =GridBagConstraints.HORIZONTAL;
+		gridConst.fill = GridBagConstraints.HORIZONTAL;
 		gridConst.anchor = GridBagConstraints.LINE_START;
 		gridConst.gridx = 8;
 		this.add(btnBuscar, gridConst);
-		
-		gridConst.fill =GridBagConstraints.NONE;
-		
+
+		gridConst.fill = GridBagConstraints.NONE;
+
 		lblCalificacion = new JLabel(" Calificacion: ");
 		gridConst.gridx = 0;
 		gridConst.gridy = 1;
@@ -134,11 +131,9 @@ public class BusquedaPanel extends JPanel {
 		gridConst.gridx = 1;
 		gridConst.anchor = GridBagConstraints.CENTER;
 		this.add(lblTema, gridConst);
-		
+
 		comboTema = new JComboBox<Tema>(Tema.values());
-		// txtTema.setColumns(5);
 		comboTema.setSelectedItem(null);
-		
 		gridConst.gridx = 1;
 		gridConst.anchor = GridBagConstraints.EAST;
 		this.add(comboTema, gridConst);
@@ -152,7 +147,7 @@ public class BusquedaPanel extends JPanel {
 		txtFechaPublicacionDesde.setColumns(7);
 		gridConst.gridx = 5;
 		gridConst.anchor = GridBagConstraints.WEST;
-		txtFechaPublicacionDesde.setText("01/01/2001");
+		txtFechaPublicacionDesde.setText("01/01/1900");
 		this.add(txtFechaPublicacionDesde, gridConst);
 
 		lblFechaPublicacionHasta = new JLabel(" hasta: ");
@@ -186,22 +181,21 @@ public class BusquedaPanel extends JPanel {
 		gridConst.fill = GridBagConstraints.BOTH;
 		gridConst.anchor = GridBagConstraints.PAGE_START;
 		this.add(scrollPane, gridConst);
-		
-		
+
 		btnAsignarRelaciones = new JButton("Asignar relaciones");
 		this.btnAsignarRelaciones.addActionListener(e -> {
 			JFrame f = new JFrame("Asignar relaciones");
 			JPanel panel = new JPanel(new BorderLayout());
-		ControlPanel panelCtrl = new ControlPanel();
-		GrafoPanel panelGrafo = new GrafoPanel(tableModel.getMateriales().get(seleccion));
-		GrafoController controller5 = new GrafoController(panelGrafo, panelCtrl);
+			ControlPanel panelCtrl = new ControlPanel();
+			GrafoPanel panelGrafo = new GrafoPanel(tableModel.getMateriales().get(seleccion));
+			GrafoController controller5 = new GrafoController(panelGrafo, panelCtrl);
 
-		panel.add(panelGrafo , BorderLayout.CENTER);
-		panel.add(panelCtrl, BorderLayout.PAGE_START);
-		f.setContentPane(panel);
-		f.setSize(getMaximumSize());
-		f.setVisible(true);		
-	});
+			panel.add(panelGrafo, BorderLayout.CENTER);
+			panel.add(panelCtrl, BorderLayout.PAGE_START);
+			f.setContentPane(panel);
+			f.setSize(getMaximumSize());
+			f.setVisible(true);
+		});
 		gridConst.gridx = 8;
 		gridConst.gridy = 6;
 		gridConst.anchor = GridBagConstraints.CENTER;
@@ -222,10 +216,11 @@ public class BusquedaPanel extends JPanel {
 
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(e -> {
-			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
-			int eliminar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el material: "+ tableModel.getMateriales().get(seleccion).getTitulo()+ "?", "Eliminar un material", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			System.out.println(eliminar);
-			if(eliminar == 0) controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
+			int eliminar = JOptionPane.showConfirmDialog(this,
+					"¿Desea eliminar el material: " + tableModel.getMateriales().get(seleccion).getTitulo() + "?",
+					"Eliminar un material", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (eliminar == 0)
+				controller.eliminarMaterial(tableModel.getMateriales().get(seleccion));
 			this.iniciarBusqueda();
 		});
 		gridConst.gridx = 8;
@@ -238,11 +233,8 @@ public class BusquedaPanel extends JPanel {
 
 			DocumentoPanel panelDocumento = new DocumentoPanel(new JFrame(), true);
 			DocumentoController controller3 = new DocumentoController(panelDocumento);
-			
+
 			controller3.crearPanel(tableModel.getMateriales().get(seleccion).getNodo());
-			
-			// DocumentoController controller4 = new DocumentoController(panelDocumento);
-			// controller4.crearPanel();
 
 		});
 		gridConst.gridx = 8;
@@ -253,10 +245,8 @@ public class BusquedaPanel extends JPanel {
 
 		btnDeseo = new JButton("Agregar a deseos");
 		btnDeseo.addActionListener(e -> {
-			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
 			controller.agregarDeseo(tableModel.getMateriales().get(seleccion));
-			// tableModel.getDocumentos().get(seleccion)
-			// controller.iniciarDoc(tableModel.getDocumentos().get(seleccion));
+
 		});
 		gridConst.gridx = 8;
 		gridConst.gridy = 8;
@@ -275,7 +265,7 @@ public class BusquedaPanel extends JPanel {
 				System.out.print(seleccion);
 			}
 
-		});		
+		});
 	}
 
 	public void iniciarBusqueda() {
@@ -283,7 +273,7 @@ public class BusquedaPanel extends JPanel {
 		Double calificacion = null;
 		String fechaPublicacionDesde = null;
 		String fechaPublicacionHasta = null;
-		String tema = null;
+		Tema tema = null;
 		String orden = null;
 
 		try {
@@ -292,23 +282,27 @@ public class BusquedaPanel extends JPanel {
 			if (!txtCalificacion.getText().isEmpty())
 				calificacion = Double.valueOf(txtCalificacion.getText());
 			if (comboTema.getSelectedItem() != null)
-				tema = comboTema.getSelectedItem().toString();
+				tema = (Tema) comboTema.getSelectedItem();
 			if (!txtFechaPublicacionDesde.getText().isEmpty())
 				fechaPublicacionDesde = txtFechaPublicacionDesde.getText();
 			if (!txtFechaPublicacionHasta.getText().isEmpty())
 				fechaPublicacionHasta = txtFechaPublicacionHasta.getText();
 			if (comboOrdenamiento.getSelectedItem() != null) {
 				orden = comboOrdenamiento.getSelectedItem().toString();
-				if (orden == "Page Rank" && tema == null) JOptionPane.showMessageDialog(this, "Por favor seleccione un tema", "Error", JOptionPane.ERROR_MESSAGE);
+				if (orden == "Page Rank" && tema == null) {
+					JOptionPane.showMessageDialog(this, "Por favor seleccione un tema", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					orden = null;
+				}
 			}
 			controller.buscarMaterial(titulo, calificacion, tema, fechaPublicacionDesde, fechaPublicacionHasta, orden);
 
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, "No se encuentran materiales", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-	
+
 		comboTema.setSelectedItem(null);
-		
+
 	}
 
 	public BusquedaController getController() {
