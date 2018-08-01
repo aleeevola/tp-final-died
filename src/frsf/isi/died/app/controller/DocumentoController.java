@@ -23,7 +23,7 @@ public class DocumentoController {
 
 	
 	public void agregarNodo(Nodo nodoPadre, Nodo nodoHijo) {
-		System.out.println("aca");
+		
 		nodoPadre.agregarHijo(nodoHijo);
 		
 		this.panelDocumento.setListaDocumento(nodoinicial.arbolEnPreorden(),true);

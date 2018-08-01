@@ -2,6 +2,8 @@ package frsf.isi.died.tp.estructuras;
 
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class Nodo {
 
 	private String valor;
@@ -9,7 +11,7 @@ public class Nodo {
 	private ArrayList<Nodo> hijos;
 
 	public Nodo(TipoDeDato t) {
-		//valor = "";
+		// valor = "";
 		tipoNodo = t;
 
 	}
@@ -23,8 +25,6 @@ public class Nodo {
 	public String getValor() {
 		return this.valor;
 	}
-	
-	
 
 	public void setValor(String valor) {
 		this.valor = valor;
@@ -42,14 +42,16 @@ public class Nodo {
 	 */
 
 	public void agregarHijo(Nodo unNodo) {
-		if (unNodo.tipoNodo == TipoDeDato.TITULO) {
-			System.out.print("No se puede agregar como hijo");
-		}
+		//if (unNodo.tipoNodo == TipoDeDato.TITULO) {
+
+		//}
 		if (this.tipoNodo == TipoDeDato.TITULO && (unNodo.tipoNodo == TipoDeDato.METADATO
 				|| unNodo.tipoNodo == TipoDeDato.RESUMEN || unNodo.tipoNodo == TipoDeDato.CAPITULO)) {
-			System.out.print("Antes de agregar");
+
 			this.hijos.add(unNodo);
-		} else {
+		} 
+		
+		else {
 			if (this.tipoNodo == TipoDeDato.METADATO && (unNodo.tipoNodo == TipoDeDato.AUTOR
 					|| unNodo.tipoNodo == TipoDeDato.EDITORIAL || unNodo.tipoNodo == TipoDeDato.PALABRA_CLAVE
 					|| unNodo.tipoNodo == TipoDeDato.FECHA_PUBLICACION)) {
@@ -63,6 +65,10 @@ public class Nodo {
 			}
 			if (this.tipoNodo == TipoDeDato.SECCION && unNodo.tipoNodo == TipoDeDato.PARRAFO) {
 				this.hijos.add(unNodo);
+			}
+			
+			else {
+				JOptionPane.showMessageDialog(null, "No puedes agregar un nodo de tipo "+unNodo.tipoNodo+" a un nodo tipo "+this.getTipoNodo()+".");
 			}
 		}
 
@@ -79,7 +85,7 @@ public class Nodo {
 	public ArrayList<Nodo> arbolEnPreorden() {
 		ArrayList<Nodo> arbol = new ArrayList<Nodo>();
 		arbol.add(this);
-		if(this.hijos!=null) {
+		if (this.hijos != null) {
 			for (int i = 0; i < this.hijos.size(); i++) {
 				arbol.addAll(this.hijos.get(i).arbolEnPreorden());
 			}

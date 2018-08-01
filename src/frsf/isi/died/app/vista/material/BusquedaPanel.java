@@ -229,7 +229,7 @@ public class BusquedaPanel extends JPanel {
 
 		btnDocumento = new JButton("Crear Documento");
 		btnDocumento.addActionListener(e -> {
-			System.out.println(tableModel.getMateriales().get(seleccion).getTitulo());
+			
 
 			DocumentoPanel panelDocumento = new DocumentoPanel(new JFrame(), true);
 			DocumentoController controller3 = new DocumentoController(panelDocumento);
@@ -262,7 +262,7 @@ public class BusquedaPanel extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				int r = tabla.rowAtPoint(e.getPoint());
 				seleccion = r;
-				System.out.print(seleccion);
+				
 			}
 
 		});

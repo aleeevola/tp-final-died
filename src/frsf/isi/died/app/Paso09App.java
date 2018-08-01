@@ -11,19 +11,19 @@ public class Paso09App {
 	
 	public static void main(String[] args) {
 		// crear un libro
-		Libro l1 = new Libro(1,"Algoritmos 1",50.0,25.0, 310);
+		Libro l1 = new Libro(1,"Algoritmos 1",50.0,25.0, 310, null);
 		System.out.println("Libro creado: "+l1.toString());
 		// crear un libro
-		Libro l2 = new Libro(2,"Java 1",30.0,40.0, 155);
+		Libro l2 = new Libro(2,"Java 1",30.0,40.0, 155, null);
 		System.out.println("Libro creado: "+l2.toString());
 		// crear un libro
-		Libro l3 = new Libro(3,"Python",20.0,100.0, 460);
+		Libro l3 = new Libro(3,"Python",20.0,100.0, 460, null);
 		System.out.println("Libro creado: "+l3.toString());
 		// crear un video
-		Video v1 = new Video(1,"Algoritmos de busqueda",50.0,350);
+		Video v1 = new Video(1,"Algoritmos de busqueda",50.0,350, null);
 		System.out.println("Video creado: "+v1.toString());
 		// crear un video
-		Video v2 = new Video(2,"Metodos de ordenamiento",40.0, 740);
+		Video v2 = new Video(2,"Metodos de ordenamiento",40.0, 740, null);
 		System.out.println("Video creado: "+v2.toString());
 		
 		Biblioteca biblioteca = new BibliotecaArray();
@@ -34,7 +34,7 @@ public class Paso09App {
 		biblioteca.agregar(v2);
 		
 		// crear un sexto material de capacitacion que no se agregará porque el arreglo solo tiene capacidad de 5
-		Libro l4 = new Libro(3,"Complejidad y BigO",56.0,35.0, 125);
+		Libro l4 = new Libro(3,"Complejidad y BigO",56.0,35.0, 125, null);
 		System.out.println("Libro creado: "+l4.toString());
 		biblioteca.agregar(l4);
 		

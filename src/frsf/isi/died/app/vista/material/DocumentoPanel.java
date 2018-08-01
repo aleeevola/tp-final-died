@@ -19,12 +19,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import frsf.isi.died.app.controller.DocumentoController;
-import frsf.isi.died.app.controller.EditarController;
-import frsf.isi.died.app.controller.LibroController;
 import frsf.isi.died.tp.estructuras.Nodo;
 import frsf.isi.died.tp.estructuras.TipoDeDato;
-import frsf.isi.died.tp.modelo.productos.Libro;
-import frsf.isi.died.tp.modelo.productos.Tema;
+
 
 public class DocumentoPanel extends JDialog{
 	
@@ -101,7 +98,7 @@ public class DocumentoPanel extends JDialog{
 				seleccion=-1;
 				
 			}catch(Exception ex) {
-				JOptionPane.showMessageDialog(this, ex.getMessage(), "Seleccione padre", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Seleccione un nodo padre de la tabla.");
 			}
 			
 			
@@ -147,7 +144,6 @@ public class DocumentoPanel extends JDialog{
 		    public void mouseReleased(MouseEvent e) {
 		        int r = tabla.rowAtPoint(e.getPoint());
 		        seleccion=r;
-		        System.out.print(seleccion);
 		        }
 		    
 		});
