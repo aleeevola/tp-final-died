@@ -76,7 +76,7 @@ public class GrafoPanel extends JPanel {
 				if (material != null) {
 					if (mat.getTema().equals(material.getTema())) {
 						materialesTema.add(mat);
-						int randomX = ThreadLocalRandom.current().nextInt(50,800);
+						int randomX = ThreadLocalRandom.current().nextInt(50,1000);
 						int randomY = ThreadLocalRandom.current().nextInt(100,600);
 						Color aux = colaColores.remove();
 						controller.crearVertice(randomX, randomY, aux, mat);
