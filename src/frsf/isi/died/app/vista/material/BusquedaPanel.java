@@ -300,9 +300,9 @@ public class BusquedaPanel extends JPanel {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, "No se encuentran materiales", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-
-		comboTema.setSelectedItem(null);
-
+		
+		
+		txtTitulo.setText(titulo);
 	}
 
 	public BusquedaController getController() {

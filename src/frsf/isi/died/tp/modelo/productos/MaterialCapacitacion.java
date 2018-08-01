@@ -41,7 +41,6 @@ public abstract class MaterialCapacitacion implements Ordenable,Comparable<Mater
 	public Nodo getNodo() {
 		valor=this.getTitulo();
 		nodo.setValor(valor);
-		System.out.println(valor);
 		return nodo;
 	}
 
@@ -118,6 +117,51 @@ public void setRelevancia(Relevancia relevancia) {
 
 	}
 
+	public Integer comparaFecha(String fecha) {
+		int anioValue = this.getFechaPublicacion().charAt(6)*1000 + this.getFechaPublicacion().charAt(7)*100 + this.getFechaPublicacion().charAt(8)*10 +this.getFechaPublicacion().charAt(9);
+		int mesValue = this.getFechaPublicacion().charAt(3)*10 + this.getFechaPublicacion().charAt(4);
+		int diaValue = this.getFechaPublicacion().charAt(0)*10 + this.getFechaPublicacion().charAt(1);
+		int otroAnio = fecha.charAt(6)*1000 + fecha.charAt(7)*100 + fecha.charAt(8)*10 + fecha.charAt(9);
+		int otroMes = fecha.charAt(3)*10 + fecha.charAt(4);
+		int otroDia = fecha.charAt(0)*10 + fecha.charAt(1);
+		
+		
+		if(anioValue>otroAnio) {
+			return 1;
+		}
+		else {
+			if(anioValue<otroAnio) {
+				return -1;
+			}
+			else {
+				if(mesValue>otroMes) {
+					return 1;
+				}
+				else {
+					if(mesValue<otroMes) {
+						return -1;
+					}
+					else {
+						if(diaValue>otroDia) {
+							return 1;
+						}
+						else {
+							if(diaValue<otroDia) {
+								return -1;
+							}
+							else {
+								return 0;
+								}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	
+	
+	
 	public String getTitulo() {
 		return titulo;
 	}

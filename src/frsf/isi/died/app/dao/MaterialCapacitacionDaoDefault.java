@@ -189,9 +189,8 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				if (calificacion == null || mat.getCalificacion().equals(calificacion.intValue())) {
 					if (tema == null || mat.getTema().equals(tema)) {
 						if ((fechaPublicacionDesde == null && fechaPublicacionHasta == null)
-								|| (mat.getFechaPublicacion().compareTo(fechaPublicacionDesde) >= 0
-										&& mat.getFechaPublicacion().compareTo(fechaPublicacionHasta) <= 0)) {
-
+								|| (mat.comparaFecha(fechaPublicacionDesde) >= 0
+										&& mat.comparaFecha(fechaPublicacionHasta) <= 0)) {
 							materiales.add(mat);
 
 						}
@@ -218,8 +217,7 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				Collections.sort(materiales, comparaPrecio);
 				break;
 			case "Fecha de publicación":
-				Comparator<MaterialCapacitacion> comparaFecha = (mc1, mc2) -> mc1.getFechaPublicacion()
-						.compareTo(mc2.getFechaPublicacion());
+				Comparator<MaterialCapacitacion> comparaFecha = (mc1, mc2) -> mc1.comparaFecha(mc2.getFechaPublicacion());
 				Collections.sort(materiales, comparaFecha);
 				break;
 			case "Relevancia":

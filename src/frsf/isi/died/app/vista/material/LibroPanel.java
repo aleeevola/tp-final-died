@@ -55,7 +55,10 @@ public class LibroPanel extends JPanel{
 		txtTitulo.setColumns(40);
 		gridConst.gridx=1;
 		gridConst.gridwidth=7;
+		gridConst.fill=GridBagConstraints.HORIZONTAL;
 		this.add(txtTitulo, gridConst);
+		
+		gridConst.fill=GridBagConstraints.NONE;
 		
 
 		btnAgregar = new JButton("Agregar");
