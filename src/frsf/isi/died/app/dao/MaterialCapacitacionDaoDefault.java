@@ -315,7 +315,9 @@ public class MaterialCapacitacionDaoDefault implements MaterialCapacitacionDao {
 				mat.setPageRank(calcularPageRank(mat, materiales));
 				if (e > Math.abs(mat.getPageRank() - p)) {
 					salir = true;
+					
 				}
+				System.out.println("MAterial"+mat.getTitulo() +mat.getPageRank());
 			}
 		}
 

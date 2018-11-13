@@ -61,12 +61,12 @@ public class GrafoPanel extends JPanel {
 		this.colaColores = new LinkedList<Color>();
 		this.colaColores.add(Color.RED);
 		this.colaColores.add(Color.BLUE);
-		this.colaColores.add(Color.ORANGE);
-		this.colaColores.add(Color.CYAN);
-		this.colaColores.add(Color.PINK);
-		this.colaColores.add(Color.GREEN);
-		this.colaColores.add(Color.YELLOW);
-		this.colaColores.add(Color.GRAY);
+//		this.colaColores.add(Color.ORANGE);
+//		this.colaColores.add(Color.CYAN);
+//		this.colaColores.add(Color.PINK);
+//		this.colaColores.add(Color.GREEN);
+//		this.colaColores.add(Color.YELLOW);
+//		this.colaColores.add(Color.GRAY);
 	
 		
 		List<MaterialCapacitacion> materialesTema = new ArrayList<MaterialCapacitacion>();
@@ -125,9 +125,6 @@ public class GrafoPanel extends JPanel {
 		this.colaColores = new LinkedList<Color>();
 		this.colaColores.add(Color.RED);
 		this.colaColores.add(Color.BLUE);
-		this.colaColores.add(Color.ORANGE);
-		this.colaColores.add(Color.CYAN);
-		this.colaColores.add(Color.PINK);
 		
 	
 		addMouseListener(new MouseAdapter() {
@@ -193,9 +190,9 @@ public class GrafoPanel extends JPanel {
     			idDestino = mat.getId();
     			for(AristaView av : this.aristas) {
     				if(av.getOrigen().getId().equals(idOrigen) && av.getDestino().getId().equals(idDestino) ) {
-     					av.setColor(Color.RED);
-    	    			av.getOrigen().setColor(Color.BLUE);
-    	    			av.getDestino().setColor(Color.BLUE);
+     					av.setColor(Color.BLACK);
+    	    			av.getOrigen().setColor(Color.BLACK);
+    	    			av.getDestino().setColor(Color.BLACK);
     				}
     			}
     			idOrigen = idDestino;
